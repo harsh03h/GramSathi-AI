@@ -152,7 +152,7 @@ export default function TeamSection({ lang }) {
                   {lang === 'hi' ? 'डेवलपर ईमेल' : 'Developer Email'}
                 </span>
                 <a 
-                  href="mailto:harsh03h.dev@gmail.com" 
+                  href="mailto:harshgupta07h@gmail.com" 
                   className="font-medium text-emerald-800 hover:underline block break-all text-xs"
                 >
                   harshgupta07h@gmail.com

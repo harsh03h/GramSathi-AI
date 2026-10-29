@@ -66,15 +66,10 @@ export default function TeamSection({ lang }) {
             {lang === 'hi' ? 'हमसे संपर्क करें • ग्रामसाथी एआई डेस्क' : 'Get in Touch • GramSathi AI Desk'}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            {lang === 'hi' 
-              ? 'सरकारी योजनाओं, कृषि परामर्श, स्वास्थ्य सेवाओं या कॉलेज मिनी प्रोजेक्ट के संबंध में किसी भी प्रश्न या प्रतिक्रिया हेतु हमसे संपर्क करें।' 
-              : 'Have questions regarding rural welfare schemes, agricultural guidance, nearest healthcare, or our college mini project? Reach out to our team.'}
-          </p>
+      
 
           <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300">
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5 text-emerald-400" />
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-amber-400" />

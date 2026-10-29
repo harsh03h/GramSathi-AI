@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-import LiveAppView from './components/LiveAppView';
+import HomeHero from './components/HomeHero';
 import SchemeExplorer from './components/SchemeExplorer';
 import EligibilityChecker from './components/EligibilityChecker';
 import MandiWeatherWidget from './components/MandiWeatherWidget';
@@ -9,6 +9,7 @@ import PresentationView from './components/PresentationView';
 import TeamSection from './components/TeamSection';
 import VoiceAssistantModal from './components/VoiceAssistantModal';
 import ChatAssistant from './components/ChatAssistant';
+import LoginModal from './components/LoginModal';
 import { 
   Sprout, 
   Sparkles, 
@@ -18,104 +19,160 @@ import {
   ShieldCheck, 
   GraduationCap,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  ArrowRight
 } from 'lucide-react';
 import { presentationData } from './data/presentationData';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('live-app'); // 'live-app', 'schemes', 'agriculture', 'health-legal', 'presentation', 'team'
-  const [lang, setLang] = useState('hi'); // Default 'hi' (Hindi)
-  const [deviceView, setDeviceView] = useState('phone'); // 'phone' or 'desktop'
+  const [currentTab, setCurrentTab] = useState('home'); // 'home', 'services', 'about', 'contact'
+  const [activeService, setActiveService] = useState('schemes'); // 'schemes', 'health', 'education', 'agriculture', 'employment', 'legal', 'emergency'
+  const [lang, setLang] = useState('en'); // default matching reference image or toggleable
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [apiKey, setApiKey] = useState('');
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [activeModalScheme, setActiveModalScheme] = useState(null);
+
+  const handleSelectService = (serviceId) => {
+    setActiveService(serviceId);
+    // Smooth scroll down to active service interactive section
+    const target = document.getElementById('active-service-section');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
       
-      {/* Sticky Navigation Bar */}
+      {/* Navigation Bar matching reference layout */}
       <Navbar
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
         lang={lang}
         setLang={setLang}
-        deviceView={deviceView}
-        setDeviceView={setDeviceView}
         soundEnabled={soundEnabled}
         setSoundEnabled={setSoundEnabled}
+        onOpenLogin={() => setIsLoginModalOpen(true)}
+        onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
+        loggedInUser={loggedInUser}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
         
-        {/* TAB 1: LIVE APP DEMO */}
-        {currentTab === 'live-app' && (
-          <div className="space-y-8">
-            <LiveAppView
+        {/* VIEW 1: HOME PAGE (Matches Reference Screenshot 1:1) */}
+        {currentTab === 'home' && (
+          <div className="space-y-10">
+            {/* The Reference Hero & 7 Pastel Service Cards */}
+            <HomeHero
               lang={lang}
-              deviceView={deviceView}
               onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
-              onSelectTab={(tab) => setCurrentTab(tab)}
-              onOpenEligibility={() => setCurrentTab('schemes')}
+              onSelectService={handleSelectService}
+              activeService={activeService}
             />
 
-            {/* In-page Eligibility Teaser on Live App tab */}
-            <div className="pt-4">
-              <EligibilityChecker
-                lang={lang}
-                onSelectScheme={(scheme) => {
-                  setActiveModalScheme(scheme);
-                  setCurrentTab('schemes');
-                }}
-              />
+            {/* Active Service Deep Dive Section */}
+            <div id="active-service-section" className="pt-2 space-y-6">
+              
+              {/* Service Header Indicator */}
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-emerald-600 animate-pulse"></span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900">
+                    {activeService === 'schemes' && (lang === 'hi' ? '🏛️ सरकारी योजनाएं व पात्रता कैलकुलेटर' : '🏛️ Government Schemes & Eligibility Engine')}
+                    {activeService === 'health' && (lang === 'hi' ? '🏥 स्वास्थ्य सहायता एवं जन औषधि केंद्र' : '🏥 Healthcare Assistance & Jan Aushadhi')}
+                    {activeService === 'education' && (lang === 'hi' ? '🎓 शिक्षा, छात्रवृत्ति व कौशल विकास' : '🎓 Education Support & Scholarships')}
+                    {activeService === 'agriculture' && (lang === 'hi' ? '🌾 कृषि मार्गदर्शन, मौसम व मंडी भाव' : '🌾 Agriculture Guidance & Mandi Prices')}
+                    {activeService === 'employment' && (lang === 'hi' ? '💼 ग्रामीण रोज़गार एवं मनरेगा (MGNREGA)' : '💼 Rural Employment & MGNREGA')}
+                    {activeService === 'legal' && (lang === 'hi' ? '⚖️ कानूनी सलाह एवं ऑनलाइन भूलेख' : '⚖️ Legal Guidance & UP Bhulekh')}
+                    {activeService === 'emergency' && (lang === 'hi' ? '🚨 24x7 आपातकालीन हेल्पलाइन सेवाएं' : '🚨 24x7 Emergency Helplines')}
+                  </h3>
+                </div>
+                <span className="text-xs font-bold text-slate-500">
+                  {lang === 'hi' ? 'इंटरएक्टिव मॉड्यूल' : 'Interactive Module'}
+                </span>
+              </div>
+
+              {/* Dynamic Content per Active Service */}
+              {activeService === 'schemes' && (
+                <div className="space-y-8">
+                  <EligibilityChecker
+                    lang={lang}
+                    onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
+                  />
+                  <SchemeExplorer
+                    lang={lang}
+                    activeModalScheme={activeModalScheme}
+                    setActiveModalScheme={setActiveModalScheme}
+                    onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  />
+                </div>
+              )}
+
+              {activeService === 'agriculture' && (
+                <MandiWeatherWidget lang={lang} />
+              )}
+
+              {(activeService === 'health' || activeService === 'education' || activeService === 'legal' || activeService === 'emergency') && (
+                <HealthcareLegalWidget lang={lang} />
+              )}
+
+              {activeService === 'employment' && (
+                <div className="space-y-8">
+                  <EligibilityChecker
+                    lang={lang}
+                    onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
+                  />
+                  <SchemeExplorer
+                    lang={lang}
+                    activeModalScheme={activeModalScheme}
+                    setActiveModalScheme={setActiveModalScheme}
+                    onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  />
+                </div>
+              )}
+
             </div>
           </div>
         )}
 
-        {/* TAB 2: SCHEMES & ELIGIBILITY */}
-        {currentTab === 'schemes' && (
+        {/* VIEW 2: SERVICES DIRECTORY */}
+        {currentTab === 'services' && (
           <div className="space-y-8">
             <EligibilityChecker
               lang={lang}
               onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
             />
-
             <SchemeExplorer
               lang={lang}
               activeModalScheme={activeModalScheme}
               setActiveModalScheme={setActiveModalScheme}
               onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
+            <MandiWeatherWidget lang={lang} />
+            <HealthcareLegalWidget lang={lang} />
           </div>
         )}
 
-        {/* TAB 3: AGRICULTURE & MANDI */}
-        {currentTab === 'agriculture' && (
-          <MandiWeatherWidget lang={lang} />
-        )}
-
-        {/* TAB 4: HEALTHCARE, LEGAL & EMERGENCY */}
-        {currentTab === 'health-legal' && (
-          <HealthcareLegalWidget lang={lang} />
-        )}
-
-        {/* TAB 5: PRESENTATION & VIVA DECK */}
-        {currentTab === 'presentation' && (
+        {/* VIEW 3: ABOUT (Presentation Slides from PDF) */}
+        {currentTab === 'about' && (
           <PresentationView
             lang={lang}
-            onOpenLiveDemo={() => setCurrentTab('live-app')}
+            onOpenLiveDemo={() => setCurrentTab('home')}
           />
         )}
 
-        {/* TAB 6: TEAM & GUIDE */}
-        {currentTab === 'team' && (
+        {/* VIEW 4: CONTACT (Team & Guide Ms. Ritu) */}
+        {currentTab === 'contact' && (
           <TeamSection lang={lang} />
         )}
 
       </main>
 
-      {/* Footer */}
+      {/* Footer matching modern clean layout */}
       <footer className="bg-slate-900 text-white border-t border-slate-800 mt-16 pt-12 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -123,9 +180,11 @@ export default function App() {
             {/* Col 1: Brand & Tagline */}
             <div className="space-y-3 md:col-span-1">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
-                  <Sprout className="w-5 h-5" />
-                </div>
+                <img 
+                  src="/gramsathi-logo.png" 
+                  alt="GramSathi AI Logo" 
+                  className="w-8 h-8 object-contain rounded-lg"
+                />
                 <span className="text-xl font-bold tracking-tight">GramSathi AI</span>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">
@@ -134,7 +193,7 @@ export default function App() {
                   : 'An Intelligent Rural Assistance Platform for Inclusive and Sustainable Development.'}
               </p>
               <p className="text-xs text-emerald-400 font-hindi">
-                "कनेक्टिंग रूरल इंडिया टू अपॉर्चुनिटीज थ्रू एआई"
+                "Connecting Rural India to Opportunities through AI"
               </p>
             </div>
 
@@ -194,7 +253,7 @@ export default function App() {
           </div>
 
           <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-            <p>© 2026 GramSathi AI. Developed for GCET Greater Noida AIML Mini Project.</p>
+            <p>© 2026 GramSathi AI. Department of AI & ML, GCET Greater Noida.</p>
             <div className="flex items-center gap-4">
               <span>{lang === 'hi' ? 'ग्रामीण भारत के लिए एआई एवं एमएल से निर्मित' : 'Made with AI & ML for Rural India'}</span>
               <span className="text-emerald-500">● MERN + Gemini LLM Architecture</span>
@@ -203,7 +262,15 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Interactive Voice Assistant Modal (Web Speech STT + TTS) */}
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        lang={lang}
+        onLoginSuccess={(user) => setLoggedInUser(user)}
+      />
+
+      {/* Voice Assistant Modal */}
       <VoiceAssistantModal
         isOpen={isVoiceModalOpen}
         onClose={() => setIsVoiceModalOpen(false)}

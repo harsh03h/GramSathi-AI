@@ -168,11 +168,11 @@ export default function HomeHero({
 
           {/* Right Column: High Quality Farmer & Landscape Illustration (5 cols) */}
           <div className="lg:col-span-5 flex justify-center items-center z-10">
-            <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-xl border-4 border-white ring-1 ring-slate-200/80 group">
+            <div className="relative w-full max-w-[320px] sm:max-w-[340px] lg:max-w-[360px] h-[300px] sm:h-[340px] lg:h-[370px] rounded-3xl overflow-hidden shadow-xl border-4 border-white ring-1 ring-slate-200/80 group bg-emerald-50/50">
               <img
                 src="/farmer-hero.png"
                 alt="GramSathi AI Rural Farmer Illustration"
-                className="w-full h-auto object-cover transform group-hover:scale-102 transition-transform duration-500"
+                className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none"></div>
             </div>

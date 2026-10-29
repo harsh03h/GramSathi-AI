@@ -128,7 +128,7 @@ export default function SchemeGuidancePage({ lang }) {
                 <img
                   src={schemeImages[scheme.id] || '/farmer-hero.png'}
                   alt={scheme.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-bold text-emerald-800 border border-emerald-200 shadow-xs">
                   {lang === 'hi' ? scheme.hindiBadge || scheme.badge : scheme.badge}
@@ -234,7 +234,7 @@ export default function SchemeGuidancePage({ lang }) {
                 <img
                   src={schemeImages[activeDetailScheme.id] || '/farmer-hero.png'}
                   alt={activeDetailScheme.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 

@@ -34,7 +34,7 @@ export default function App() {
     } else if (serviceId === 'education' || serviceId === 'legal') {
       setCurrentTab('services-health-legal');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -64,11 +64,11 @@ export default function App() {
               lang={lang}
               onNavigateAsk={() => {
                 setCurrentTab('ask');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo(0, 0);
               }}
               onNavigateServices={() => {
                 setCurrentTab('services');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo(0, 0);
               }}
               onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
               onSelectService={handleNavigateService}

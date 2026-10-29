@@ -234,6 +234,11 @@ export default function SchemeGuidancePage({ lang }) {
                 <img
                   src={schemeImages[activeDetailScheme.id] || '/farmer-hero.png'}
                   alt={activeDetailScheme.name}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/farmer-hero.png';
+                  }}
                   className="w-full h-full object-cover object-top"
                 />
               </div>

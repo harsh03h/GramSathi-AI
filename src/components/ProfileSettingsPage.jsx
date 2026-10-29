@@ -78,7 +78,7 @@ export default function ProfileSettingsPage({
           </div>
 
           {/* Navigation Links matching Screen 6 */}
-          <div className="space-y-1">
+          <div className="flex md:flex-col overflow-x-auto md:overflow-visible gap-1.5 md:space-y-1 pb-1 md:pb-0 no-scrollbar">
             {sidebarLinks.map((link) => {
               const Icon = link.icon;
               const isSelected = activeTab === link.id;
@@ -86,13 +86,13 @@ export default function ProfileSettingsPage({
                 <button
                   key={link.id}
                   onClick={() => setActiveTab(link.id)}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2.5 ${
+                  className={`whitespace-nowrap md:w-full text-left px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
                     isSelected
                       ? 'bg-emerald-800 text-white shadow-sm ring-1 ring-emerald-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white'
+                      : 'text-slate-600 hover:text-slate-900 bg-white md:bg-transparent hover:bg-white border border-slate-200/80 md:border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
                   <span>{lang === 'hi' ? link.labelHi : link.labelEn}</span>
                 </button>
               );

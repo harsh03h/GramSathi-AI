@@ -2,10 +2,21 @@
 
 export class VoiceService {
   constructor() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = typeof window !== 'undefined' ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
     this.recognition = SpeechRecognition ? new SpeechRecognition() : null;
     this.isListening = false;
-    this.synth = window.speechSynthesis || null;
+    this.synth = typeof window !== 'undefined' ? (window.speechSynthesis || null) : null;
+    this.currentUtterance = null;
+    this.voices = [];
+
+    if (this.synth) {
+      this.voices = this.synth.getVoices() || [];
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = () => {
+          this.voices = this.synth.getVoices() || [];
+        };
+      }
+    }
   }
 
   isSupported() {
@@ -19,6 +30,9 @@ export class VoiceService {
     }
 
     try {
+      this.stopListening();
+      this.stopSpeaking();
+
       this.recognition.lang = lang; // 'hi-IN' or 'en-IN'
       this.recognition.continuous = false;
       this.recognition.interimResults = false;
@@ -28,8 +42,8 @@ export class VoiceService {
       };
 
       this.recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        if (onResult) onResult(transcript);
+        const transcript = event.results?.[0]?.[0]?.transcript || '';
+        if (onResult && transcript) onResult(transcript);
       };
 
       this.recognition.onerror = (event) => {
@@ -45,45 +59,71 @@ export class VoiceService {
       this.recognition.start();
     } catch (e) {
       console.warn("Speech recognition error:", e);
+      this.isListening = false;
       if (onError) onError(e.message);
     }
   }
 
   stopListening() {
     if (this.recognition && this.isListening) {
-      this.recognition.stop();
+      try {
+        this.recognition.stop();
+      } catch {
+        // Safe fallback
+      }
       this.isListening = false;
     }
   }
 
   speak(text, lang = 'hi-IN', onEnd) {
     if (!this.synth) return;
-    this.synth.cancel(); // Stop any ongoing speech
+    this.stopSpeaking(); // Stop any ongoing speech
 
     // Clean markdown stars/brackets from speech
     const cleanText = text.replace(/[*_#`[\]()]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!cleanText) return;
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = lang;
-    utterance.rate = 0.95; // slightly slower for rural clarity
-    utterance.pitch = 1.0;
+    try {
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = lang;
+      utterance.rate = 0.95; // slightly slower for rural clarity
+      utterance.pitch = 1.0;
 
-    const voices = this.synth.getVoices();
-    const targetVoice = voices.find(v => v.lang.includes(lang.substring(0, 2))) || voices[0];
-    if (targetVoice) {
-      utterance.voice = targetVoice;
+      const voices = this.voices.length ? this.voices : (this.synth.getVoices() || []);
+      const targetVoice = voices.find(v => v.lang.includes(lang.substring(0, 2))) || voices[0];
+      if (targetVoice) {
+        utterance.voice = targetVoice;
+      }
+
+      // Store reference on instance to prevent Garbage Collection bug in Chromium
+      this.currentUtterance = utterance;
+
+      utterance.onend = () => {
+        this.currentUtterance = null;
+        if (onEnd) onEnd();
+      };
+
+      utterance.onerror = () => {
+        this.currentUtterance = null;
+        if (onEnd) onEnd();
+      };
+
+      this.synth.speak(utterance);
+    } catch (e) {
+      console.warn("Speech synthesis error:", e);
+      this.currentUtterance = null;
+      if (onEnd) onEnd();
     }
-
-    if (onEnd) {
-      utterance.onend = onEnd;
-    }
-
-    this.synth.speak(utterance);
   }
 
   stopSpeaking() {
     if (this.synth) {
-      this.synth.cancel();
+      try {
+        this.synth.cancel();
+      } catch {
+        // Safe fallback
+      }
+      this.currentUtterance = null;
     }
   }
 }

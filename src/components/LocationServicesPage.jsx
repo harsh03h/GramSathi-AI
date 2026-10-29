@@ -225,8 +225,8 @@ export default function LocationServicesPage({ lang }) {
           })}
         </div>
 
-        {/* Right Column: Stylized Visual Map matching Screen 5 (5 cols on lg) */}
-        <div className="lg:col-span-6 bg-white rounded-3xl border border-slate-200 shadow-md p-4 sm:p-5 sticky top-24">
+        {/* Right Column: Stylized Visual Map matching Screen 5 (6 cols on lg) */}
+        <div className="lg:col-span-6 bg-white rounded-3xl border border-slate-200 shadow-md p-4 sm:p-5 lg:sticky lg:top-24">
           <div className="flex items-center justify-between mb-3 px-1">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Compass className="w-4 h-4 text-emerald-600" />

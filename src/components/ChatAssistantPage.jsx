@@ -154,6 +154,13 @@ export default function ChatAssistantPage({
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    return () => {
+      voiceService.stopSpeaking();
+      voiceService.stopListening();
+    };
+  }, []);
+
   const handleSend = async (textToSend) => {
     const text = (typeof textToSend === 'string' ? textToSend : inputVal).trim();
     if (!text || isTyping) return;

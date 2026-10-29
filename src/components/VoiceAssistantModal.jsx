@@ -49,6 +49,11 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
       // Auto-trigger prompt
       handleStartListening();
     }
+
+    return () => {
+      voiceService.stopListening();
+      voiceService.stopSpeaking();
+    };
   }, [isOpen]);
 
   const handleStartListening = () => {

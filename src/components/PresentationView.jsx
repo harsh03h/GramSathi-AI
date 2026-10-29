@@ -56,10 +56,16 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
 
   // Keyboard navigation for slide deck mode
   useEffect(() => {
+    if (viewMode !== 'slides') return;
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      // Do not intercept if user is typing in an input or textarea
+      if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        e.preventDefault();
         nextSlide();
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
         prevSlide();
       }
     };

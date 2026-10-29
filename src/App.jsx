@@ -107,6 +107,8 @@ export default function App() {
             lang={lang}
             soundEnabled={soundEnabled}
             apiKey={apiKey}
+            setLang={setLang}
+            setSoundEnabled={setSoundEnabled}
             onNavigateSchemes={() => setCurrentTab('schemes')}
           />
         )}

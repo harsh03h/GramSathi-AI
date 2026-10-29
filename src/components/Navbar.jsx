@@ -23,24 +23,6 @@ export default function Navbar({
 }) {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-      {/* College & Department Top Header Strip */}
-      <div className="bg-gradient-to-r from-emerald-900 via-slate-900 to-amber-900 text-white py-1.5 px-4 text-xs font-medium">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border border-emerald-500/30">
-              GCET GREATER NOIDA
-            </span>
-            <span className="hidden sm:inline text-slate-300">|</span>
-            <span className="text-slate-200">Department of Artificial Intelligence & Machine Learning</span>
-          </div>
-          <div className="flex items-center gap-3 text-slate-300 text-[11px]">
-            <span>Guide: <strong className="text-amber-300 font-semibold">Ms. Ritu</strong> (Asst. Prof)</span>
-            <span className="hidden md:inline">•</span>
-            <span className="hidden md:inline">Mini Project 2026-27</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">

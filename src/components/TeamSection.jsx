@@ -161,7 +161,7 @@ export default function TeamSection({ lang }) {
                   href="mailto:harsh03h.dev@gmail.com" 
                   className="font-medium text-emerald-800 hover:underline block break-all text-xs"
                 >
-                  harsh03h.dev@gmail.com
+                  harshgupta07h@gmail.com
                 </a>
               </div>
 

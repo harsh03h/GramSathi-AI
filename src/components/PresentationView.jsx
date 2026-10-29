@@ -26,21 +26,36 @@ import {
   Users,
   Check,
   FileText,
-  Code2
+  Code2,
+  ShieldCheck,
+  FileWarning,
+  Languages,
+  Bot
 } from 'lucide-react';
 import { presentationData } from '../data/presentationData';
 
 export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
-  const [viewMode, setViewMode] = useState('overview'); // 'overview' or 'slides'
+  const [viewMode, setViewMode] = useState('slides'); // 'slides' or 'overview'
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const slides = presentationData.slides;
   const currentSlide = slides[currentSlideIndex];
 
+  const slideShortTitles = [
+    { id: 1, titleEn: 'Title & Vision', titleHi: 'परियोजना परिचय' },
+    { id: 2, titleEn: 'Problem Statement', titleHi: 'समस्या विवरण' },
+    { id: 3, titleEn: 'Literature Survey', titleHi: 'साहित्य सर्वेक्षण' },
+    { id: 4, titleEn: 'Proposed Solution', titleHi: 'प्रस्तावित समाधान' },
+    { id: 5, titleEn: 'System Architecture', titleHi: 'आर्किटेक्चर' },
+    { id: 6, titleEn: 'Technology Stack', titleHi: 'तकनीकी स्टैक' },
+    { id: 7, titleEn: 'Expected Impact', titleHi: 'अपेक्षित प्रभाव' },
+    { id: 8, titleEn: 'Future Roadmap', titleHi: 'भविष्य का रोडमैप' },
+    { id: 9, titleEn: 'Acknowledgement', titleHi: 'आभार एवं धन्यवाद' },
+  ];
+
   // Keyboard navigation for slide deck mode
   useEffect(() => {
-    if (viewMode !== 'slides') return;
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
         nextSlide();
@@ -77,24 +92,13 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
   };
 
   return (
-    <div className={`space-y-8 max-w-6xl mx-auto animate-fade-in pb-12 ${isFullscreen ? 'fixed inset-0 z-50 bg-slate-950 p-6 overflow-y-auto' : ''}`}>
+    <div className={`space-y-6 max-w-6xl mx-auto animate-fade-in pb-12 ${isFullscreen ? 'fixed inset-0 z-50 bg-slate-950 p-4 sm:p-8 overflow-y-auto' : ''}`}>
       
-      {/* 1. Mode Switcher Bar */}
-      <div className="bg-white rounded-3xl border border-slate-200/90 p-2 sm:p-2.5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+      {/* 1. Header Toolbar & Mode Switcher */}
+      <div className="bg-white rounded-3xl border border-slate-200/90 p-2.5 sm:p-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+        
+        {/* Toggle Mode Buttons */}
         <div className="flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto">
-          <button
-            type="button"
-            onClick={() => setViewMode('overview')}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
-              viewMode === 'overview'
-                ? 'bg-emerald-800 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'परियोजना परिचय एवं दृष्टिकोण' : 'Platform Mission & Overview'}</span>
-          </button>
-
           <button
             type="button"
             onClick={() => setViewMode('slides')}
@@ -105,32 +109,405 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
             }`}
           >
             <BookOpen className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'वाइवा प्रस्तुति (9 स्लाइड्स)' : 'Academic Viva Slides (9)'}</span>
+            <span>{lang === 'hi' ? 'वाइवा प्रेजेंटेशन (9 स्लाइड्स)' : 'Academic Viva Deck (9 Slides)'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode('overview')}
+            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+              viewMode === 'overview'
+                ? 'bg-emerald-800 text-white shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>{lang === 'hi' ? 'विस्तृत परिचय एवं दृष्टिकोण' : 'Platform Mission & Story'}</span>
           </button>
         </div>
 
-        {viewMode === 'overview' ? (
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 px-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>GCET Greater Noida • CSE(AIML) Mini Project</span>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-slate-500">
-              {currentSlideIndex + 1} / {slides.length}
-            </span>
-            <button
-              onClick={toggleFullscreen}
-              className="p-2 rounded-xl hover:bg-slate-100 text-slate-600 text-xs flex items-center gap-1 border border-slate-200"
-              title="Fullscreen"
-            >
-              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-            </button>
-          </div>
-        )}
+        {/* Right Info & Fullscreen */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-semibold text-slate-500 hidden md:inline">
+            GCET Greater Noida • CSE(AIML)
+          </span>
+
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className="p-2 rounded-xl hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-1.5 border border-slate-200 transition-colors"
+            title="Toggle Fullscreen"
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            <span className="hidden sm:inline">{isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</span>
+          </button>
+        </div>
+
       </div>
 
-      {/* 2. MODE A: MODERN PRODUCT & MISSION OVERVIEW (Default View) */}
+      {/* 2. MODE: 9-SLIDE MODERN ACADEMIC VIVA DECK */}
+      {viewMode === 'slides' && (
+        <div className="space-y-5">
+          
+          {/* Slide Stepper & Progress Navigation */}
+          <div className="bg-slate-900 text-white rounded-3xl p-3 sm:p-4 shadow-lg flex flex-wrap items-center justify-between gap-3">
+            
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                {String(currentSlide.id).padStart(2, '0')} / 09
+              </span>
+              <span className="text-xs font-bold text-slate-200 hidden sm:inline">
+                {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
+              </span>
+            </div>
+
+            {/* Slide Quick Jump Buttons */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              {slides.map((s, idx) => {
+                const isSelected = currentSlideIndex === idx;
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => setCurrentSlideIndex(idx)}
+                    title={lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-emerald-600 text-white shadow-md ring-2 ring-emerald-400 font-black scale-102'
+                        : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                    }`}
+                  >
+                    <span>{s.id}.</span>
+                    <span className="hidden lg:inline">{lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Prev / Next Controls */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={prevSlide}
+                disabled={currentSlideIndex === 0}
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white text-xs font-bold flex items-center gap-1 transition-all"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Prev</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={nextSlide}
+                disabled={currentSlideIndex === slides.length - 1}
+                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 disabled:hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all"
+              >
+                <span className="hidden sm:inline">Next</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+          </div>
+
+          {/* Main Slide Presentation Stage (16:9 widescreen feel) */}
+          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl p-6 sm:p-10 lg:p-12 min-h-[580px] flex flex-col justify-between relative overflow-hidden">
+            
+            {/* Top Slide Header */}
+            <div>
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-black text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider">
+                    {lang === 'hi' ? currentSlide.hindiBadge || currentSlide.badge : currentSlide.badge}
+                  </span>
+                  <span className="text-xs text-slate-400 font-semibold hidden sm:inline">
+                    • {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
+                  </span>
+                </div>
+
+                <div className="text-right text-[11px] font-mono text-slate-400">
+                  GCET GREATER NOIDA • MINI PROJECT 2026
+                </div>
+              </div>
+
+              {/* Title & Description */}
+              <div className="space-y-3 mb-6">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight font-sans">
+                  {lang === 'hi' ? currentSlide.hindiTitle || currentSlide.title : currentSlide.title}
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-4xl">
+                  {lang === 'hi' ? currentSlide.hindiDescription || currentSlide.description : currentSlide.description}
+                </p>
+              </div>
+
+              {/* BESPOKE CONTENT FOR EACH SLIDE TYPE */}
+
+              {/* SLIDE 1: COVER & VISION */}
+              {currentSlide.id === 1 && (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+                  <div className="lg:col-span-8 space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {(lang === 'hi' ? currentSlide.hindiHighlights || currentSlide.highlights : currentSlide.highlights).map((item, i) => (
+                        <div key={i} className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex items-start gap-2.5 text-xs font-semibold text-emerald-950">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center justify-between">
+                      <div>
+                        <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Project Guide & Mentor</span>
+                        <strong className="text-sm font-black text-slate-900">{presentationData.guide.name}</strong>
+                        <span className="text-xs text-slate-600 ml-1.5">({presentationData.guide.designation}, Dept of AI & ML)</span>
+                      </div>
+                      <Award className="w-7 h-7 text-amber-600" />
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-4 flex justify-center">
+                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-200 text-center space-y-2 w-full max-w-[260px] shadow-sm">
+                      <img src="/gramsathi-mascot.png" alt="GramSathi Mascot" className="w-24 h-24 object-contain mx-auto" />
+                      <h4 className="text-base font-black text-slate-900">GramSathi AI</h4>
+                      <p className="text-[11px] text-slate-500">Connecting Rural India to Opportunities through AI</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* SLIDE 2: PROBLEM STATEMENT (Pain Points Grid) */}
+              {currentSlide.id === 2 && currentSlide.painPoints && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+                  {currentSlide.painPoints.map((point, i) => (
+                    <div key={i} className="p-4 rounded-2xl bg-rose-50/60 border border-rose-200 hover:border-rose-300 transition-all space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="w-7 h-7 rounded-xl bg-rose-200 text-rose-800 font-bold flex items-center justify-center text-xs">
+                          !
+                        </span>
+                        <span className="text-[10px] font-bold text-rose-700 uppercase tracking-wider">Problem {i + 1}</span>
+                      </div>
+                      <h4 className="text-xs font-black text-slate-900 pt-1">
+                        {lang === 'hi' ? point.hindiTitle || point.title : point.title}
+                      </h4>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        {lang === 'hi' ? point.hindiDesc || point.desc : point.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* SLIDE 3: LITERATURE SURVEY & RESEARCH GAP */}
+              {currentSlide.id === 3 && currentSlide.surveyPoints && (
+                <div className="space-y-4 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {currentSlide.surveyPoints.map((item, i) => (
+                      <div key={i} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                        <div className="flex items-center justify-between">
+                          <strong className="text-xs font-bold text-slate-900">
+                            {lang === 'hi' ? item.hindiArea || item.area : item.area}
+                          </strong>
+                          <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                            {lang === 'hi' ? item.hindiStatus || item.status : item.status}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-relaxed">
+                          {lang === 'hi' ? item.hindiDetail || item.detail : item.detail}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Research Gap Highlight */}
+                  <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-300 space-y-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-900 block flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                      <span>{lang === 'hi' ? 'पहचाना गया अनुसंधान अंतर (Identified Research Gap)' : 'Identified Research Gap'}</span>
+                    </span>
+                    <p className="text-xs text-slate-800 font-semibold leading-relaxed">
+                      {lang === 'hi' ? currentSlide.hindiResearchGap || currentSlide.researchGap : currentSlide.researchGap}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* SLIDE 4: PROPOSED SOLUTION (Feature Innovation Cards) */}
+              {currentSlide.id === 4 && currentSlide.features && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
+                  {currentSlide.features.map((feat, i) => (
+                    <div key={i} className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 hover:border-emerald-400 transition-all space-y-1.5 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-300">
+                          {lang === 'hi' ? feat.hindiBadge || feat.badge : feat.badge}
+                        </span>
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      </div>
+                      <h4 className="text-xs font-black text-slate-900 pt-1">
+                        {lang === 'hi' ? feat.hindiName || feat.name : feat.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        {lang === 'hi' ? feat.hindiDesc || feat.desc : feat.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* SLIDE 5: SYSTEM ARCHITECTURE (Pipeline Component Layers) */}
+              {currentSlide.id === 5 && currentSlide.components && (
+                <div className="space-y-3 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                    {currentSlide.components.map((comp, i) => (
+                      <div key={i} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-2 hover:border-emerald-500 transition-colors shadow-2xs">
+                        <div>
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="w-6 h-6 rounded-lg bg-emerald-800 text-white font-bold text-xs flex items-center justify-center">
+                              {i + 1}
+                            </span>
+                            <Cpu className="w-3.5 h-3.5 text-slate-400" />
+                          </div>
+                          <h4 className="text-xs font-black text-slate-900 leading-tight">
+                            {lang === 'hi' ? comp.hindiLayer || comp.layer : comp.layer}
+                          </h4>
+                          <span className="text-[10px] font-mono font-bold text-emerald-800 block mt-1 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 truncate">
+                            {comp.tech}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-relaxed">
+                          {lang === 'hi' ? comp.hindiRole || comp.role : comp.role}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="p-3 bg-slate-900 text-white rounded-2xl text-xs flex items-center justify-between">
+                    <span className="text-emerald-400 font-bold">End-to-End Pipeline:</span>
+                    <span className="font-mono text-slate-300 text-[11px]">
+                      Citizen Voice/Text → Web Speech API → Express API → Gemini LLM → MongoDB & Portals
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* SLIDE 6: TECHNOLOGY STACK */}
+              {currentSlide.id === 6 && currentSlide.stack && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1">
+                  {currentSlide.stack.map((group, i) => (
+                    <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
+                      <div>
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <Code2 className="w-4 h-4 text-emerald-700" />
+                          <h4 className="text-xs font-black text-slate-900">
+                            {lang === 'hi' ? group.hindiCategory || group.category : group.category}
+                          </h4>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {group.items.map((tech, j) => (
+                            <span key={j} className="text-[10px] font-bold bg-white px-2 py-0.5 rounded-md border border-slate-200 text-slate-800 shadow-2xs">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[10px] text-slate-500 italic pt-1 border-t border-slate-200">
+                        {lang === 'hi' ? group.hindiDesc || group.desc : group.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* SLIDE 7: EXPECTED IMPACT & UN SDGS */}
+              {currentSlide.id === 7 && currentSlide.impacts && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                  {currentSlide.impacts.map((imp, i) => (
+                    <div key={i} className="p-5 rounded-3xl bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                      <div>
+                        <span className="text-3xl font-black text-emerald-800 tracking-tight block">
+                          {imp.metric}
+                        </span>
+                        <h4 className="text-xs font-black text-slate-900 mt-1">
+                          {lang === 'hi' ? imp.hindiLabel || imp.label : imp.label}
+                        </h4>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        {lang === 'hi' ? imp.hindiDesc || imp.desc : imp.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* SLIDE 8: FUTURE SCOPE & ROADMAP */}
+              {currentSlide.id === 8 && currentSlide.roadmap && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+                  {currentSlide.roadmap.map((step, i) => (
+                    <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-2 hover:border-emerald-400 transition-colors">
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300 inline-block mb-1">
+                          Step {i + 1}
+                        </span>
+                        <h4 className="text-xs font-black text-slate-900 leading-tight">
+                          {lang === 'hi' ? step.hindiPhase || step.phase : step.phase}
+                        </h4>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        {lang === 'hi' ? step.hindiDesc || step.desc : step.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* SLIDE 9: ACKNOWLEDGEMENT & CONCLUSION */}
+              {currentSlide.id === 9 && (
+                <div className="space-y-5 pt-1">
+                  <div className="p-6 rounded-3xl bg-emerald-950 text-white space-y-2">
+                    <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                      <Award className="w-4 h-4" />
+                      <span>{lang === 'hi' ? 'विशेष आभार एवं कृतज्ञता' : 'Special Acknowledgement & Gratitude'}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                      {lang === 'hi' ? currentSlide.hindiNotes || currentSlide.notes : currentSlide.notes}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {presentationData.team.map((member, i) => (
+                      <div key={i} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+                        <div className="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center mx-auto">
+                          {member.name.charAt(0)}
+                        </div>
+                        <h5 className="text-xs font-black text-slate-900 truncate">{member.name}</h5>
+                        <p className="text-[10px] text-slate-500 font-mono">Roll: {member.rollNo}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Bottom Slide Stage Footer */}
+            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 mt-6">
+              <div className="flex items-center gap-2">
+                <span>Department of AI & ML, GCET Greater Noida</span>
+                <span>•</span>
+                <span className="text-slate-600 font-medium">Guide: Ms. Ritu</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                <span>Use keyboard</span>
+                <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">←</kbd>
+                <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">→</kbd>
+                <span>to navigate</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* 3. MODE: PLATFORM MISSION & STORY (Overview View) */}
       {viewMode === 'overview' && (
         <div className="space-y-10">
           
@@ -220,255 +597,6 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
               <span className="text-2xl sm:text-3xl font-black text-purple-700">₹0</span>
               <h4 className="text-xs font-bold text-slate-800">{lang === 'hi' ? 'पूर्णतः निशुल्क सेवा' : '100% Free Public Good'}</h4>
               <p className="text-[11px] text-slate-500">{lang === 'hi' ? 'बिचौलियों और कमीशन से मुक्ति' : 'Zero middleman exploitation'}</p>
-            </div>
-          </div>
-
-          {/* Problem vs Solution Split Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* The Rural Challenge */}
-            <div className="bg-rose-50/70 rounded-3xl p-6 sm:p-8 border border-rose-200 space-y-4">
-              <div className="flex items-center gap-2.5 text-rose-800 font-bold text-xs uppercase tracking-wider">
-                <ShieldAlert className="w-4 h-4" />
-                <span>{lang === 'hi' ? 'ग्रामीण भारत की मुख्य समस्याएं' : 'The Rural Digital Challenge'}</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                {lang === 'hi' ? 'योजनाएं बहुत हैं, पर जानकारी और पहुंच नहीं' : 'Welfare exists, but access is blocked'}
-              </h3>
-              <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-rose-200 text-rose-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✕</span>
-                  <span><strong>{lang === 'hi' ? 'जागरूकता का भारी अभाव:' : 'Severe Information Deficit:'}</strong> {lang === 'hi' ? '68% से अधिक ग्रामीण परिवार पात्रता होने पर भी लाभ से वंचित रह जाते हैं।' : 'Over 68% of eligible beneficiaries miss out on state and central welfare.'}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-rose-200 text-rose-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✕</span>
-                  <span><strong>{lang === 'hi' ? 'भाषा व साक्षरता की बाधा:' : 'Language & Tech Barrier:'}</strong> {lang === 'hi' ? 'ज्यादातर पोर्टल जटिल अंग्रेजी या कठिन प्रशासनिक शब्दावली में होते हैं।' : 'Most government portals are heavily bureaucratic and English-centric.'}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-rose-200 text-rose-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✕</span>
-                  <span><strong>{lang === 'hi' ? 'दफ्तरों के चक्कर व बिचौलिए:' : 'Middlemen & Wage Loss:'}</strong> {lang === 'hi' ? 'ब्लॉक व तहसील के 20-50 किमी चक्कर लगाने में ग्रामीणों की दिहाड़ी और धन नष्ट होता है।' : 'Citizens travel 30-50 km to block offices, losing daily wages to corrupt agents.'}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* The GramSathi AI Solution */}
-            <div className="bg-emerald-50/70 rounded-3xl p-6 sm:p-8 border border-emerald-200 space-y-4">
-              <div className="flex items-center gap-2.5 text-emerald-800 font-bold text-xs uppercase tracking-wider">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>{lang === 'hi' ? 'ग्रामसाथी एआई का समाधान' : 'The GramSathi AI Solution'}</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                {lang === 'hi' ? 'आवाज़, तकनीक और विश्वास का संगम' : 'Voice-First Intelligent Empowerment'}
-              </h3>
-              <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✓</span>
-                  <span><strong>{lang === 'hi' ? 'बोलकर बातचीत (Voice Assistant):' : 'Bilingual Conversational AI:'}</strong> {lang === 'hi' ? 'नागरिक सीधे हिंदी में बोलकर सवाल पूछ सकते हैं और आवाज़ में उत्तर सुन सकते हैं।' : 'Illiterate and elderly villagers speak naturally in Hindi or English.'}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✓</span>
-                  <span><strong>{lang === 'hi' ? 'स्मार्ट पात्रता चेकर:' : 'Instant Eligibility Matcher:'}</strong> {lang === 'hi' ? 'जमीन, आय, आयु और श्रेणी के अनुसार सही सरकारी योजनाओं का स्वतः मिलान।' : 'Algorithmic matching of land, income, caste, and age against official rules.'}</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-xs">✓</span>
-                  <span><strong>{lang === 'hi' ? 'सत्यापित चेकलिस्ट व पोर्टल लिंक:' : 'Verified Direct Checklists:'}</strong> {lang === 'hi' ? 'आधिकारिक सरकारी वेबसाइटों (pmkisan, nha) के सीधे लिंक और कागजात सूची।' : 'Direct portal links, document requirements, and CSC centers map.'}</span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-
-          {/* 4 Core Pillars of the Platform */}
-          <div className="space-y-4">
-            <div className="text-center max-w-2xl mx-auto space-y-1">
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                {lang === 'hi' ? 'मुख्य तकनीकी स्तंभ' : 'Platform Pillars'}
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900">
-                {lang === 'hi' ? 'ग्रामसाथी एआई की ४ मुख्य विशेषताएं' : 'Core Capabilities of GramSathi AI'}
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              
-              <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-3">
-                <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                  <PhoneCall className="w-5 h-5" />
-                </div>
-                <h4 className="text-base font-bold text-slate-900">
-                  {lang === 'hi' ? 'आवाज़-आधारित समावेशन' : 'Voice-First Interface'}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {lang === 'hi' 
-                    ? 'वेब स्पीच एसटीटी (स्पीच-टू-टेक्स्ट) एवं टीटीएस (टेक्स्ट-टू-स्पीच) के माध्यम से बिना टाइप किए बातचीत।' 
-                    : 'Built with Web Speech API for real-time speech-to-text and conversational playback.'}
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-3">
-                <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                  <Layers className="w-5 h-5" />
-                </div>
-                <h4 className="text-base font-bold text-slate-900">
-                  {lang === 'hi' ? 'कल्याणकारी योजना मिलान' : 'Smart Scheme Matcher'}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {lang === 'hi' 
-                    ? 'पीएम किसान, आयुष्मान भारत, पीएम आवास, फसल बीमा आदि का सटीक पात्रता मूल्यांकन।' 
-                    : 'Multi-criteria matching engine filtering central and state government benefits.'}
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-3">
-                <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center">
-                  <Globe className="w-5 h-5" />
-                </div>
-                <h4 className="text-base font-bold text-slate-900">
-                  {lang === 'hi' ? 'नजदीकी सेवाएं व मानचित्र' : 'Nearest Services Directory'}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {lang === 'hi' 
-                    ? 'अस्पताल, जन सेवा केंद्र (CSC), प्राथमिक स्वास्थ्य केंद्र व स्कूलों की दूरी व संपर्क नंबर।' 
-                    : 'Interactive directory locating nearby hospitals, CSC kiosks, and administrative offices.'}
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-3">
-                <div className="w-11 h-11 rounded-2xl bg-purple-50 text-purple-700 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5" />
-                </div>
-                <h4 className="text-base font-bold text-slate-900">
-                  {lang === 'hi' ? 'मंडी भाव व मौसम सलाह' : 'Mandi & Weather Advisory'}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {lang === 'hi' 
-                    ? 'ग्रेटर नोएडा व यूपी की मंडियों के दैनिक भाव, मौसम पूर्वानुमान व कीट नियंत्रण उपाय।' 
-                    : 'Real-time APMC mandi market commodity prices and localized weather alerts for farmers.'}
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          {/* Academic Affiliation Card */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-2 text-center md:text-left">
-              <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
-                GCET Greater Noida • CSE(AIML)
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                {lang === 'hi' ? 'गलगोटियास कॉलेज ऑफ इंजीनियरिंग एंड टेक्नोलॉजी' : 'Galgotias College of Engineering & Technology'}
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-                {lang === 'hi' 
-                  ? 'आर्टिफिशियल इंटेलिजेंस एवं मशीन लर्निंग विभाग के तत्वावधान में विकसित मिनी प्रोजेक्ट। परियोजना मार्गदर्शक: सुश्री रितु (सहायक प्रोफेसर)।' 
-                  : 'Developed under the Department of AI & ML as an academic mini project innovation. Project Guide: Ms. Ritu (Assistant Professor).'}
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                onClick={() => setViewMode('slides')}
-                className="px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl text-xs sm:text-sm flex items-center gap-2 transition-colors"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>{lang === 'hi' ? '९ वाइवा स्लाइड्स खोलें' : 'Open 9 Viva Slides'}</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      )}
-
-      {/* 3. MODE B: 9-SLIDE ACADEMIC VIVA SLIDESHOW (Presentation Deck) */}
-      {viewMode === 'slides' && (
-        <div className="space-y-6">
-          
-          {/* Slide Navigation Controller */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-3 sm:p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-800 text-white">
-                {lang === 'hi' ? `स्लाइड ${currentSlide.id} / ${slides.length}` : `Slide ${currentSlide.id} of ${slides.length}`}
-              </span>
-              <span className="text-xs font-semibold text-slate-600 hidden sm:inline">
-                {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-              {slides.map((s, idx) => (
-                <button
-                  key={s.id}
-                  onClick={() => setCurrentSlideIndex(idx)}
-                  className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
-                    currentSlideIndex === idx
-                      ? 'bg-emerald-800 text-white shadow-xs scale-105'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  {s.id}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prevSlide}
-                disabled={currentSlideIndex === 0}
-                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-30 text-slate-700 text-xs font-bold flex items-center gap-1"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Prev</span>
-              </button>
-
-              <button
-                onClick={nextSlide}
-                disabled={currentSlideIndex === slides.length - 1}
-                className="p-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 disabled:opacity-30 text-white text-xs font-bold flex items-center gap-1 shadow-xs"
-              >
-                <span className="hidden sm:inline">Next</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Slide Card */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-6 sm:p-10 min-h-[460px] flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <span className="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
-                  {lang === 'hi' ? currentSlide.hindiBadge || currentSlide.badge : currentSlide.badge}
-                </span>
-                <span className="text-xs text-slate-400 font-mono">GCET CSE(AIML) 2026</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                {lang === 'hi' ? currentSlide.hindiTitle || currentSlide.title : currentSlide.title}
-              </h2>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
-                {lang === 'hi' ? currentSlide.hindiDescription || currentSlide.description : currentSlide.description}
-              </p>
-
-              {/* Slide Bullet Highlights */}
-              {currentSlide.highlights && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
-                  {(lang === 'hi' ? currentSlide.hindiHighlights || currentSlide.highlights : currentSlide.highlights).map((item, i) => (
-                    <div key={i} className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-2.5 text-xs font-medium text-slate-700">
-                      <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5 text-[10px]">
-                        ✓
-                      </span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Slide Footer */}
-            <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-              <span>Department of Artificial Intelligence & Machine Learning</span>
-              <span>Guide: Ms. Ritu (Asst. Prof)</span>
             </div>
           </div>
 

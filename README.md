@@ -4,27 +4,6 @@
 
 ---
 
-### 🏛️ Academic Institution & Affiliation
-- **College:** Galgotias College of Engineering & Technology (GCET), Greater Noida
-- **Department:** Department of Artificial Intelligence & Machine Learning
-- **Course:** B.Tech Computer Science & Engineering (AIML)
-- **Project Type:** Mini Project
-
-### 👩‍🏫 Project Guide & Mentorship
-- **Guide Name:** **Ms. Ritu**
-- **Designation:** Assistant Professor
-- **Department:** Department of Artificial Intelligence & Machine Learning, GCET Greater Noida
-
-### 👨‍💻 Project Team Members
-| Name | University Roll No. | Branch | Key Role |
-| :--- | :--- | :--- | :--- |
-| **Harsh Gupta** | 2300971530059 | CSE(AIML) | Full Stack & AI Architecture |
-| **Digdarshan Kumar** | 2300971530049 | CSE(AIML) | AI & NLP Pipeline Specialist |
-| **Devansh Saxena** | 2300971530047 | CSE(AIML) | Backend & Integration Engineer |
-| **Ayushmaan Singh** | 2300971530042 | CSE(AIML) | UI/UX & Rural Accessibility |
-
----
-
 ## 🌟 Overview & Innovation
 
 Rural citizens face acute difficulty in accessing welfare schemes, agricultural market intelligence, affordable healthcare, and legal rights due to complex paperwork, low digital literacy, and linguistic barriers.

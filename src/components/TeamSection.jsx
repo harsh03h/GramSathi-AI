@@ -79,8 +79,8 @@ export default function TeamSection({ lang }) {
         </div>
       </div>
 
-      {/* 2. Top 3 Direct Contact Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {/* 2. Top Direct Contact Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         
         {/* Card 1: Emergency & Rural Helplines */}
         <div className="bg-white rounded-3xl p-6 border border-rose-200/80 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
@@ -185,53 +185,6 @@ export default function TeamSection({ lang }) {
                   {lang === 'hi' ? '24 घंटे के भीतर उत्तर' : 'Within 24 working hours'}
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 3: Campus & College Location */}
-        <div className="bg-white rounded-3xl p-6 border border-amber-200/80 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
-          <div className="space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
-              <MapPin className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="text-base font-black text-slate-900">
-                {lang === 'hi' ? 'संस्थान एवं इनोवेशन लैब' : 'Institution & Department'}
-              </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
-                {lang === 'hi' ? 'कैंपस का पता एवं शैक्षणिक विभाग' : 'College campus address & department info'}
-              </p>
-            </div>
-
-            <div className="space-y-2 pt-2 text-xs text-slate-600">
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
-                <strong className="text-slate-900 block">
-                  Galgotias College of Engineering & Technology (GCET)
-                </strong>
-                <p className="text-[11px] text-slate-500">
-                  {lang === 'hi' ? presentationData.hindiDepartment : presentationData.department}
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
-                <span className="text-[11px] font-bold text-slate-500 block uppercase tracking-wider">
-                  {lang === 'hi' ? 'परिसर का पता' : 'Campus Location'}
-                </span>
-                <p className="text-slate-700 text-[11px] leading-relaxed">
-                  1, Knowledge Park II, Greater Noida, Gautam Buddha Nagar, Uttar Pradesh 201306
-                </p>
-              </div>
-
-              <a 
-                href="https://maps.google.com/?q=Galgotias+College+of+Engineering+and+Technology+Greater+Noida"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-2 px-3 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
-              >
-                <span>{lang === 'hi' ? 'गूगल मैप्स पर देखें' : 'View on Google Maps'}</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
             </div>
           </div>
         </div>

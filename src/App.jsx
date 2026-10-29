@@ -260,7 +260,7 @@ export default function App() {
           </div>
 
           <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-            <p>© 2026 GramSathi AI. Department of AI & ML, GCET Greater Noida.</p>
+            <p>© 2026 GramSathi AI.</p>
           </div>
         </div>
       </footer>

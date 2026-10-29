@@ -385,14 +385,12 @@ export default function ChatAssistantPage({
         {/* Modern Top Header */}
         <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-white/90 backdrop-blur-xs sticky top-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-700/10 border border-emerald-600/20 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 p-1 shadow-2xs">
               <img 
-                src="/gramsathi-logo.png" 
-                alt="GramSathi" 
-                className="w-7 h-7 object-contain"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                src="/gramsathi-mascot.png" 
+                alt="GramSathi Mascot" 
+                className="w-full h-full object-contain"
               />
-              <Bot className="w-5 h-5 text-emerald-800" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -480,8 +478,8 @@ export default function ChatAssistantPage({
             >
               {/* Bot Avatar */}
               {msg.sender === 'bot' && (
-                <div className="w-9 h-9 rounded-2xl bg-emerald-800 text-white flex items-center justify-center shrink-0 mt-1 shadow-xs border border-emerald-700">
-                  <Bot className="w-5 h-5 text-emerald-200" />
+                <div className="w-9 h-9 rounded-2xl bg-amber-50/90 border border-amber-200 p-1 flex items-center justify-center shrink-0 mt-1 shadow-xs">
+                  <img src="/gramsathi-mascot.png" alt="GramSathi" className="w-full h-full object-contain" />
                 </div>
               )}
 
@@ -617,8 +615,8 @@ export default function ChatAssistantPage({
           {/* Typing Indicator */}
           {isTyping && (
             <div className="flex gap-3 justify-start animate-fade-in">
-              <div className="w-9 h-9 rounded-2xl bg-emerald-800 text-white flex items-center justify-center shrink-0 shadow-xs border border-emerald-700">
-                <Bot className="w-5 h-5 text-emerald-200" />
+              <div className="w-9 h-9 rounded-2xl bg-amber-50/90 border border-amber-200 p-1 flex items-center justify-center shrink-0 shadow-xs">
+                <img src="/gramsathi-mascot.png" alt="GramSathi" className="w-full h-full object-contain" />
               </div>
               <div className="bg-white border border-slate-200 p-4 rounded-3xl rounded-bl-sm shadow-xs flex items-center gap-2 text-xs text-slate-500">
                 <div className="flex items-center gap-1">

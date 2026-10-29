@@ -106,9 +106,16 @@ export default function HomeHero({
             
             {/* Main Brand Title */}
             <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight font-sans">
-                GramSathi <span className="text-slate-900">AI</span>
-              </h1>
+              <div className="flex items-center gap-3 sm:gap-4 mb-2">
+                <img 
+                  src="/gramsathi-mascot.png" 
+                  alt="GramSathi AI Mascot" 
+                  className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain rounded-2xl shadow-xs bg-amber-50/70 p-1 border border-amber-200/80 transform hover:scale-105 transition-transform"
+                />
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight font-sans">
+                  GramSathi <span className="text-amber-600">AI</span>
+                </h1>
+              </div>
               
               {/* Subtitle */}
               <h2 className="text-2xl sm:text-3xl font-extrabold text-emerald-800 tracking-tight mt-1.5">

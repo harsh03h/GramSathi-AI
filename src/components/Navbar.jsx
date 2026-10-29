@@ -67,13 +67,13 @@ export default function Navbar({
               className="flex items-center gap-2.5 cursor-pointer group shrink-0"
             >
               <img 
-                src="/gramsathi-logo.png" 
+                src="/gramsathi-mascot.png" 
                 alt="GramSathi AI Logo" 
-                className="w-10 h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform"
+                className="w-10 h-10 sm:w-11 sm:h-11 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform"
               />
               <div>
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-sans">
-                  GramSathi <span className="text-emerald-800">AI</span>
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-sans flex items-center gap-1">
+                  <span>GramSathi</span> <span className="text-amber-600">AI</span>
                 </span>
                 <p className="text-[10px] text-slate-500 leading-tight hidden lg:block font-medium">
                   {lang === 'hi' ? 'ग्रामीण सशक्तिकरण एवं विकास मंच' : 'An Intelligent Rural Assistance Platform'}
@@ -186,8 +186,8 @@ export default function Navbar({
               {/* Drawer Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <img src="/gramsathi-logo.png" alt="GramSathi AI" className="w-8 h-8 object-contain" />
-                  <span className="text-lg font-black text-slate-900">GramSathi AI</span>
+                  <img src="/gramsathi-mascot.png" alt="GramSathi AI" className="w-8 h-8 object-contain rounded-lg" />
+                  <span className="text-lg font-black text-slate-900">GramSathi <span className="text-amber-600">AI</span></span>
                 </div>
                 <button
                   onClick={() => setMobileDrawerOpen(false)}

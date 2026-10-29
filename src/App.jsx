@@ -196,11 +196,13 @@ export default function App() {
             <div className="space-y-3 md:col-span-1">
               <div className="flex items-center gap-2.5">
                 <img 
-                  src="/gramsathi-logo.png" 
+                  src="/gramsathi-mascot.png" 
                   alt="GramSathi AI Logo" 
-                  className="w-8 h-8 object-contain rounded-lg"
+                  className="w-10 h-10 object-contain rounded-xl bg-white/10 p-0.5"
                 />
-                <span className="text-xl font-bold tracking-tight">GramSathi AI</span>
+                <span className="text-xl font-bold tracking-tight">
+                  GramSathi <span className="text-amber-500">AI</span>
+                </span>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed font-medium">
                 {lang === 'hi' 

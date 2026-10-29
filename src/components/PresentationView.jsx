@@ -95,50 +95,52 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
     <div className={`space-y-6 max-w-6xl mx-auto animate-fade-in pb-12 ${isFullscreen ? 'fixed inset-0 z-50 bg-slate-950 p-4 sm:p-8 overflow-y-auto' : ''}`}>
       
       {/* 1. Header Toolbar & Mode Switcher */}
-      <div className="bg-white rounded-3xl border border-slate-200/90 p-2.5 sm:p-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-2 sm:p-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3">
         
         {/* Toggle Mode Buttons */}
-        <div className="flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto">
+        <div className="flex items-center bg-slate-100 p-1 rounded-xl sm:rounded-2xl w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setViewMode('slides')}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+            className={`flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
               viewMode === 'slides'
                 ? 'bg-emerald-800 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <BookOpen className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'वाइवा प्रेजेंटेशन (9 स्लाइड्स)' : 'Academic Viva Deck (9 Slides)'}</span>
+            <BookOpen className="w-4 h-4 shrink-0" />
+            <span className="sm:hidden">{lang === 'hi' ? 'वाइवा डेक' : 'Viva Deck'}</span>
+            <span className="hidden sm:inline">{lang === 'hi' ? 'वाइवा प्रेजेंटेशन (9 स्लाइड्स)' : 'Academic Viva Deck (9 Slides)'}</span>
           </button>
 
           <button
             type="button"
             onClick={() => setViewMode('overview')}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
+            className={`flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
               viewMode === 'overview'
                 ? 'bg-emerald-800 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Sparkles className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'विस्तृत परिचय एवं दृष्टिकोण' : 'Platform Mission & Story'}</span>
+            <Sparkles className="w-4 h-4 shrink-0" />
+            <span className="sm:hidden">{lang === 'hi' ? 'मिशन व विज़न' : 'Story'}</span>
+            <span className="hidden sm:inline">{lang === 'hi' ? 'विस्तृत परिचय एवं दृष्टिकोण' : 'Platform Mission & Story'}</span>
           </button>
         </div>
 
         {/* Right Info & Fullscreen */}
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-semibold text-slate-500 hidden md:inline">
+        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-3">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500">
             GCET Greater Noida • CSE(AIML)
           </span>
 
           <button
             type="button"
             onClick={toggleFullscreen}
-            className="p-2 rounded-xl hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-1.5 border border-slate-200 transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-1.5 border border-slate-200 transition-colors cursor-pointer"
             title="Toggle Fullscreen"
           >
-            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            {isFullscreen ? <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
             <span className="hidden sm:inline">{isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</span>
           </button>
         </div>
@@ -147,55 +149,50 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
 
       {/* 2. MODE: 9-SLIDE MODERN ACADEMIC VIVA DECK */}
       {viewMode === 'slides' && (
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           
           {/* Modern Slide Stepper & Progress Navigation */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-sm space-y-3">
-            {/* Top Row: Slide Counter, Title & Navigation Controls */}
-            <div className="flex items-center justify-between gap-3">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-3 sm:p-5 shadow-sm space-y-2.5 sm:space-y-3 overflow-hidden">
+            {/* Top Row: Slide Counter, Category Badge & Prev / Next Controls */}
+            <div className="flex items-center justify-between gap-2">
               {/* Left: Badge & Slide Heading */}
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="text-xs font-mono font-extrabold px-3 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200/80 shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-[11px] sm:text-xs font-mono font-extrabold px-2.5 py-1 rounded-lg sm:rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200/80 shrink-0">
                   {String(currentSlide.id).padStart(2, '0')} / 09
                 </span>
-                <div className="min-w-0">
-                  <span className="text-xs sm:text-sm font-extrabold text-slate-800 truncate block sm:inline">
-                    {lang === 'hi' ? currentSlide.hindiTitle || currentSlide.title : currentSlide.title}
-                  </span>
-                  <span className="text-[11px] text-slate-400 font-medium hidden sm:inline ml-2">
-                    • {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
-                  </span>
-                </div>
+                <span className="text-xs font-bold text-emerald-900 bg-emerald-50/70 px-2 py-0.5 rounded-md border border-emerald-100 uppercase tracking-wider truncate">
+                  {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
+                </span>
               </div>
 
               {/* Right: Prev & Next Buttons */}
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <button
                   type="button"
                   onClick={prevSlide}
                   disabled={currentSlideIndex === 0}
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed shadow-2xs"
+                  className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed shadow-2xs"
                   title="Previous Slide (← / PageUp)"
                 >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span className="hidden sm:inline">Prev</span>
+                  <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Prev</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={nextSlide}
                   disabled={currentSlideIndex === slides.length - 1}
-                  className="px-4 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer disabled:cursor-not-allowed"
+                  className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer disabled:cursor-not-allowed"
                   title="Next Slide (→ / Space / PageDown)"
                 >
-                  <span className="hidden sm:inline">Next</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <span className="hidden xs:inline">Next</span>
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Stepper Segments: Exactly 9 columns, responsive, 0 scrollbars, 0 wrapping */}
-            <div className="grid grid-cols-9 gap-1 sm:gap-2 pt-1">
+            {/* Stepper Segments: Fully responsive 9 columns with min-w-0 */}
+            <div className="grid grid-cols-9 gap-1 sm:gap-2 pt-1 w-full max-w-full">
               {slides.map((s, idx) => {
                 const isSelected = currentSlideIndex === idx;
                 const isPassed = currentSlideIndex > idx;
@@ -204,7 +201,7 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                     key={s.id}
                     onClick={() => setCurrentSlideIndex(idx)}
                     title={`${s.id}. ${lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}`}
-                    className={`group relative flex flex-col items-center justify-center py-2 px-1 rounded-2xl transition-all text-center cursor-pointer ${
+                    className={`group relative flex flex-col items-center justify-center py-1.5 sm:py-2 px-0.5 sm:px-1 rounded-lg sm:rounded-2xl transition-all text-center cursor-pointer min-w-0 ${
                       isSelected
                         ? 'bg-emerald-700 text-white shadow-md ring-2 ring-emerald-500/40 font-black'
                         : isPassed
@@ -212,7 +209,7 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                         : 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/60 font-semibold'
                     }`}
                   >
-                    <span className="text-xs font-mono leading-none">
+                    <span className="text-[11px] sm:text-xs font-mono leading-none">
                       {s.id}
                     </span>
                     <span className="text-[10px] tracking-tight mt-1 truncate max-w-full hidden md:block">
@@ -224,7 +221,7 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
             </div>
 
             {/* Animated Progress Track */}
-            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-slate-100 rounded-full h-1 sm:h-1.5 overflow-hidden">
               <div 
                 className="bg-gradient-to-r from-emerald-600 to-teal-500 h-full transition-all duration-300 ease-out rounded-full"
                 style={{ width: `${((currentSlideIndex + 1) / slides.length) * 100}%` }}
@@ -233,31 +230,31 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
           </div>
 
           {/* Main Slide Presentation Stage (16:9 widescreen feel) */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl p-6 sm:p-10 lg:p-12 min-h-[580px] flex flex-col justify-between relative overflow-hidden">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-xl p-4 sm:p-8 lg:p-12 min-h-[440px] sm:min-h-[560px] flex flex-col justify-between relative overflow-hidden">
             
             {/* Top Slide Header */}
             <div>
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-black text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4 mb-4 sm:mb-6 gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-[11px] sm:text-xs font-black text-emerald-800 bg-emerald-50 px-2.5 sm:px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider shrink-0">
                     {lang === 'hi' ? currentSlide.hindiBadge || currentSlide.badge : currentSlide.badge}
                   </span>
-                  <span className="text-xs text-slate-400 font-semibold hidden sm:inline">
+                  <span className="text-xs text-slate-400 font-semibold hidden sm:inline truncate">
                     • {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
                   </span>
                 </div>
 
-                <div className="text-right text-[11px] font-mono text-slate-400">
-                  GCET GREATER NOIDA • MINI PROJECT 2026
+                <div className="text-right text-[10px] sm:text-[11px] font-mono text-slate-400 shrink-0">
+                  <span className="hidden sm:inline">GCET GREATER NOIDA • </span>MINI PROJECT 2026
                 </div>
               </div>
 
               {/* Title & Description */}
-              <div className="space-y-3 mb-6">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight font-sans">
+              <div className="space-y-2 sm:space-y-3 mb-5 sm:mb-6">
+                <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight font-sans leading-tight">
                   {lang === 'hi' ? currentSlide.hindiTitle || currentSlide.title : currentSlide.title}
                 </h2>
-                <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-4xl">
+                <p className="text-xs sm:text-base text-slate-600 font-medium leading-relaxed max-w-4xl">
                   {lang === 'hi' ? currentSlide.hindiDescription || currentSlide.description : currentSlide.description}
                 </p>
               </div>
@@ -402,11 +399,19 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                     ))}
                   </div>
 
-                  <div className="p-3 bg-slate-900 text-white rounded-2xl text-xs flex items-center justify-between">
-                    <span className="text-emerald-400 font-bold">End-to-End Pipeline:</span>
-                    <span className="font-mono text-slate-300 text-[11px]">
-                      Citizen Voice/Text → Web Speech API → Express API → Gemini LLM → MongoDB & Portals
-                    </span>
+                  <div className="p-3 sm:p-3.5 bg-slate-900 text-white rounded-2xl text-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <span className="text-emerald-400 font-bold shrink-0">End-to-End Pipeline:</span>
+                    <div className="font-mono text-slate-300 text-[10px] sm:text-[11px] flex flex-wrap items-center gap-1.5 leading-relaxed">
+                      <span>Citizen Voice/Text</span>
+                      <span className="text-emerald-400">→</span>
+                      <span>Web Speech API</span>
+                      <span className="text-emerald-400">→</span>
+                      <span>Express API</span>
+                      <span className="text-emerald-400">→</span>
+                      <span>Gemini LLM</span>
+                      <span className="text-emerald-400">→</span>
+                      <span>MongoDB & Portals</span>
+                    </div>
                   </div>
                 </div>
               )}
@@ -441,18 +446,18 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
 
               {/* SLIDE 7: EXPECTED IMPACT & UN SDGS */}
               {currentSlide.id === 7 && currentSlide.impacts && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 pt-1 sm:pt-2">
                   {currentSlide.impacts.map((imp, i) => (
-                    <div key={i} className="p-5 rounded-3xl bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                    <div key={i} className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between space-y-2 shadow-2xs">
                       <div>
-                        <span className="text-3xl font-black text-emerald-800 tracking-tight block">
+                        <span className="text-2xl sm:text-3xl font-black text-emerald-800 tracking-tight block">
                           {imp.metric}
                         </span>
-                        <h4 className="text-xs font-black text-slate-900 mt-1">
+                        <h4 className="text-xs font-black text-slate-900 mt-1 leading-tight">
                           {lang === 'hi' ? imp.hindiLabel || imp.label : imp.label}
                         </h4>
                       </div>
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                      <p className="text-[10px] sm:text-[11px] text-slate-600 leading-relaxed">
                         {lang === 'hi' ? imp.hindiDesc || imp.desc : imp.desc}
                       </p>
                     </div>
@@ -462,18 +467,18 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
 
               {/* SLIDE 8: FUTURE SCOPE & ROADMAP */}
               {currentSlide.id === 8 && currentSlide.roadmap && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 pt-1 sm:pt-2">
                   {currentSlide.roadmap.map((step, i) => (
-                    <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-2 hover:border-emerald-400 transition-colors">
+                    <div key={i} className="p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-2 hover:border-emerald-400 transition-colors">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300 inline-block mb-1">
+                        <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300 inline-block mb-1">
                           Step {i + 1}
                         </span>
                         <h4 className="text-xs font-black text-slate-900 leading-tight">
                           {lang === 'hi' ? step.hindiPhase || step.phase : step.phase}
                         </h4>
                       </div>
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                      <p className="text-[10px] sm:text-[11px] text-slate-600 leading-relaxed">
                         {lang === 'hi' ? step.hindiDesc || step.desc : step.desc}
                       </p>
                     </div>
@@ -483,10 +488,10 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
 
               {/* SLIDE 9: ACKNOWLEDGEMENT & CONCLUSION */}
               {currentSlide.id === 9 && (
-                <div className="space-y-5 pt-1">
-                  <div className="p-6 rounded-3xl bg-emerald-950 text-white space-y-2">
+                <div className="space-y-4 sm:space-y-5 pt-1">
+                  <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-emerald-950 text-white space-y-2">
                     <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                      <Award className="w-4 h-4" />
+                      <Award className="w-4 h-4 shrink-0" />
                       <span>{lang === 'hi' ? 'विशेष आभार एवं कृतज्ञता' : 'Special Acknowledgement & Gratitude'}</span>
                     </div>
                     <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
@@ -494,14 +499,14 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                     {presentationData.team.map((member, i) => (
-                      <div key={i} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
-                        <div className="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center mx-auto">
+                      <div key={i} className="p-2.5 sm:p-3 bg-slate-50 rounded-xl sm:rounded-2xl border border-slate-200 text-center space-y-1">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center mx-auto">
                           {member.name.charAt(0)}
                         </div>
-                        <h5 className="text-xs font-black text-slate-900 truncate">{member.name}</h5>
-                        <p className="text-[10px] text-slate-500 font-mono">Roll: {member.rollNo}</p>
+                        <h5 className="text-[11px] sm:text-xs font-black text-slate-900 truncate">{member.name}</h5>
+                        <p className="text-[9px] sm:text-[10px] text-slate-500 font-mono break-all">Roll: {member.rollNo}</p>
                       </div>
                     ))}
                   </div>
@@ -511,14 +516,14 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
             </div>
 
             {/* Bottom Slide Stage Footer */}
-            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 mt-8">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-700">Dept of AI & ML, GCET Greater Noida</span>
-                <span>•</span>
+            <div className="pt-4 sm:pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 mt-6 sm:mt-8">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-center sm:text-left flex-wrap justify-center">
+                <span className="font-semibold text-slate-700">Dept of AI & ML, GCET</span>
+                <span className="hidden sm:inline">•</span>
                 <span>Guide: <strong className="text-slate-800 font-bold">Ms. Ritu</strong></span>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between w-full sm:w-auto gap-3">
                 <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400">
                   <span>Keyboard:</span>
                   <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">←</kbd>
@@ -526,12 +531,12 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                   <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">Space</kbd>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
                   <button
                     type="button"
                     onClick={prevSlide}
                     disabled={currentSlideIndex === 0}
-                    className="px-3 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed"
+                    className="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                     <span>Prev</span>
@@ -541,7 +546,7 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
                     type="button"
                     onClick={nextSlide}
                     disabled={currentSlideIndex === slides.length - 1}
-                    className="px-3.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-2xs transition-all cursor-pointer disabled:cursor-not-allowed"
+                    className="flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-2xs transition-all cursor-pointer disabled:cursor-not-allowed"
                   >
                     <span>Next</span>
                     <ChevronRight className="w-3.5 h-3.5" />

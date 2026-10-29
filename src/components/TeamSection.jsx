@@ -142,42 +142,42 @@ export default function TeamSection({ lang = 'en' }) {
             </div>
 
             <div className="space-y-2.5 pt-1 text-xs">
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between hover:bg-emerald-50/50 hover:border-emerald-200 transition-colors">
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col xs:flex-row xs:items-center xs:justify-between gap-2 hover:bg-emerald-50/50 hover:border-emerald-200 transition-colors">
                 <div>
                   <span className="font-bold text-slate-900 block">{lang === 'hi' ? 'किसान कॉल सेंटर' : 'Kisan Call Center'}</span>
                   <span className="text-[11px] text-slate-500">{lang === 'hi' ? 'कृषि परामर्श (सुबह 6 - रात 10)' : 'Agri advisory (6 AM - 10 PM)'}</span>
                 </div>
                 <a 
                   href="tel:18001801551" 
-                  className="px-3 py-1.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-mono font-bold text-xs shadow-2xs flex items-center gap-1 transition-all"
+                  className="px-3 py-1.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-mono font-bold text-xs shadow-2xs flex items-center justify-center gap-1 transition-all w-fit"
                 >
                   <PhoneCall className="w-3 h-3" />
                   <span>1800-180-1551</span>
                 </a>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between hover:bg-rose-50/50 hover:border-rose-200 transition-colors">
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col xs:flex-row xs:items-center xs:justify-between gap-2 hover:bg-rose-50/50 hover:border-rose-200 transition-colors">
                 <div>
                   <span className="font-bold text-slate-900 block">{lang === 'hi' ? 'राष्ट्रीय आपातकालीन सेवा' : 'National Emergency'}</span>
                   <span className="text-[11px] text-slate-500">{lang === 'hi' ? 'पुलिस व एम्बुलेंस' : 'Police & Ambulance (24x7)'}</span>
                 </div>
                 <a 
                   href="tel:112" 
-                  className="px-3 py-1.5 rounded-xl bg-rose-700 hover:bg-rose-800 text-white font-mono font-bold text-xs shadow-2xs flex items-center gap-1 transition-all"
+                  className="px-3 py-1.5 rounded-xl bg-rose-700 hover:bg-rose-800 text-white font-mono font-bold text-xs shadow-2xs flex items-center justify-center gap-1 transition-all w-fit"
                 >
                   <PhoneCall className="w-3 h-3" />
                   <span>112 / 108</span>
                 </a>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between hover:bg-purple-50/50 hover:border-purple-200 transition-colors">
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col xs:flex-row xs:items-center xs:justify-between gap-2 hover:bg-purple-50/50 hover:border-purple-200 transition-colors">
                 <div>
                   <span className="font-bold text-slate-900 block">{lang === 'hi' ? 'महिला सुरक्षा हेल्पलाइन' : 'Women Helpline'}</span>
                   <span className="text-[11px] text-slate-500">{lang === 'hi' ? 'सुरक्षा एवं कानूनी सहायता' : 'Safety, health & legal aid'}</span>
                 </div>
                 <a 
                   href="tel:1090" 
-                  className="px-3 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-mono font-bold text-xs shadow-2xs flex items-center gap-1 transition-all"
+                  className="px-3 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-mono font-bold text-xs shadow-2xs flex items-center justify-center gap-1 transition-all w-fit"
                 >
                   <PhoneCall className="w-3 h-3" />
                   <span>1090 / 181</span>

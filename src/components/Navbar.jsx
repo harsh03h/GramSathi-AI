@@ -58,21 +58,21 @@ export default function Navbar({
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 py-2 gap-3">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-18 py-2 gap-2 sm:gap-3">
             
             {/* Logo matching Screen 1, 2, 3, 4, 5, 6 */}
             <div 
               onClick={() => handleNavClick('home')}
-              className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group shrink-0 min-w-0"
             >
               <img 
                 src="/gramsathi-mascot.png" 
                 alt="GramSathi AI Logo" 
-                className="w-10 h-10 sm:w-11 sm:h-11 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform"
+                className="w-9 h-9 sm:w-11 sm:h-11 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform shrink-0"
               />
-              <div>
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-sans flex items-center gap-1">
+              <div className="min-w-0">
+                <span className="text-lg sm:text-2xl font-black tracking-tight text-slate-900 font-sans flex items-center gap-1">
                   <span>GramSathi</span> <span className="text-amber-600">AI</span>
                 </span>
                 <p className="text-[10px] text-slate-500 leading-tight hidden lg:block font-medium">
@@ -99,28 +99,28 @@ export default function Navbar({
             </nav>
 
             {/* Right Controls: Audio, Segmented Language Switcher, Profile/Login */}
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
               
               {/* Audio Speech Toggle */}
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 title={soundEnabled ? (lang === 'hi' ? "आवाज़ वाचन सक्रिय" : "Audio Speech Enabled") : (lang === 'hi' ? "आवाज़ वाचन म्यूट" : "Audio Speech Muted")}
-                className={`p-2 rounded-xl border transition-all ${
+                className={`p-1.5 sm:p-2 rounded-xl border transition-all ${
                   soundEnabled 
                     ? 'bg-emerald-50 border-emerald-300 text-emerald-800' 
                     : 'bg-slate-100 border-slate-200 text-slate-400'
                 }`}
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {soundEnabled ? <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
 
               {/* Segmented Language Switcher */}
-              <div className="flex items-center bg-amber-50/90 p-0.5 sm:p-1 rounded-xl border border-amber-300 shadow-2xs text-xs font-bold">
+              <div className="flex items-center bg-amber-50/90 p-0.5 rounded-xl border border-amber-300 shadow-2xs text-[11px] sm:text-xs font-bold">
                 <button
                   type="button"
                   onClick={() => setLang('hi')}
                   title="हिंदी भाषा सक्रिय करें"
-                  className={`px-2.5 sm:px-3 py-1 rounded-lg flex items-center gap-1 transition-all ${
+                  className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg flex items-center gap-1 transition-all ${
                     lang === 'hi'
                       ? 'bg-emerald-800 text-white shadow-xs font-black'
                       : 'text-amber-900 hover:bg-amber-100/80 font-semibold'
@@ -132,13 +132,13 @@ export default function Navbar({
                   type="button"
                   onClick={() => setLang('en')}
                   title="Switch to English"
-                  className={`px-2.5 sm:px-3 py-1 rounded-lg flex items-center gap-1 transition-all ${
+                  className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg flex items-center gap-1 transition-all ${
                     lang === 'en'
                       ? 'bg-emerald-800 text-white shadow-xs font-black'
                       : 'text-amber-900 hover:bg-amber-100/80 font-semibold'
                   }`}
                 >
-                  <span>English</span>
+                  <span>EN</span>
                 </button>
               </div>
 
@@ -146,7 +146,7 @@ export default function Navbar({
               {loggedInUser ? (
                 <button
                   onClick={() => handleNavClick('profile')}
-                  className="px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full text-xs shadow-sm flex items-center gap-1.5 transition-all"
+                  className="px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full text-xs shadow-sm flex items-center gap-1.5 transition-all"
                   title="View Profile"
                 >
                   <UserCheck className="w-3.5 h-3.5 text-emerald-300" />
@@ -155,17 +155,17 @@ export default function Navbar({
               ) : (
                 <button
                   onClick={onOpenLogin}
-                  className="px-4 py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full text-xs sm:text-sm shadow-md transition-all flex items-center gap-1.5 transform hover:scale-102"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full text-xs sm:text-sm shadow-md transition-all flex items-center gap-1.5 transform hover:scale-102"
                 >
                   <LogIn className="w-3.5 h-3.5" />
-                  <span>{lang === 'hi' ? 'लॉगिन' : 'Login'}</span>
+                  <span className="hidden xs:inline">{lang === 'hi' ? 'लॉगिन' : 'Login'}</span>
                 </button>
               )}
 
               {/* Mobile Hamburger Button */}
               <button
                 onClick={() => setMobileDrawerOpen(true)}
-                className="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100"
+                className="md:hidden p-1.5 sm:p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100"
                 title="Open Navigation Menu"
               >
                 <Menu className="w-5 h-5" />

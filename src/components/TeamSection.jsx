@@ -75,7 +75,6 @@ export default function TeamSection({ lang }) {
           <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300">
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">
               <Building2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>GCET Greater Noida • CSE(AIML)</span>
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-amber-400" />

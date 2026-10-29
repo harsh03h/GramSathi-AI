@@ -11,7 +11,6 @@ import HealthcareLegalWidget from './components/HealthcareLegalWidget';
 import PresentationView from './components/PresentationView';
 import TeamSection from './components/TeamSection';
 import VoiceAssistantModal from './components/VoiceAssistantModal';
-import ChatAssistant from './components/ChatAssistant';
 import LoginModal from './components/LoginModal';
 import { presentationData } from './data/presentationData';
 
@@ -293,15 +292,6 @@ export default function App() {
         lang={lang}
         soundEnabled={soundEnabled}
         apiKey={apiKey}
-      />
-
-      {/* Global Floating Chat Bubble Drawer (Active on all pages) */}
-      <ChatAssistant
-        lang={lang}
-        soundEnabled={soundEnabled}
-        apiKey={apiKey}
-        setApiKey={setApiKey}
-        onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
       />
 
     </div>

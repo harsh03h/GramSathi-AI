@@ -259,10 +259,6 @@ export default function App() {
 
           <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
             <p>© 2026 GramSathi AI. Department of AI & ML, GCET Greater Noida.</p>
-            <div className="flex items-center gap-4">
-              <span>{lang === 'hi' ? 'ग्रामीण भारत के लिए एआई एवं एमएल से निर्मित' : 'Made with AI & ML for Rural India'}</span>
-              <span className="text-emerald-500">● MERN + Gemini LLM Architecture</span>
-            </div>
           </div>
         </div>
       </footer>

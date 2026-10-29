@@ -43,15 +43,15 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
   const currentSlide = slides[currentSlideIndex];
 
   const slideShortTitles = [
-    { id: 1, titleEn: 'Title & Vision', titleHi: 'परियोजना परिचय' },
-    { id: 2, titleEn: 'Problem Statement', titleHi: 'समस्या विवरण' },
-    { id: 3, titleEn: 'Literature Survey', titleHi: 'साहित्य सर्वेक्षण' },
-    { id: 4, titleEn: 'Proposed Solution', titleHi: 'प्रस्तावित समाधान' },
-    { id: 5, titleEn: 'System Architecture', titleHi: 'आर्किटेक्चर' },
-    { id: 6, titleEn: 'Technology Stack', titleHi: 'तकनीकी स्टैक' },
-    { id: 7, titleEn: 'Expected Impact', titleHi: 'अपेक्षित प्रभाव' },
-    { id: 8, titleEn: 'Future Roadmap', titleHi: 'भविष्य का रोडमैप' },
-    { id: 9, titleEn: 'Acknowledgement', titleHi: 'आभार एवं धन्यवाद' },
+    { id: 1, titleEn: 'Vision', titleHi: 'परिचय' },
+    { id: 2, titleEn: 'Problem', titleHi: 'समस्या' },
+    { id: 3, titleEn: 'Survey', titleHi: 'सर्वेक्षण' },
+    { id: 4, titleEn: 'Solution', titleHi: 'समाधान' },
+    { id: 5, titleEn: 'Architecture', titleHi: 'संरचना' },
+    { id: 6, titleEn: 'Tech Stack', titleHi: 'स्टैक' },
+    { id: 7, titleEn: 'Impact', titleHi: 'प्रभाव' },
+    { id: 8, titleEn: 'Roadmap', titleHi: 'रोडमैप' },
+    { id: 9, titleEn: 'Credits', titleHi: 'आभार' },
   ];
 
   // Keyboard navigation for slide deck mode
@@ -149,63 +149,87 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
       {viewMode === 'slides' && (
         <div className="space-y-5">
           
-          {/* Slide Stepper & Progress Navigation */}
-          <div className="bg-slate-900 text-white rounded-3xl p-3 sm:p-4 shadow-lg flex flex-wrap items-center justify-between gap-3">
-            
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                {String(currentSlide.id).padStart(2, '0')} / 09
-              </span>
-              <span className="text-xs font-bold text-slate-200 hidden sm:inline">
-                {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
-              </span>
+          {/* Modern Slide Stepper & Progress Navigation */}
+          <div className="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-sm space-y-3">
+            {/* Top Row: Slide Counter, Title & Navigation Controls */}
+            <div className="flex items-center justify-between gap-3">
+              {/* Left: Badge & Slide Heading */}
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="text-xs font-mono font-extrabold px-3 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200/80 shrink-0">
+                  {String(currentSlide.id).padStart(2, '0')} / 09
+                </span>
+                <div className="min-w-0">
+                  <span className="text-xs sm:text-sm font-extrabold text-slate-800 truncate block sm:inline">
+                    {lang === 'hi' ? currentSlide.hindiTitle || currentSlide.title : currentSlide.title}
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-medium hidden sm:inline ml-2">
+                    • {lang === 'hi' ? currentSlide.hindiCategory || currentSlide.category : currentSlide.category}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Prev & Next Buttons */}
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  disabled={currentSlideIndex === 0}
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed shadow-2xs"
+                  title="Previous Slide (← / PageUp)"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">Prev</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  disabled={currentSlideIndex === slides.length - 1}
+                  className="px-4 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer disabled:cursor-not-allowed"
+                  title="Next Slide (→ / Space / PageDown)"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            {/* Slide Quick Jump Buttons */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            {/* Stepper Segments: Exactly 9 columns, responsive, 0 scrollbars, 0 wrapping */}
+            <div className="grid grid-cols-9 gap-1 sm:gap-2 pt-1">
               {slides.map((s, idx) => {
                 const isSelected = currentSlideIndex === idx;
+                const isPassed = currentSlideIndex > idx;
                 return (
                   <button
                     key={s.id}
                     onClick={() => setCurrentSlideIndex(idx)}
-                    title={lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                    title={`${s.id}. ${lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}`}
+                    className={`group relative flex flex-col items-center justify-center py-2 px-1 rounded-2xl transition-all text-center cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-600 text-white shadow-md ring-2 ring-emerald-400 font-black scale-102'
-                        : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                        ? 'bg-emerald-700 text-white shadow-md ring-2 ring-emerald-500/40 font-black'
+                        : isPassed
+                        ? 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100/80 border border-emerald-200/60 font-bold'
+                        : 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200/60 font-semibold'
                     }`}
                   >
-                    <span>{s.id}.</span>
-                    <span className="hidden lg:inline">{lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}</span>
+                    <span className="text-xs font-mono leading-none">
+                      {s.id}
+                    </span>
+                    <span className="text-[10px] tracking-tight mt-1 truncate max-w-full hidden md:block">
+                      {lang === 'hi' ? slideShortTitles[idx].titleHi : slideShortTitles[idx].titleEn}
+                    </span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Prev / Next Controls */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={prevSlide}
-                disabled={currentSlideIndex === 0}
-                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white text-xs font-bold flex items-center gap-1 transition-all"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Prev</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={nextSlide}
-                disabled={currentSlideIndex === slides.length - 1}
-                className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 disabled:hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all"
-              >
-                <span className="hidden sm:inline">Next</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
+            {/* Animated Progress Track */}
+            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+              <div 
+                className="bg-gradient-to-r from-emerald-600 to-teal-500 h-full transition-all duration-300 ease-out rounded-full"
+                style={{ width: `${((currentSlideIndex + 1) / slides.length) * 100}%` }}
+              />
             </div>
-
           </div>
 
           {/* Main Slide Presentation Stage (16:9 widescreen feel) */}
@@ -487,18 +511,42 @@ export default function PresentationView({ lang = 'en', onOpenLiveDemo }) {
             </div>
 
             {/* Bottom Slide Stage Footer */}
-            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 mt-6">
+            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 mt-8">
               <div className="flex items-center gap-2">
-                <span>Department of AI & ML, GCET Greater Noida</span>
+                <span className="font-semibold text-slate-700">Dept of AI & ML, GCET Greater Noida</span>
                 <span>•</span>
-                <span className="text-slate-600 font-medium">Guide: Ms. Ritu</span>
+                <span>Guide: <strong className="text-slate-800 font-bold">Ms. Ritu</strong></span>
               </div>
 
-              <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                <span>Use keyboard</span>
-                <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">←</kbd>
-                <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">→</kbd>
-                <span>to navigate</span>
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400">
+                  <span>Keyboard:</span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">←</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">→</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">Space</kbd>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={prevSlide}
+                    disabled={currentSlideIndex === 0}
+                    className="px-3 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white text-slate-700 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span>Prev</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={nextSlide}
+                    disabled={currentSlideIndex === slides.length - 1}
+                    className="px-3.5 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 disabled:opacity-30 disabled:hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-2xs transition-all cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
 

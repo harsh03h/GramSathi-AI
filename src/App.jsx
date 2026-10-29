@@ -22,10 +22,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState('');
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState({
-    name: 'Ayushmaan Singh',
-    role: 'Student (Greater Noida)'
-  });
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   // Handle service navigation from Home Hero or Services Page
   const handleNavigateService = (serviceId) => {
@@ -131,6 +128,7 @@ export default function App() {
             setLang={setLang}
             loggedInUser={loggedInUser}
             setLoggedInUser={setLoggedInUser}
+            onOpenLogin={() => setIsLoginModalOpen(true)}
             onLogout={() => {
               setLoggedInUser(null);
               setCurrentTab('home');

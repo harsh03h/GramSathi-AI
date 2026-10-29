@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   User, 
   Globe, 
@@ -6,6 +6,7 @@ import {
   Bell, 
   ShieldCheck, 
   LogOut, 
+  LogIn,
   CheckCircle2, 
   Sparkles,
   Save
@@ -16,15 +17,22 @@ export default function ProfileSettingsPage({
   setLang, 
   loggedInUser, 
   setLoggedInUser,
-  onLogout 
+  onLogout,
+  onOpenLogin
 }) {
   const [activeTab, setActiveTab] = useState('profile'); // 'profile', 'language', 'location', 'notification', 'privacy'
-  const [name, setName] = useState(loggedInUser?.name || 'Ayushmaan Singh');
+  const [name, setName] = useState(loggedInUser?.name || '');
   const [selectedLanguage, setSelectedLanguage] = useState(lang === 'hi' ? 'Hindi' : 'English');
   const [stateName, setStateName] = useState('Uttar Pradesh');
   const [district, setDistrict] = useState('Greater Noida');
   const [occupation, setOccupation] = useState('Student');
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    if (loggedInUser?.name) {
+      setName(loggedInUser.name);
+    }
+  }, [loggedInUser]);
 
   const sidebarLinks = [
     { id: 'profile', labelEn: 'Profile', labelHi: 'प्रोफ़ाइल (Profile)', icon: User },
@@ -57,11 +65,15 @@ export default function ProfileSettingsPage({
           {/* User Avatar Card */}
           <div className="p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-2xs flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-black text-lg shadow-xs">
-              {name.charAt(0) || 'A'}
+              {name.trim() ? name.trim().charAt(0).toUpperCase() : <User className="w-5 h-5 text-emerald-100" />}
             </div>
             <div className="truncate">
-              <h4 className="text-sm font-black text-slate-900 truncate">{name}</h4>
-              <p className="text-[11px] text-slate-500 truncate">{occupation}</p>
+              <h4 className="text-sm font-black text-slate-900 truncate">
+                {name.trim() || (lang === 'hi' ? 'अतिथि नागरिक' : 'Guest Citizen')}
+              </h4>
+              <p className="text-[11px] text-slate-500 truncate">
+                {loggedInUser ? loggedInUser.role || occupation : (lang === 'hi' ? 'लॉगिन नहीं किया' : 'Not Logged In')}
+              </p>
             </div>
           </div>
 
@@ -89,14 +101,24 @@ export default function ProfileSettingsPage({
 
         </div>
 
-        {/* Logout Button matching Screen 6 bottom */}
-        <button
-          onClick={onLogout}
-          className="mt-6 w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors border border-transparent hover:border-rose-200"
-        >
-          <LogOut className="w-4 h-4" />
-          <span>{lang === 'hi' ? 'लॉगआउट (Logout)' : 'Logout'}</span>
-        </button>
+        {/* Logout or Login Button */}
+        {loggedInUser ? (
+          <button
+            onClick={onLogout}
+            className="mt-6 w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors border border-transparent hover:border-rose-200"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>{lang === 'hi' ? 'लॉगआउट (Logout)' : 'Logout'}</span>
+          </button>
+        ) : (
+          <button
+            onClick={onOpenLogin}
+            className="mt-6 w-full py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all shadow-xs"
+          >
+            <LogIn className="w-4 h-4" />
+            <span>{lang === 'hi' ? 'लॉगिन करें (Citizen Login)' : 'Citizen Login'}</span>
+          </button>
+        )}
       </div>
 
       {/* Right Form Pane matching Screen 6 */}
@@ -139,7 +161,7 @@ export default function ProfileSettingsPage({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ayushmaan Singh"
+                placeholder={lang === 'hi' ? 'उदा. रामेश्वर यादव / आयुष्मान सिंह' : 'e.g. Rameshwar Yadav / Ayushmaan Singh'}
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-slate-50/50 focus:bg-white"
               />
             </div>

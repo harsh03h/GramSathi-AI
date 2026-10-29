@@ -8,8 +8,8 @@ import {
   CheckCircle2, 
   X, 
   Coins, 
-  Building2,
-  Sparkles,
+  Building2, 
+  Sparkles, 
   ArrowRight
 } from 'lucide-react';
 import { schemesData } from '../data/schemesData';
@@ -120,7 +120,7 @@ export default function SchemeExplorer({ lang, activeModalScheme, setActiveModal
                   {lang === 'hi' ? scheme.hindiCategory : scheme.category}
                 </span>
                 <span className="text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                  {scheme.badge}
+                  {lang === 'hi' ? scheme.hindiBadge || scheme.badge : scheme.badge}
                 </span>
               </div>
 
@@ -140,7 +140,7 @@ export default function SchemeExplorer({ lang, activeModalScheme, setActiveModal
               </p>
 
               <div className="text-[11px] text-slate-500 font-medium">
-                <span>{scheme.ministry}</span>
+                <span>{lang === 'hi' ? scheme.hindiMinistry || scheme.ministry : scheme.ministry}</span>
               </div>
             </div>
 
@@ -248,7 +248,7 @@ export default function SchemeExplorer({ lang, activeModalScheme, setActiveModal
                   <span>{lang === 'hi' ? 'हेल्पलाइन:' : 'Helpline:'} <strong>{activeModalScheme.helpline}</strong></span>
                 </div>
                 <div>
-                  <span>{activeModalScheme.ministry}</span>
+                  <span>{lang === 'hi' ? activeModalScheme.hindiMinistry || activeModalScheme.ministry : activeModalScheme.ministry}</span>
                 </div>
               </div>
 

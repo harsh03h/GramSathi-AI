@@ -6,8 +6,8 @@ import {
   Sparkles, 
   Award, 
   ExternalLink, 
-  Building2,
-  FolderGit2,
+  Building2, 
+  FolderGit2, 
   Cpu
 } from 'lucide-react';
 import { presentationData } from '../data/presentationData';
@@ -25,19 +25,21 @@ export default function TeamSection({ lang }) {
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
-            {presentationData.department}
+            {lang === 'hi' ? presentationData.hindiDepartment : presentationData.department}
           </h2>
 
           <p className="text-sm sm:text-base text-slate-300">
-            Mini Project: <strong className="text-emerald-400">GramSathi AI</strong> — An Intelligent Rural Assistance Platform for Inclusive and Sustainable Development
+            {lang === 'hi' ? 'मिनी प्रोजेक्ट:' : 'Mini Project:'}{' '}
+            <strong className="text-emerald-400">GramSathi AI</strong> —{' '}
+            {lang === 'hi' ? presentationData.hindiSubtitle : presentationData.subtitle}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold">
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10">
-              Session: 2026-2027
+              {lang === 'hi' ? 'सत्र: 2026-2027' : 'Session: 2026-2027'}
             </span>
             <span className="bg-white/10 px-3 py-1 rounded-lg border border-white/10">
-              Branch: B.Tech CSE (Artificial Intelligence & Machine Learning)
+              {lang === 'hi' ? 'शाखा: बी.टेक सीएसई (आर्टिफिशियल इंटेलिजेंस एवं मशीन लर्निंग)' : 'Branch: B.Tech CSE (Artificial Intelligence & Machine Learning)'}
             </span>
           </div>
         </div>
@@ -52,26 +54,34 @@ export default function TeamSection({ lang }) {
         <div className="flex-1 text-center md:text-left space-y-1.5">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
             <UserCheck className="w-3.5 h-3.5" />
-            <span>PROJECT GUIDE & MENTOR</span>
+            <span>{lang === 'hi' ? 'परियोजना मार्गदर्शक एवं मेंटर' : 'PROJECT GUIDE & MENTOR'}</span>
           </div>
           <h3 className="text-2xl font-black text-slate-900">
-            {presentationData.guide.name}
+            {lang === 'hi' ? presentationData.guide.hindiName : presentationData.guide.name}
           </h3>
           <p className="text-sm font-semibold text-emerald-800">
-            {presentationData.guide.designation}
+            {lang === 'hi' ? presentationData.guide.hindiDesignation : presentationData.guide.designation}
           </p>
           <p className="text-xs text-slate-600">
-            {presentationData.guide.dept}
+            {lang === 'hi' ? presentationData.guide.hindiDept : presentationData.guide.dept}
           </p>
           <p className="text-xs text-slate-500 pt-1 italic">
-            "Sincere gratitude for continuous mentorship, technical insight into rural AI modeling, and strategic project evaluation."
+            {lang === 'hi' 
+              ? '"ग्रामीण एआई मॉडलिंग, तकनीकी मार्गदर्शन और रणनीतिक परियोजना मूल्यांकन के लिए निरंतर मार्गदर्शन हेतु हार्दिक आभार।"' 
+              : '"Sincere gratitude for continuous mentorship, technical insight into rural AI modeling, and strategic project evaluation."'}
           </p>
         </div>
 
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center shrink-0">
-          <span className="text-xs text-slate-500 font-semibold block mb-0.5">Evaluation Phase</span>
-          <span className="text-sm font-bold text-slate-900">Mini Project Viva</span>
-          <span className="text-[11px] text-emerald-700 font-semibold block mt-1">Verified & Approved</span>
+          <span className="text-xs text-slate-500 font-semibold block mb-0.5">
+            {lang === 'hi' ? 'मूल्यांकन चरण' : 'Evaluation Phase'}
+          </span>
+          <span className="text-sm font-bold text-slate-900">
+            {lang === 'hi' ? 'मिनी प्रोजेक्ट वाइवा' : 'Mini Project Viva'}
+          </span>
+          <span className="text-[11px] text-emerald-700 font-semibold block mt-1">
+            {lang === 'hi' ? 'सत्यापित एवं स्वीकृत' : 'Verified & Approved'}
+          </span>
         </div>
       </div>
 
@@ -80,7 +90,7 @@ export default function TeamSection({ lang }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 mb-2">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>STUDENT DEVELOPERS • CSE(AIML)</span>
+            <span>{lang === 'hi' ? 'छात्र डेवलपर टीम • CSE(AIML)' : 'STUDENT DEVELOPERS • CSE(AIML)'}</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-slate-900">
             {lang === 'hi' ? 'परियोजना निर्माता छात्र' : 'Project Team Members'}
@@ -99,15 +109,15 @@ export default function TeamSection({ lang }) {
                 </div>
 
                 <h4 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
-                  {member.name}
+                  {lang === 'hi' ? member.hindiName || member.name : member.name}
                 </h4>
 
                 <div className="my-1 text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md inline-block border border-amber-200">
-                  Roll: {member.rollNo}
+                  {lang === 'hi' ? 'रोल नं:' : 'Roll:'} {member.rollNo}
                 </div>
 
                 <p className="text-xs font-semibold text-slate-700 mt-2">
-                  {member.role}
+                  {lang === 'hi' ? member.hindiRole || member.role : member.role}
                 </p>
 
                 <p className="text-[11px] text-slate-500 mt-0.5">
@@ -129,28 +139,42 @@ export default function TeamSection({ lang }) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex items-center gap-2">
             <Cpu className="w-5 h-5 text-emerald-400" />
-            <h4 className="text-base font-bold text-white">Technical Highlights for Viva Defense</h4>
+            <h4 className="text-base font-bold text-white">
+              {lang === 'hi' ? 'वाइवा प्रस्तुति हेतु मुख्य तकनीकी विशेषताएं' : 'Technical Highlights for Viva Defense'}
+            </h4>
           </div>
           <span className="text-xs text-slate-400 font-mono">React 18 • Vite 6 • Tailwind CSS • Web Speech API</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div className="p-3.5 bg-white/5 rounded-xl border border-white/10">
-            <strong className="text-emerald-400 block mb-1">Voice First Accessibility:</strong>
+            <strong className="text-emerald-400 block mb-1">
+              {lang === 'hi' ? 'आवाज़-आधारित समावेशन:' : 'Voice First Accessibility:'}
+            </strong>
             <p className="text-slate-300">
-              Integrates Web Speech API STT and TTS so illiterate rural users can speak and listen in conversational Hindi and English without typing.
+              {lang === 'hi' 
+                ? 'वेब स्पीच एपीआई (एसटीटी और टीटीएस) का उपयोग, जिससे ग्रामीण नागरिक बिना टाइप किए सीधे हिंदी में बोलकर और सुनकर बातचीत कर सकते हैं।' 
+                : 'Integrates Web Speech API STT and TTS so illiterate rural users can speak and listen in conversational Hindi and English without typing.'}
             </p>
           </div>
           <div className="p-3.5 bg-white/5 rounded-xl border border-white/10">
-            <strong className="text-amber-400 block mb-1">Smart Eligibility Engine:</strong>
+            <strong className="text-amber-400 block mb-1">
+              {lang === 'hi' ? 'स्मार्ट पात्रता इंजन:' : 'Smart Eligibility Engine:'}
+            </strong>
             <p className="text-slate-300">
-              Multi-variable algorithmic matcher mapping land size, annual income, caste, and age against central/state welfare schemes.
+              {lang === 'hi' 
+                ? 'भूमि, वार्षिक आय, वर्ग और पारिवारिक स्थिति के आधार पर सरकारी कल्याणकारी योजनाओं का स्वतः व सटीक मिलान।' 
+                : 'Multi-variable algorithmic matcher mapping land size, annual income, caste, and age against central/state welfare schemes.'}
             </p>
           </div>
           <div className="p-3.5 bg-white/5 rounded-xl border border-white/10">
-            <strong className="text-sky-400 block mb-1">Mandi & Healthcare Triage:</strong>
+            <strong className="text-sky-400 block mb-1">
+              {lang === 'hi' ? 'मंडी एवं स्वास्थ्य सेवाएं:' : 'Mandi & Healthcare Triage:'}
+            </strong>
             <p className="text-slate-300">
-              APMC market price updates, Jan Aushadhi generic medicines lookup (saving 70-80%), and UP Bhulekh land records guidance.
+              {lang === 'hi' 
+                ? 'लाइव एपीएमसी मंडी भाव, जन औषधि सस्ती दवाएं (70-80% बचत), आपातकालीन नंबर और यूपी भूलेख ऑनलाइन मार्गदर्शन।' 
+                : 'APMC market price updates, Jan Aushadhi generic medicines lookup (saving 70-80%), and UP Bhulekh land records guidance.'}
             </p>
           </div>
         </div>

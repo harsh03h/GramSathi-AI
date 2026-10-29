@@ -372,7 +372,7 @@ export default function EligibilityChecker({ lang, onSelectScheme }) {
                       {lang === 'hi' ? scheme.hindiCategory : scheme.category}
                     </span>
                     <span className="text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                      {scheme.badge}
+                      {lang === 'hi' ? scheme.hindiBadge || scheme.badge : scheme.badge}
                     </span>
                   </div>
 

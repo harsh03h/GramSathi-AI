@@ -122,15 +122,15 @@ export default function Navbar({
             </button>
           </nav>
 
-          {/* Right Controls: Language Switch, Sound, View Mode */}
-          <div className="flex items-center gap-2">
+          {/* Right Controls: Segmented Language Switch, Sound, View Mode */}
+          <div className="flex items-center gap-2.5">
             
             {/* View Mode Toggle (Phone frame vs Desktop) when in Live App */}
             {currentTab === 'live-app' && (
               <div className="hidden sm:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-medium">
                 <button
                   onClick={() => setDeviceView('phone')}
-                  title="Mobile App View"
+                  title={lang === 'hi' ? "मोबाइल ऍप दृश्य" : "Mobile App View"}
                   className={`px-2.5 py-1 rounded-md flex items-center gap-1 transition-all ${
                     deviceView === 'phone'
                       ? 'bg-white text-emerald-700 shadow-sm font-semibold'
@@ -138,11 +138,11 @@ export default function Navbar({
                   }`}
                 >
                   <Smartphone className="w-3.5 h-3.5" />
-                  <span>Mobile</span>
+                  <span>{lang === 'hi' ? 'मोबाइल' : 'Mobile'}</span>
                 </button>
                 <button
                   onClick={() => setDeviceView('desktop')}
-                  title="Full Portal View"
+                  title={lang === 'hi' ? "डेस्कटॉप पोर्टल दृश्य" : "Full Portal View"}
                   className={`px-2.5 py-1 rounded-md flex items-center gap-1 transition-all ${
                     deviceView === 'desktop'
                       ? 'bg-white text-emerald-700 shadow-sm font-semibold'
@@ -150,7 +150,7 @@ export default function Navbar({
                   }`}
                 >
                   <Monitor className="w-3.5 h-3.5" />
-                  <span>Portal</span>
+                  <span>{lang === 'hi' ? 'पोर्टल' : 'Portal'}</span>
                 </button>
               </div>
             )}
@@ -158,7 +158,7 @@ export default function Navbar({
             {/* Audio Toggle */}
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              title={soundEnabled ? "Audio Speech Enabled" : "Audio Speech Muted"}
+              title={soundEnabled ? (lang === 'hi' ? "आवाज़ वाचन सक्रिय" : "Audio Speech Enabled") : (lang === 'hi' ? "आवाज़ वाचन म्यूट" : "Audio Speech Muted")}
               className={`p-2 rounded-lg border transition-all ${
                 soundEnabled 
                   ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
@@ -168,14 +168,34 @@ export default function Navbar({
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </button>
 
-            {/* Language Switcher Button */}
-            <button
-              onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-semibold text-xs sm:text-sm transition-all shadow-sm"
-            >
-              <Languages className="w-4 h-4 text-amber-700" />
-              <span>{lang === 'hi' ? 'English' : 'हिंदी'}</span>
-            </button>
+            {/* Crystal-Clear Segmented Language Switcher */}
+            <div className="flex items-center bg-amber-50/90 p-1 rounded-xl border border-amber-300 shadow-xs text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => setLang('hi')}
+                title="हिंदी भाषा सक्रिय करें"
+                className={`px-2.5 sm:px-3 py-1 rounded-lg flex items-center gap-1 transition-all ${
+                  lang === 'hi'
+                    ? 'bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-500 font-black'
+                    : 'text-amber-900 hover:bg-amber-100/80 font-semibold'
+                }`}
+              >
+                <span>हिंदी</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang('en')}
+                title="Switch to English"
+                className={`px-2.5 sm:px-3 py-1 rounded-lg flex items-center gap-1 transition-all ${
+                  lang === 'en'
+                    ? 'bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-500 font-black'
+                    : 'text-amber-900 hover:bg-amber-100/80 font-semibold'
+                }`}
+              >
+                <span>English</span>
+              </button>
+            </div>
+
           </div>
 
         </div>

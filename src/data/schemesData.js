@@ -8,8 +8,9 @@ export const schemesData = [
     benefit: "₹6,000 / year in 3 direct bank installments",
     hindiBenefit: "₹6,000 प्रति वर्ष (₹2,000 की 3 समान किस्तों में सीधे बैंक खाते में)",
     ministry: "Ministry of Agriculture & Farmers Welfare",
+    hindiMinistry: "कृषि एवं किसान कल्याण मंत्रालय",
     criteria: {
-      maxLandAcres: 50, // All landholding farmer families
+      maxLandAcres: 50,
       maxIncome: 1000000,
       mustBeFarmer: true,
       excludesTaxPayers: true
@@ -24,7 +25,8 @@ export const schemesData = [
     ],
     officialLink: "https://pmkisan.gov.in",
     helpline: "155261 / 011-24300606",
-    badge: "Most Popular"
+    badge: "Most Popular",
+    hindiBadge: "सर्वाधिक लोकप्रिय"
   },
   {
     id: "ayushman-bharat",
@@ -35,10 +37,11 @@ export const schemesData = [
     benefit: "Cashless health cover up to ₹5,00,000 per family per year",
     hindiBenefit: "प्रति वर्ष प्रति परिवार ₹5,00,000 तक का निःशुल्क कैशलेस इलाज",
     ministry: "National Health Authority (NHA)",
+    hindiMinistry: "राष्ट्रीय स्वास्थ्य प्राधिकरण (NHA)",
     criteria: {
       maxIncome: 250000,
       isSECCBeneficiary: true,
-      elderlyIncluded: true // Covers seniors 70+ universally
+      elderlyIncluded: true
     },
     description: "The world's largest health assurance scheme providing secondary and tertiary hospitalization cover across 29,000+ empaneled hospitals.",
     hindiDescription: "देश के 29,000 से अधिक सूचीबद्ध सरकारी और निजी अस्पतालों में गंभीर बीमारियों के इलाज के लिए ₹5 लाख का मुफ्त स्वास्थ्य कवर।",
@@ -49,7 +52,8 @@ export const schemesData = [
     ],
     officialLink: "https://beneficiary.nha.gov.in",
     helpline: "14555",
-    badge: "Life Saving"
+    badge: "Life Saving",
+    hindiBadge: "जीवन रक्षक"
   },
   {
     id: "pm-awas-gramin",
@@ -60,6 +64,7 @@ export const schemesData = [
     benefit: "₹1,20,000 (Plains) to ₹1,30,000 (Hilly areas) for building pakka house",
     hindiBenefit: "पक्का मकान बनाने के लिए ₹1,20,000 (मैदानी क्षेत्र) / ₹1,30,000 की वित्तीय सहायता",
     ministry: "Ministry of Rural Development",
+    hindiMinistry: "ग्रामीण विकास मंत्रालय",
     criteria: {
       mustBeHouselessOrKutcha: true,
       maxIncome: 180000
@@ -74,7 +79,8 @@ export const schemesData = [
     ],
     officialLink: "https://pmayg.nic.in",
     helpline: "1800-11-6446",
-    badge: "High Subsidy"
+    badge: "High Subsidy",
+    hindiBadge: "उच्च अनुदान"
   },
   {
     id: "pm-fasal-bima",
@@ -85,6 +91,7 @@ export const schemesData = [
     benefit: "Full financial compensation for crop damage due to drought, flood, pests",
     hindiBenefit: "बाढ़, सूखा, बेमौसम बारिश व कीटों से फसल खराब होने पर शत-प्रतिशत मुआवजा",
     ministry: "Ministry of Agriculture & Farmers Welfare",
+    hindiMinistry: "कृषि एवं किसान कल्याण मंत्रालय",
     criteria: {
       mustBeFarmer: true
     },
@@ -97,7 +104,8 @@ export const schemesData = [
     ],
     officialLink: "https://pmfby.gov.in",
     helpline: "14447",
-    badge: "Risk Protection"
+    badge: "Risk Protection",
+    hindiBadge: "फसल जोखिम सुरक्षा"
   },
   {
     id: "kisan-credit-card",
@@ -108,6 +116,7 @@ export const schemesData = [
     benefit: "Low-interest loans up to ₹3,00,000 at effective 4% interest rate",
     hindiBenefit: "4% रियायती ब्याज दर पर ₹3 लाख तक का आसान कृषि ऋण",
     ministry: "Ministry of Finance & Agriculture",
+    hindiMinistry: "वित्त एवं कृषि मंत्रालय",
     criteria: {
       mustBeFarmer: true
     },
@@ -121,7 +130,8 @@ export const schemesData = [
     ],
     officialLink: "https://sbi.co.in/web/agri-rural/agriculture-banking/crop-loan/kisan-credit-card",
     helpline: "1800-180-1551",
-    badge: "Low Interest"
+    badge: "Low Interest",
+    hindiBadge: "रियायती ब्याज लोन"
   },
   {
     id: "sukanya-samriddhi",
@@ -132,6 +142,7 @@ export const schemesData = [
     benefit: "8.2% high annual compound interest + tax exemption for girl child",
     hindiBenefit: "बेटियों की उच्च शिक्षा व विवाह हेतु 8.2% चक्रवृद्धि ब्याज दर व कर छूट",
     ministry: "Ministry of Finance",
+    hindiMinistry: "वित्त मंत्रालय",
     criteria: {
       hasGirlChildUnder10: true
     },
@@ -144,7 +155,8 @@ export const schemesData = [
     ],
     officialLink: "https://www.indiapost.gov.in",
     helpline: "1800-266-6868",
-    badge: "Safe Savings"
+    badge: "Safe Savings",
+    hindiBadge: "सुरक्षित बचत योजना"
   },
   {
     id: "lakhpati-didi",
@@ -155,6 +167,7 @@ export const schemesData = [
     benefit: "Skill training, micro-enterprise loans, and target income of ₹1,00,000+/year",
     hindiBenefit: "स्वयं सहायता समूह की महिलाओं को मुफ्त हुनर प्रशिक्षण व ₹1 लाख+ सालाना आय का लक्ष्य",
     ministry: "Ministry of Rural Development (NRLM)",
+    hindiMinistry: "ग्रामीण विकास मंत्रालय (एनआरएलएम)",
     criteria: {
       isWomanInSHG: true
     },
@@ -167,7 +180,8 @@ export const schemesData = [
     ],
     officialLink: "https://aajeevika.gov.in",
     helpline: "011-23381611",
-    badge: "Women Empowerment"
+    badge: "Women Empowerment",
+    hindiBadge: "महिला सशक्तिकरण"
   },
   {
     id: "pm-ujjwala",
@@ -178,6 +192,7 @@ export const schemesData = [
     benefit: "Free LPG gas cylinder, regulator, pipe, stove + ₹300 per refill subsidy",
     hindiBenefit: "मुफ्त एलपीजी गैस कनेक्शन, चूल्हा, भरा हुआ सिलेंडर व ₹300 प्रति रिफिल सब्सिडी",
     ministry: "Ministry of Petroleum & Natural Gas",
+    hindiMinistry: "पेट्रोलियम एवं प्राकृतिक गैस मंत्रालय",
     criteria: {
       mustBeWomanAdult: true,
       maxIncome: 200000
@@ -191,7 +206,8 @@ export const schemesData = [
     ],
     officialLink: "https://pmuy.gov.in",
     helpline: "1800-266-6696",
-    badge: "Free Connection"
+    badge: "Free Connection",
+    hindiBadge: "मुफ्त गैस कनेक्शन"
   },
   {
     id: "mgnrega",
@@ -202,6 +218,7 @@ export const schemesData = [
     benefit: "Guaranteed 100 days of wage employment in public manual work per household",
     hindiBenefit: "प्रत्येक ग्रामीण परिवार को प्रति वर्ष 100 दिन के अकुशल रोज़गार की कानूनी गारंटी",
     ministry: "Ministry of Rural Development",
+    hindiMinistry: "ग्रामीण विकास मंत्रालय",
     criteria: {
       isRuralAdult: true,
       willingToManualLabor: true
@@ -215,7 +232,8 @@ export const schemesData = [
     ],
     officialLink: "https://nrega.nic.in",
     helpline: "1800-345-6527",
-    badge: "Legal Right"
+    badge: "Legal Right",
+    hindiBadge: "कानूनी अधिकार"
   },
   {
     id: "pm-surya-ghar",
@@ -223,9 +241,10 @@ export const schemesData = [
     hindiName: "पीएम सूर्य घर मुफ्त बिजली योजना",
     category: "Energy",
     hindiCategory: "ऊर्जा व विकास",
-    benefit: "Up to ₹78,000 direct subsidy on rooftop solar system + up to 300 units free power",
+    benefit: "Up to ₹78,00,00 direct subsidy on rooftop solar system + up to 300 units free power",
     hindiBenefit: "छत पर सोलर पैनल लगवाने पर ₹78,000 तक की सीधी सब्सिडी व 300 यूनिट मुफ्त बिजली",
     ministry: "Ministry of New and Renewable Energy",
+    hindiMinistry: "नवीन एवं नवीकरणीय ऊर्जा मंत्रालय",
     criteria: {
       hasElectricityConnection: true,
       hasRoofSpace: true
@@ -239,6 +258,7 @@ export const schemesData = [
     ],
     officialLink: "https://pmsuryaghar.gov.in",
     helpline: "15555",
-    badge: "Save Money"
+    badge: "Save Money",
+    hindiBadge: "बिजली बिल बचत"
   }
 ];

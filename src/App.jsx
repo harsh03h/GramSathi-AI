@@ -63,6 +63,14 @@ export default function App() {
           <div className="space-y-10">
             <HomeHero
               lang={lang}
+              onNavigateAsk={() => {
+                setCurrentTab('ask');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onNavigateServices={() => {
+                setCurrentTab('services');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
               onSelectService={handleNavigateService}
               activeService="schemes"

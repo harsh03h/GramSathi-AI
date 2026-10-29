@@ -15,6 +15,8 @@ import {
 
 export default function HomeHero({ 
   lang, 
+  onNavigateAsk,
+  onNavigateServices,
   onOpenVoiceModal, 
   onSelectService, 
   activeService 
@@ -124,16 +126,18 @@ export default function HomeHero({
             {/* Two Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={onOpenVoiceModal}
-                className="px-6 py-3.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full shadow-lg shadow-emerald-900/20 flex items-center gap-2 text-sm sm:text-base transition-all transform hover:-translate-y-0.5"
+                type="button"
+                onClick={onNavigateAsk}
+                className="px-6 py-3.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-full shadow-lg shadow-emerald-900/20 flex items-center gap-2 text-sm sm:text-base transition-all transform hover:-translate-y-0.5 cursor-pointer active:scale-95"
               >
                 <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-300" />
                 <span>{lang === 'hi' ? 'ग्रामसाथी से पूछें' : 'Ask GramSathi'}</span>
               </button>
 
               <button
-                onClick={handleScrollToServices}
-                className="px-6 py-3.5 bg-white hover:bg-emerald-50 text-emerald-900 font-bold rounded-full border-2 border-emerald-800 text-sm sm:text-base transition-all transform hover:-translate-y-0.5"
+                type="button"
+                onClick={onNavigateServices || handleScrollToServices}
+                className="px-6 py-3.5 bg-white hover:bg-emerald-50 text-emerald-900 font-bold rounded-full border-2 border-emerald-800 text-sm sm:text-base transition-all transform hover:-translate-y-0.5 cursor-pointer active:scale-95"
               >
                 <span>{lang === 'hi' ? 'सेवाएं देखें' : 'Explore Services'}</span>
               </button>

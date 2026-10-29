@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HomeHero from './components/HomeHero';
-import SchemeExplorer from './components/SchemeExplorer';
-import EligibilityChecker from './components/EligibilityChecker';
+import ServicesPage from './components/ServicesPage';
+import ChatAssistantPage from './components/ChatAssistantPage';
+import SchemeGuidancePage from './components/SchemeGuidancePage';
+import LocationServicesPage from './components/LocationServicesPage';
+import ProfileSettingsPage from './components/ProfileSettingsPage';
 import MandiWeatherWidget from './components/MandiWeatherWidget';
 import HealthcareLegalWidget from './components/HealthcareLegalWidget';
 import PresentationView from './components/PresentationView';
@@ -10,44 +13,38 @@ import TeamSection from './components/TeamSection';
 import VoiceAssistantModal from './components/VoiceAssistantModal';
 import ChatAssistant from './components/ChatAssistant';
 import LoginModal from './components/LoginModal';
-import { 
-  Sprout, 
-  Sparkles, 
-  Mic, 
-  HelpCircle, 
-  Heart, 
-  ShieldCheck, 
-  GraduationCap,
-  ExternalLink,
-  ChevronRight,
-  ArrowRight
-} from 'lucide-react';
 import { presentationData } from './data/presentationData';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('home'); // 'home', 'services', 'about', 'contact'
-  const [activeService, setActiveService] = useState('schemes'); // 'schemes', 'health', 'education', 'agriculture', 'employment', 'legal', 'emergency'
-  const [lang, setLang] = useState('en'); // default matching reference image or toggleable
+  const [currentTab, setCurrentTab] = useState('home'); // 'home', 'services', 'ask', 'schemes', 'nearest', 'profile', 'about', 'contact'
+  const [lang, setLang] = useState('en'); // 'en' or 'hi'
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [apiKey, setApiKey] = useState('');
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [activeModalScheme, setActiveModalScheme] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState({
+    name: 'Ayushmaan Singh',
+    role: 'Student (Greater Noida)'
+  });
 
-  const handleSelectService = (serviceId) => {
-    setActiveService(serviceId);
-    // Smooth scroll down to active service interactive section
-    const target = document.getElementById('active-service-section');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+  // Handle service navigation from Home Hero or Services Page
+  const handleNavigateService = (serviceId) => {
+    if (serviceId === 'schemes' || serviceId === 'employment') {
+      setCurrentTab('schemes');
+    } else if (serviceId === 'health' || serviceId === 'emergency') {
+      setCurrentTab('nearest');
+    } else if (serviceId === 'agriculture') {
+      setCurrentTab('services-agri');
+    } else if (serviceId === 'education' || serviceId === 'legal') {
+      setCurrentTab('services-health-legal');
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
+    <div className="min-h-screen bg-slate-50/70 flex flex-col font-sans text-slate-800 selection:bg-emerald-600 selection:text-white">
       
-      {/* Navigation Bar matching reference layout */}
+      {/* Top Header & Navigation Bar matching Screen 1, 2, 3, 4, 5, 6 & Mobile Drawer */}
       <Navbar
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
@@ -58,106 +55,116 @@ export default function App() {
         onOpenLogin={() => setIsLoginModalOpen(true)}
         onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
         loggedInUser={loggedInUser}
+        onLogout={() => setLoggedInUser(null)}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+      {/* Main Dynamic Viewport */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
         
-        {/* VIEW 1: HOME PAGE (Matches Reference Screenshot 1:1) */}
+        {/* SCREEN 1: HOME PAGE (Desktop & Mobile) */}
         {currentTab === 'home' && (
           <div className="space-y-10">
-            {/* The Reference Hero & 7 Pastel Service Cards */}
             <HomeHero
               lang={lang}
               onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
-              onSelectService={handleSelectService}
-              activeService={activeService}
+              onSelectService={handleNavigateService}
+              activeService="schemes"
             />
 
-            {/* Active Service Deep Dive Section */}
-            <div id="active-service-section" className="pt-2 space-y-6">
-              
-              {/* Service Header Indicator */}
+            {/* Quick Interactive Preview of Popular Schemes directly on Home */}
+            <div className="pt-4 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-emerald-600 animate-pulse"></span>
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900">
-                    {activeService === 'schemes' && (lang === 'hi' ? '🏛️ सरकारी योजनाएं व पात्रता कैलकुलेटर' : '🏛️ Government Schemes & Eligibility Engine')}
-                    {activeService === 'health' && (lang === 'hi' ? '🏥 स्वास्थ्य सहायता एवं जन औषधि केंद्र' : '🏥 Healthcare Assistance & Jan Aushadhi')}
-                    {activeService === 'education' && (lang === 'hi' ? '🎓 शिक्षा, छात्रवृत्ति व कौशल विकास' : '🎓 Education Support & Scholarships')}
-                    {activeService === 'agriculture' && (lang === 'hi' ? '🌾 कृषि मार्गदर्शन, मौसम व मंडी भाव' : '🌾 Agriculture Guidance & Mandi Prices')}
-                    {activeService === 'employment' && (lang === 'hi' ? '💼 ग्रामीण रोज़गार एवं मनरेगा (MGNREGA)' : '💼 Rural Employment & MGNREGA')}
-                    {activeService === 'legal' && (lang === 'hi' ? '⚖️ कानूनी सलाह एवं ऑनलाइन भूलेख' : '⚖️ Legal Guidance & UP Bhulekh')}
-                    {activeService === 'emergency' && (lang === 'hi' ? '🚨 24x7 आपातकालीन हेल्पलाइन सेवाएं' : '🚨 24x7 Emergency Helplines')}
+                <div>
+                  <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                    {lang === 'hi' ? 'लोकप्रिय सरकारी योजनाएं' : 'Featured Government Schemes'}
                   </h3>
+                  <p className="text-xs text-slate-500">
+                    {lang === 'hi' ? 'ग्रामीण परिवारों के लिए प्रत्यक्ष लाभ व सब्सिडी' : 'Direct benefit welfare programs with verified checklists'}
+                  </p>
                 </div>
-                <span className="text-xs font-bold text-slate-500">
-                  {lang === 'hi' ? 'इंटरएक्टिव मॉड्यूल' : 'Interactive Module'}
-                </span>
+                <button
+                  onClick={() => setCurrentTab('schemes')}
+                  className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
+                >
+                  <span>{lang === 'hi' ? 'सभी योजनाएं देखें' : 'View All Schemes'} →</span>
+                </button>
               </div>
 
-              {/* Dynamic Content per Active Service */}
-              {activeService === 'schemes' && (
-                <div className="space-y-8">
-                  <EligibilityChecker
-                    lang={lang}
-                    onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
-                  />
-                  <SchemeExplorer
-                    lang={lang}
-                    activeModalScheme={activeModalScheme}
-                    setActiveModalScheme={setActiveModalScheme}
-                    onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  />
-                </div>
-              )}
-
-              {activeService === 'agriculture' && (
-                <MandiWeatherWidget lang={lang} />
-              )}
-
-              {(activeService === 'health' || activeService === 'education' || activeService === 'legal' || activeService === 'emergency') && (
-                <HealthcareLegalWidget lang={lang} />
-              )}
-
-              {activeService === 'employment' && (
-                <div className="space-y-8">
-                  <EligibilityChecker
-                    lang={lang}
-                    onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
-                  />
-                  <SchemeExplorer
-                    lang={lang}
-                    activeModalScheme={activeModalScheme}
-                    setActiveModalScheme={setActiveModalScheme}
-                    onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  />
-                </div>
-              )}
-
+              <SchemeGuidancePage lang={lang} />
             </div>
           </div>
         )}
 
-        {/* VIEW 2: SERVICES DIRECTORY */}
+        {/* SCREEN 2: SERVICES PAGE (Desktop & Mobile) */}
         {currentTab === 'services' && (
-          <div className="space-y-8">
-            <EligibilityChecker
-              lang={lang}
-              onSelectScheme={(scheme) => setActiveModalScheme(scheme)}
-            />
-            <SchemeExplorer
-              lang={lang}
-              activeModalScheme={activeModalScheme}
-              setActiveModalScheme={setActiveModalScheme}
-              onOpenEligibility={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            />
+          <ServicesPage
+            lang={lang}
+            onNavigateService={handleNavigateService}
+            onOpenEmergency={() => setCurrentTab('nearest')}
+          />
+        )}
+
+        {/* SCREEN 3: AI CHAT ASSISTANT ("Ask GramSathi") */}
+        {currentTab === 'ask' && (
+          <ChatAssistantPage
+            lang={lang}
+            soundEnabled={soundEnabled}
+            apiKey={apiKey}
+            onNavigateSchemes={() => setCurrentTab('schemes')}
+          />
+        )}
+
+        {/* SCREEN 4: SCHEME GUIDANCE PAGE & DETAILS MODAL */}
+        {currentTab === 'schemes' && (
+          <SchemeGuidancePage lang={lang} />
+        )}
+
+        {/* SCREEN 5: LOCATION BASED SERVICES ("Nearest Services" & Map) */}
+        {currentTab === 'nearest' && (
+          <LocationServicesPage lang={lang} />
+        )}
+
+        {/* SCREEN 6: USER PROFILE & SETTINGS ("My Profile") */}
+        {currentTab === 'profile' && (
+          <ProfileSettingsPage
+            lang={lang}
+            setLang={setLang}
+            loggedInUser={loggedInUser}
+            setLoggedInUser={setLoggedInUser}
+            onLogout={() => {
+              setLoggedInUser(null);
+              setCurrentTab('home');
+            }}
+          />
+        )}
+
+        {/* AGRICULTURE & MANDI INTEGRATED SERVICE VIEW */}
+        {currentTab === 'services-agri' && (
+          <div className="space-y-6">
+            <button
+              onClick={() => setCurrentTab('services')}
+              className="text-xs font-bold text-emerald-800 hover:underline flex items-center gap-1"
+            >
+              ← {lang === 'hi' ? 'वापस सेवाओं की सूची पर जाएं' : 'Back to All Services'}
+            </button>
             <MandiWeatherWidget lang={lang} />
+          </div>
+        )}
+
+        {/* HEALTHCARE & LEGAL SUB-SERVICE VIEW */}
+        {currentTab === 'services-health-legal' && (
+          <div className="space-y-6">
+            <button
+              onClick={() => setCurrentTab('services')}
+              className="text-xs font-bold text-emerald-800 hover:underline flex items-center gap-1"
+            >
+              ← {lang === 'hi' ? 'वापस सेवाओं की सूची पर जाएं' : 'Back to All Services'}
+            </button>
             <HealthcareLegalWidget lang={lang} />
           </div>
         )}
 
-        {/* VIEW 3: ABOUT (Presentation Slides from PDF) */}
+        {/* ABOUT VIEW (College Viva Presentation Deck from PDF) */}
         {currentTab === 'about' && (
           <PresentationView
             lang={lang}
@@ -165,14 +172,14 @@ export default function App() {
           />
         )}
 
-        {/* VIEW 4: CONTACT (Team & Guide Ms. Ritu) */}
+        {/* CONTACT VIEW (Team & Guide Ms. Ritu, GCET Greater Noida AIML Dept) */}
         {currentTab === 'contact' && (
           <TeamSection lang={lang} />
         )}
 
       </main>
 
-      {/* Footer matching modern clean layout */}
+      {/* Footer matching modern design */}
       <footer className="bg-slate-900 text-white border-t border-slate-800 mt-16 pt-12 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -187,12 +194,12 @@ export default function App() {
                 />
                 <span className="text-xl font-bold tracking-tight">GramSathi AI</span>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-400 leading-relaxed font-medium">
                 {lang === 'hi' 
                   ? 'समावेशी और सतत विकास के लिए एक बुद्धिमान ग्रामीण सहायता मंच।' 
                   : 'An Intelligent Rural Assistance Platform for Inclusive and Sustainable Development.'}
               </p>
-              <p className="text-xs text-emerald-400 font-hindi">
+              <p className="text-xs text-emerald-400 font-bold">
                 "Connecting Rural India to Opportunities through AI"
               </p>
             </div>
@@ -262,15 +269,18 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Login Modal */}
+      {/* Citizen Login Modal */}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         lang={lang}
-        onLoginSuccess={(user) => setLoggedInUser(user)}
+        onLoginSuccess={(user) => {
+          setLoggedInUser(user);
+          setIsLoginModalOpen(false);
+        }}
       />
 
-      {/* Voice Assistant Modal */}
+      {/* Global Voice Assistant Modal */}
       <VoiceAssistantModal
         isOpen={isVoiceModalOpen}
         onClose={() => setIsVoiceModalOpen(false)}
@@ -279,7 +289,7 @@ export default function App() {
         apiKey={apiKey}
       />
 
-      {/* Floating Chat Assistant Drawer */}
+      {/* Global Floating Chat Bubble Drawer (Active on all pages) */}
       <ChatAssistant
         lang={lang}
         soundEnabled={soundEnabled}

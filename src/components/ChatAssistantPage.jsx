@@ -178,46 +178,40 @@ export default function ChatAssistantPage({
     setIsTyping(true);
 
     try {
-      const reply = await queryGramSathiAI(text, lang, apiKey);
+      const aiResult = await queryGramSathiAI(text, lang, apiKey);
       
-      const isKisan = text.toLowerCase().includes('kisan') || text.toLowerCase().includes('किसान') || text.toLowerCase().includes('pm kisan');
-      const isAyushman = text.toLowerCase().includes('ayushman') || text.toLowerCase().includes('आयुष्मान') || text.toLowerCase().includes('health') || text.toLowerCase().includes('इलाज');
-      const isAwas = text.toLowerCase().includes('awas') || text.toLowerCase().includes('आवास') || text.toLowerCase().includes('मकान');
-      const isMandi = text.toLowerCase().includes('mandi') || text.toLowerCase().includes('मंडी') || text.toLowerCase().includes('भाव');
+      const replyText = typeof aiResult === 'object' && aiResult?.text 
+        ? aiResult.text 
+        : (typeof aiResult === 'string' ? aiResult : String(aiResult || ''));
 
-      let officialLink = null;
-      let linkText = null;
+      const officialLink = typeof aiResult === 'object' && aiResult?.officialLink 
+        ? aiResult.officialLink 
+        : null;
 
-      if (isKisan) {
-        officialLink = 'https://pmkisan.gov.in';
-        linkText = lang === 'hi' ? 'पीएम किसान पोर्टल खोलें' : 'Open PM Kisan Portal';
-      } else if (isAyushman) {
-        officialLink = 'https://beneficiary.nha.gov.in';
-        linkText = lang === 'hi' ? 'आयुष्मान पोर्टल (NHA)' : 'Ayushman Portal (NHA)';
-      } else if (isAwas) {
-        officialLink = 'https://pmayg.nic.in';
-        linkText = lang === 'hi' ? 'पीएम आवास पोर्टल' : 'PM Awas Portal';
-      } else if (isMandi) {
-        officialLink = 'https://agmarknet.gov.in';
-        linkText = lang === 'hi' ? 'एगमार्कनेट मंडी पोर्टल' : 'Agmarknet Mandi Portal';
-      }
+      const linkText = typeof aiResult === 'object' && aiResult?.linkText 
+        ? aiResult.linkText 
+        : (officialLink ? (lang === 'hi' ? 'आधिकारिक पोर्टल लिंक' : 'Official Portal Link') : null);
+
+      const canCheckEligibility = typeof aiResult === 'object' 
+        ? !!aiResult?.canCheckEligibility 
+        : false;
 
       const botMsg = { 
         id: Date.now() + 1, 
         sender: 'bot', 
         timestamp: getFormattedTime(),
-        text: reply,
+        text: replyText,
         hasLink: !!officialLink,
         officialLink,
         linkText,
-        canCheckEligibility: isKisan || isAyushman || isAwas
+        canCheckEligibility
       };
 
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
 
       if (soundEnabled) {
-        voiceService.speak(reply, lang === 'hi' ? 'hi-IN' : 'en-IN');
+        voiceService.speak(replyText, lang === 'hi' ? 'hi-IN' : 'en-IN');
       }
     } catch (err) {
       console.error("Chat error:", err);

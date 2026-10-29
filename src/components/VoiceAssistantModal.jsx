@@ -9,7 +9,8 @@ import {
   ArrowRight,
   MessageSquare,
   HelpCircle,
-  CheckCircle2
+  CheckCircle2,
+  ExternalLink
 } from 'lucide-react';
 import { voiceService, queryGramSathiAI } from '../utils/aiEngine';
 
@@ -19,6 +20,8 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [aiResponse, setAiResponse] = useState('');
+  const [responseLink, setResponseLink] = useState(null);
+  const [responseLinkText, setResponseLinkText] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const quickPrompts = lang === 'hi' ? [
@@ -44,6 +47,8 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
       setIsThinking(false);
       setTranscript('');
       setAiResponse('');
+      setResponseLink(null);
+      setResponseLinkText(null);
       setErrorMessage('');
     } else {
       // Auto-trigger prompt
@@ -60,6 +65,8 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
     setErrorMessage('');
     setTranscript('');
     setAiResponse('');
+    setResponseLink(null);
+    setResponseLinkText(null);
     voiceService.stopSpeaking();
     setIsSpeaking(false);
 
@@ -95,21 +102,41 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
 
   const processUserQuery = async (queryText) => {
     setIsThinking(true);
+    setResponseLink(null);
+    setResponseLinkText(null);
     try {
       const response = await queryGramSathiAI(queryText, lang, apiKey);
-      setAiResponse(response);
+      const replyText = typeof response === 'object' && response?.text 
+        ? response.text 
+        : (typeof response === 'string' ? response : String(response || ''));
+
+      const officialLink = typeof response === 'object' && response?.officialLink 
+        ? response.officialLink 
+        : null;
+
+      const linkText = typeof response === 'object' && response?.linkText 
+        ? response.linkText 
+        : (officialLink ? (lang === 'hi' ? 'आधिकारिक पोर्टल लिंक' : 'Official Portal Link') : null);
+
+      setAiResponse(replyText);
+      setResponseLink(officialLink);
+      setResponseLinkText(linkText);
       setIsThinking(false);
 
       if (soundEnabled) {
         setIsSpeaking(true);
         const speechLang = lang === 'hi' ? 'hi-IN' : 'en-IN';
-        voiceService.speak(response, speechLang, () => {
+        voiceService.speak(replyText, speechLang, () => {
           setIsSpeaking(false);
         });
       }
     } catch (err) {
       setIsThinking(false);
-      setErrorMessage('Failed to process response. Please try again.');
+      setErrorMessage(
+        lang === 'hi' 
+          ? 'उत्तर प्राप्त करने में समस्या हुई। कृपया दोबारा प्रयास करें।' 
+          : 'Failed to process response. Please try again.'
+      );
     }
   };
 
@@ -276,6 +303,20 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
               <div className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-normal">
                 {aiResponse}
               </div>
+
+              {responseLink && (
+                <div className="mt-3 pt-2.5 border-t border-emerald-200/80 flex items-center justify-end">
+                  <a
+                    href={responseLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-xs transition-transform hover:scale-102"
+                  >
+                    <span>{responseLinkText || (lang === 'hi' ? 'आधिकारिक पोर्टल खोलें' : 'Open Portal')}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              )}
             </div>
           )}
 

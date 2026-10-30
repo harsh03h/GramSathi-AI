@@ -563,6 +563,406 @@ function getHealthcareAdvisory(query, lang = 'hi') {
   };
 }
 
+// Comprehensive PM-Kisan Samman Nidhi Advisory Engine
+export function getPMKisanAdvisory(query, lang = 'hi') {
+  const isHi = lang === 'hi';
+  const q = query.toLowerCase();
+
+  // 1. Documents Required
+  if (q.includes('document') || q.includes('दस्तावेज') || q.includes('दस्तावेज़') || q.includes('कागजात') || q.includes('paper')) {
+    return {
+      text: isHi
+        ? `📑 प्रधानमंत्री किसान सम्मान निधि (PM-Kisan) — आवश्यक दस्तावेज़:
+
+1. 🪪 आधार कार्ड (Aadhaar Card):
+   • आवेदक किसान का आधार कार्ड सक्रिय मोबाइल नंबर से लिंक होना अनिवार्य है।
+2. 📜 खसरा-खतौनी की नकल (Land Records / Bhulekh):
+   • राजस्व विभाग (UP Bhulekh / राजस्व परिषद) द्वारा प्रमाणित खसरा व खतौनी जिसमें किसान के नाम कृषि भूमि दर्ज हो।
+3. 🏦 बैंक पासबुक (Aadhaar & NPCI Mapped Bank Account):
+   • बैंक खाता आधार कार्ड से लिंक और NPCI (National Payments Corporation of India) पर DBT हेतु सक्रिय (Active) होना चाहिए।
+4. 📱 सक्रिय मोबाइल नंबर:
+   • आधार से पंजीकृत चालू मोबाइल नंबर (e-KYC एवं किस्त सूचना एसएमएस हेतु)।
+5. 🖼️ पासपोर्ट साइज फोटो।
+
+💡 महत्वपूर्ण निर्देश:
+यदि बैंक खाते में NPCI मैपिंग या आधार सीडिंग नहीं है, तो पैसा खाते में नहीं आएगा। बैंक जाकर 'DBT Aadhaar Seeding Form' अवश्य भरें।`
+        : `📑 Pradhan Mantri Kisan Samman Nidhi (PM-Kisan) — Required Documents:
+
+1. 🪪 Aadhaar Card:
+   • Mandatory for identification; must be linked with an active mobile number.
+2. 📜 Land Ownership Record (Khasra / Khatauni):
+   • Verified land revenue document (from UP Bhulekh / Revenue Department) proving cultivable landholding in the farmer's name.
+3. 🏦 Bank Account Passbook (NPCI Mapped):
+   • Bank account must be seeded with Aadhaar and active on the NPCI mapper for Direct Benefit Transfer (DBT).
+4. 📱 Active Mobile Number:
+   • Registered with Aadhaar to receive OTPs and payment installment SMS notifications.
+5. 🖼️ Passport Size Photograph.
+
+💡 Crucial Note:
+Without NPCI Aadhaar seeding, bank transfers fail. Visit your bank branch and submit the "Aadhaar DBT Mandate Form" or open an IPPB account.`,
+      officialLink: 'https://pmkisan.gov.in',
+      linkText: isHi ? 'पीएम किसान पोर्टल (pmkisan.gov.in)' : 'Open PM-Kisan Portal',
+      canCheckEligibility: true
+    };
+  }
+
+  // 2. e-KYC Verification Process
+  if (q.includes('kyc') || q.includes('ekyc') || q.includes('ई-केवाईसी') || q.includes('बायोमेट्रिक') || q.includes('biometric') || q.includes('face auth')) {
+    return {
+      text: isHi
+        ? `🔐 पीएम किसान ई-केवाईसी (e-KYC) कैसे करें — 3 आसान तरीके:
+
+भारत सरकार द्वारा पीएम किसान की हर किस्त पाने के लिए e-KYC अनिवार्य कर दिया गया है। आप निम्न 3 तरीकों से इसे पूरा कर सकते हैं:
+
+1. 🌐 ऑनलाइन OTP e-KYC (निशुल्क - घर बैठे):
+   • pmkisan.gov.in पोर्टल पर जाएं।
+   • होमपेज पर 'e-KYC' विकल्प पर क्लिक करें।
+   • अपना 12 अंकों का आधार नंबर दर्ज करें।
+   • आधार से जुड़े मोबाइल पर आए 6 अंकों के OTP को दर्ज कर सबमिट करें। e-KYC तुरंत सफल हो जाएगी!
+
+2. 🏢 बायोमेट्रिक e-KYC (जन सेवा केंद्र / CSC):
+   • यदि मोबाइल आधार से लिंक नहीं है, तो नजदीकी CSC (जन सेवा केंद्र) पर जाएं।
+   • बायोमेट्रिक फिंगरप्रिंट स्कैनर द्वारा e-KYC पूर्ण कराएं (शुल्क: मात्र ₹15)।
+
+3. 📱 PM-Kisan Mobile App (Face Authentication):
+   • Google Play Store से 'PM-KISAN' और 'Aadhaar FaceRD' ऐप डाउनलोड करें।
+   • बिना OTP या फिंगरप्रिंट के केवल चेहरा (Face) स्कैन करके तुरंत e-KYC करें।
+
+📞 सहायता: e-KYC में समस्या आने पर पीएम किसान हेल्पलाइन 155261 पर कॉल करें।`
+        : `🔐 PM-Kisan e-KYC Process — 3 Easy Ways:
+
+Mandatory e-KYC is required to receive all continuous installment payments. Complete it through any of these 3 methods:
+
+1. 🌐 Online OTP e-KYC (Free from Home):
+   • Visit the official portal: pmkisan.gov.in
+   • Click on the "e-KYC" button on the homepage.
+   • Enter your 12-digit Aadhaar Number.
+   • Enter the 6-digit OTP received on your Aadhaar-linked mobile phone and submit.
+
+2. 🏢 Biometric e-KYC (CSC Center):
+   • If your mobile is not linked to Aadhaar, visit your nearest Common Service Center (CSC).
+   • Complete verification using the biometric fingerprint scanner (nominal fee ₹15).
+
+3. 📱 PM-Kisan Mobile App (Face Authentication):
+   • Download the "PM-KISAN" app & "Aadhaar FaceRD" app from the Play Store.
+   • Complete e-KYC seamlessly using facial recognition without OTP or fingerprint scanner!
+
+📞 Helpline: If facing issues, dial 155261 or 011-24300606.`,
+      officialLink: 'https://exlink.pmkisan.gov.in/aadharekyc.aspx',
+      linkText: isHi ? 'सीधे ऑनलाइन e-KYC करें' : 'Complete Online e-KYC Now',
+      canCheckEligibility: true
+    };
+  }
+
+  // 3. Status Check / 19th Installment Inquiry
+  if (q.includes('status') || q.includes('स्थिति') || q.includes('check') || q.includes('जांच') || q.includes('list') || q.includes('लिस्ट') || q.includes('19th') || q.includes('19वीं') || q.includes('किस्त') || q.includes('installment') || q.includes('kab') || q.includes('when')) {
+    return {
+      text: isHi
+        ? `📊 पीएम किसान लाभार्थी स्थिति (Beneficiary Status) जांचने की विधि:
+
+📅 वर्ष 2026 में 19वीं किस्त का DBT अंतरण सक्रिय है। अपनी किस्त का स्टेटस देखने के लिए:
+
+1. 🌐 आधिकारिक वेबसाइट pmkisan.gov.in खोलें।
+2. 🔍 होमपेज पर 'Know Your Status' (अपनी स्थिति जानें) पर क्लिक करें।
+3. 🔢 अपना रजिस्ट्रेशन नंबर दर्ज करें।
+   • (यदि रजिस्ट्रेशन नंबर याद नहीं है, तो 'Know Your Registration Number' पर क्लिक कर आधार या मोबाइल नंबर से निकालें)।
+4. 🧩 कैप्चा कोड भरकर 'Get Data' पर क्लिक करें।
+
+✅ स्टेटस में इन 3 बिंदुओं का 'YES' होना अनिवार्य है:
+  • e-KYC Done: YES (हरा निशान)
+  • Land Seeding: YES (राजस्व लेखपाल द्वारा सत्यापित)
+  • Aadhaar Bank Account Seeding: YES (NPCI सक्रिय)
+
+⚠️ यदि किसी भी विकल्प के आगे 'NO' लिखा है, तो किस्त रुक जाएगी। तत्काल लेखपाल या अपनी बैंक शाखा से संपर्क करें।`
+        : `📊 How to Check PM-Kisan Beneficiary Status:
+
+📅 The 19th installment cycle is active in 2026. Follow these steps to check your payment status:
+
+1. 🌐 Visit the official portal: pmkisan.gov.in
+2. 🔍 Click on "Know Your Status" on the homepage.
+3. 🔢 Enter your PM-Kisan Registration Number.
+   • (If you don't know your registration number, click "Know Your Registration Number" and search by Aadhaar or Mobile).
+4. 🧩 Enter the Captcha code and click "Get Data".
+
+✅ Verify the 3 Mandatory Flags (Must show YES in Green):
+  • e-KYC Done: YES
+  • Land Seeding: YES (Verified by Revenue Patwari/Lekhpal)
+  • Aadhaar Bank Account Seeding: YES (NPCI Active)
+  • FTO Processed: YES
+
+⚠️ If any of these show "NO", your installment will be held. Contact your bank or local Agriculture Officer immediately.`,
+      officialLink: 'https://pmkisan.gov.in',
+      linkText: isHi ? 'पीएम किसान स्टेटस जांचें (Know Your Status)' : 'Check Status on pmkisan.gov.in',
+      canCheckEligibility: true
+    };
+  }
+
+  // 4. Installment Stopped / Pending / Rejection Fix
+  if (q.includes('nahi aaya') || q.includes('नहीं आया') || q.includes('रुका') || q.includes('ruk') || q.includes('stopped') || q.includes('pending') || q.includes('reject') || q.includes('रिजेक्ट') || q.includes('problem') || q.includes('समस्या')) {
+    return {
+      text: isHi
+        ? `⚠️ पीएम किसान का पैसा न आने के 4 मुख्य कारण व समाधान:
+
+यदि आपकी किस्त नहीं आई है, तो इसका कारण निम्नलिखित में से कोई एक हो सकता है:
+
+1. ❌ ई-केवाईसी (e-KYC) अधूरी होना:
+   • समाधान: pmkisan.gov.in पर जाकर आधार OTP द्वारा तुरंत e-KYC पूरी करें।
+2. ❌ लैंड सीडिंग 'NO' होना (Land Seeding Pending):
+   • समाधान: अपनी खतौनी (Bhulekh) की प्रमाणित प्रति और आधार कार्ड लेकर तहसील में लेखपाल (पटवारी) या उप कृषि निदेशक (DAO) कार्यालय में जमा करें।
+3. ❌ बैंक खाते में NPCI / आधार लिंक न होना (DBT Inactive):
+   • समाधान: बैंक शाखा जाकर 'Aadhaar DBT Mandate Form' भरें या नजदीकी डाकघर में India Post Payments Bank (IPPB) खाता खुलवाएं (यह 24 घंटे में NPCI से सक्रिय हो जाता है)।
+4. ❌ नाम की स्पेलिंग में अंतर:
+   • समाधान: आधार कार्ड और बैंक खाते में नाम की स्पेलिंग एक समान होनी चाहिए। पोर्टल पर 'Name Correction as per Aadhaar' में सुधार करें।
+
+📞 पीएम किसान हेल्पडेस्क: 155261 या 1800-180-1551 पर शिकायत दर्ज कराएं।`
+        : `⚠️ Why PM-Kisan Payment is Stopped & How to Fix It:
+
+If your PM-Kisan installment is delayed or stopped, it is usually due to one of these 4 issues:
+
+1. ❌ e-KYC Pending:
+   • Fix: Visit pmkisan.gov.in and complete OTP e-KYC or visit nearest CSC for biometric verification.
+2. ❌ Land Seeding Shows "NO":
+   • Fix: Submit a copy of your Land Revenue Record (Khasra-Khatauni) along with Aadhaar to your local Tehsil Lekhpal (Patwari) or District Agriculture Officer to mark Land Seeding YES.
+3. ❌ Aadhaar-Bank Account DBT Inactive (NPCI Mapping Failed):
+   • Fix: Visit your bank and submit the "NPCI Aadhaar Seeding Form", or open an India Post Payments Bank (IPPB) DBT account (activates in 24 hours).
+4. ❌ Name Mismatch between Aadhaar & Bank:
+   • Fix: Go to pmkisan.gov.in -> "Edit Aadhaar Failure Records" and update name as per your Aadhaar card.
+
+📞 Grievance Helpline: 155261 or 1800-180-1551 (Kisan Call Center).`,
+      officialLink: 'https://pmkisan.gov.in',
+      linkText: isHi ? 'पीएम किसान शिकायत निवारण' : 'PM-Kisan Grievance Portal',
+      canCheckEligibility: true
+    };
+  }
+
+  // 5. Eligibility & Who Can Apply
+  if (q.includes('eligib') || q.includes('पात्रता') || q.includes('कौन') || q.includes('who') || q.includes('rule') || q.includes('नियम') || q.includes('criteria')) {
+    return {
+      text: isHi
+        ? `📋 पीएम किसान सम्मान निधि — पात्रता एवं अपात्रता नियम:
+
+✅ कौन पात्र हैं (Eligible):
+• ऐसे सभी छोटे और सीमांत किसान परिवार जिनके नाम पर कृषि योग्य भूमि (Cultivable Land) दर्ज है।
+• किसान परिवार की परिभाषा: पति, पत्नी और नाबालिग बच्चे (एक परिवार में केवल एक सदस्य को ही लाभ मिलेगा)।
+
+❌ कौन अपात्र हैं (Exclusions - जिन्हें लाभ नहीं मिलेगा):
+1. 🏛️ संवैधानिक पद धारक: वर्तमान या पूर्व मंत्री, सांसद (MP), विधायक (MLA), महापौर (Mayor), जिला पंचायत अध्यक्ष।
+2. 🏢 सरकारी कर्मचारी: केंद्र/राज्य सरकार, मंत्रालयों या सार्वजनिक उपक्रमों (PSUs) के कार्यरत या सेवानिवृत्त कर्मचारी (चतुर्थ श्रेणी / MTS को छोड़कर)।
+3. 💼 आयकर दाता: परिवार का कोई भी सदस्य जिसने पिछले वित्तीय वर्ष में इनकम टैक्स (Income Tax) भरा हो।
+4. 👴 ₹10,000+ पेंशनधारक: ₹10,000 से अधिक मासिक पेंशन पाने वाले सेवानिवृत्त कर्मचारी (क्लास-4 को छोड़कर)।
+5. 🩺 पेशेवर नागरिक: डॉक्टर, इंजीनियर, वकील, चार्टर्ड अकाउंटेंट (CA), आर्किटेक्ट।
+6. 🏢 संस्थागत भूमिधारक (Institutional Landholders)।`
+        : `📋 PM-Kisan Samman Nidhi — Eligibility & Exclusion Rules:
+
+✅ Who is Eligible:
+• All small and marginal landholding farmer families having cultivable land in their names.
+• Definition of Family: Husband, wife, and minor children (Only one benefit per family unit).
+
+❌ Who is Excluded (Not Eligible):
+1. 🏛️ Constitutional Post Holders: Present or former Ministers, MPs, MLAs, MLCs, Mayors, or District Panchayat Chairpersons.
+2. 🏢 Government Employees: Serving or retired officers/employees of Central/State Govts, Ministries, or PSUs (except Multi-Tasking Staff / Class IV).
+3. 💼 Income Tax Payers: Any individual who paid Income Tax in the last assessment year.
+4. 👴 Pensioners with ₹10,000+ Monthly Pension: (Excluding Class IV / MTS).
+5. 🩺 Registered Professionals: Doctors, Engineers, Lawyers, Chartered Accountants (CAs), Architects.
+6. 🏢 Institutional Landholders.`,
+      officialLink: 'https://pmkisan.gov.in',
+      linkText: isHi ? 'पात्रता नियम देखें' : 'View Eligibility Rules',
+      canCheckEligibility: true
+    };
+  }
+
+  // 6. How to Apply / New Farmer Registration
+  if (q.includes('apply') || q.includes('आवेदन') || q.includes('register') || q.includes('रजिस्ट्रेशन') || q.includes('form') || q.includes('फॉर्म') || q.includes('kaise')) {
+    return {
+      text: isHi
+        ? `📝 पीएम किसान में नया आवेदन (New Farmer Registration) कैसे करें:
+
+नया किसान पंजीकरण ऑनलाइन एवं ऑफलाइन दोनों माध्यमों से किया जा सकता है:
+
+🌐 ऑनलाइन आवेदन प्रक्रिया (pmkisan.gov.in):
+1. आधिकारिक वेबसाइट pmkisan.gov.in पर जाएं।
+2. होमपेज पर 'New Farmer Registration' पर क्लिक करें।
+3. 'Rural Farmer Registration' (ग्रामीण किसान) चुनें।
+4. अपना आधार नंबर, चालू मोबाइल नंबर और राज्य (उत्तर प्रदेश) चुनें।
+5. मोबाइल पर प्राप्त OTP दर्ज कर आगे बढ़ें।
+6. अपनी कृषि भूमि का विवरण दर्ज करें:
+   • जिला, तहसील, ब्लॉक, ग्राम
+   • खाता संख्या (Khata No), खसरा संख्या (Khasra No) एवं रकबा (Area in Hectares)
+7. खतौनी (Bhulekh Land Record) की PDF कॉपी अपलोड करें और सबमिट करें।
+8. आवेदन संख्या (Application ID) नोट कर लें।
+
+🏢 ऑफलाइन माध्यम:
+• अपने नजदीकी जन सेवा केंद्र (CSC) या ब्लॉक कृषि रक्षा इकाई (ADO Agriculture Office) पर आधार, खतौनी और बैंक पासबुक लेकर जाएं।`
+        : `📝 How to Apply for PM-Kisan (New Farmer Registration):
+
+Farmers can register both online or via nearest Common Service Center (CSC):
+
+🌐 Online Registration Steps (pmkisan.gov.in):
+1. Visit the official portal: pmkisan.gov.in
+2. Click on "New Farmer Registration" on the homepage.
+3. Select "Rural Farmer Registration" (or Urban).
+4. Enter your 12-digit Aadhaar Number, Active Mobile Number, and select State.
+5. Enter the OTP received on your mobile phone.
+6. Fill in your personal and landholding details:
+   • District, Sub-District, Block, Village
+   • Khata Number, Khasra Number, and Land Area in Hectares.
+7. Upload a PDF copy of your Land Record (Khatauni) under 200 KB and submit.
+8. Save your Registration Number for future tracking.
+
+🏢 Offline Application:
+• Visit your nearest CSC Center or District Agriculture Office with Aadhaar, Land Record, and Bank Passbook.`,
+      officialLink: 'https://pmkisan.gov.in',
+      linkText: isHi ? 'नया किसान पंजीकरण करें' : 'New Farmer Registration',
+      canCheckEligibility: true
+    };
+  }
+
+  // 7. Helplines & Contact Numbers
+  if (q.includes('helpline') || q.includes('हेल्पलाइन') || q.includes('toll free') || q.includes('टोल फ्री') || q.includes('number') || q.includes('नंबर') || q.includes('phone') || q.includes('contact')) {
+    return {
+      text: isHi
+        ? `📞 प्रधानमंत्री किसान सम्मान निधि (PM-Kisan) — आधिकारिक हेल्पलाइन नंबर:
+
+• ☎️ पीएम किसान राष्ट्रीय हेल्पलाइन: 155261 (टोल-फ्री)
+• ☎️ पीएम किसान लैंडलाइन सहायता: 011-24300606 / 011-23381092
+• ☎️ पीएम किसान टोल-फ्री: 1800-11-5526
+• 🌾 किसान कॉल सेंटर (कृषि परामर्श): 1800-180-1551 (सुबह 6:00 से रात 10:00 बजे तक निशुल्क)
+• 📧 आधिकारिक ईमेल: pmkisan-ict@gov.in
+
+📌 यदि किस्त नहीं आई है, तो कार्यदिवसों (सोमवार से शुक्रवार) में 155261 पर कॉल करके अपना आधार नंबर बताएं।`
+        : `📞 PM-Kisan Samman Nidhi — Official Toll-Free Helplines:
+
+• ☎️ PM-Kisan National Helpline: 155261 (Toll-Free)
+• ☎️ PM-Kisan Direct Desk: 011-24300606 / 011-23381092
+• ☎️ PM-Kisan Toll-Free: 1800-11-5526
+• 🌾 Kisan Call Center: 1800-180-1551 (Free 6:00 AM - 10:00 PM daily)
+• 📧 Official Support Email: pmkisan-ict@gov.in
+
+📌 When calling, keep your 12-digit Aadhaar Number or PM-Kisan Registration Number ready.`,
+      officialLink: 'tel:155261',
+      linkText: isHi ? 'डायल करें 155261' : 'Call PM-Kisan Helpline 155261'
+    };
+  }
+
+  // 8. General / Comprehensive Overview (Default for "tell me about pm kisan", "what is pm kisan", etc.)
+  return {
+    text: isHi
+      ? `🌾 प्रधानमंत्री किसान सम्मान निधि योजना (PM-KISAN) — संपूर्ण विवरण:
+
+🏛️ योजना परिचय:
+पीएम किसान सम्मान निधि भारत सरकार के कृषि एवं किसान कल्याण मंत्रालय द्वारा संचालित 100% केंद्र पोषित प्रमुख कल्याणकारी योजना है।
+
+💰 वित्तीय लाभ:
+• पात्र किसान परिवारों को प्रति वर्ष ₹6,000 की वित्तीय सहायता सीधे बैंक खाते में (DBT) दी जाती है।
+• यह राशि ₹2,000 की 3 समान किस्तों में प्रति 4 माह पर जारी की जाती है:
+  - पहली किस्त: अप्रैल - जुलाई
+  - दूसरी किस्त: अगस्त - नवंबर
+  - तीसरी किस्त: दिसंबर - मार्च
+
+📅 वर्ष 2026 अद्यतन स्थिति:
+• वर्तमान में 2026 में 19वीं किस्त का सफल अंतरण देश भर के 9.5+ करोड़ किसान परिवारों के बैंक खातों में किया जा रहा है।
+
+👨‍🌾 मुख्य पात्रता:
+• ऐसे सभी किसान जिनके नाम कृषि योग्य भूमि दर्ज है (परिवार: पति, पत्नी और नाबालिग बच्चे)।
+• संवैधानिक पद धारक, सरकारी कर्मचारी, ₹10,000+ पेंशनर्स व इनकम टैक्स पेयर्स अपात्र हैं।
+
+✅ किस्त पाने के 3 अनिवार्य नियम:
+1. ई-केवाईसी (e-KYC): पोर्टल पर आधार OTP या CSC पर बायोमेट्रिक से सत्यापित।
+2. भूलेख अंकन (Land Seeding): राजस्व रिकॉर्ड का सत्यापन।
+3. बैंक आधार सीडिंग: बैंक खाता NPCI से लिंक और DBT सक्रिय होना चाहिए।
+
+🌐 आधिकारिक पोर्टल: pmkisan.gov.in पर जाकर आप स्टेटस जांच सकते हैं या नया रजिस्ट्रेशन कर सकते हैं।
+📞 हेल्पलाइन: 155261 / 1800-180-1551 (किसान कॉल सेंटर)`
+      : `🌾 Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) — Complete Guide:
+
+🏛️ Scheme Overview:
+PM-KISAN is a 100% Centrally Funded flagship welfare scheme launched by the Ministry of Agriculture and Farmers Welfare, Government of India, to provide income support to all landholding farmer families.
+
+💰 Financial Assistance:
+• Eligible farmer families receive ₹6,000 per year transferred directly into their bank accounts via Direct Benefit Transfer (DBT).
+• Distributed in 3 equal four-monthly installments of ₹2,000 each:
+  - Period 1: April – July
+  - Period 2: August – November
+  - Period 3: December – March
+
+📅 Current 2026 Status:
+• Active DBT transfers for the 19th installment cycle in 2026, benefiting over 9.5+ Crore farmer families nationwide.
+
+👨‍🌾 Eligibility Criteria:
+• All landholding farmer families with cultivable land in their names (Family = Husband, Wife, and minor children).
+• Exclusions: Income tax payers, serving/retired government employees, constitutional post holders, and pensioners receiving ₹10,000+/month.
+
+✅ 3 Mandatory Green Checks to Receive Installments:
+1. e-KYC: Completed via Aadhaar OTP on pmkisan.gov.in or biometric at CSC center.
+2. Land Seeding: Verified by local revenue Lekhpal/Patwari.
+3. Aadhaar Bank Seeding: Bank account mapped on NPCI for Direct Benefit Transfer (DBT).
+
+🌐 Official Portal: Visit pmkisan.gov.in for beneficiary status and new registrations.
+📞 Toll-Free Helpline: 155261 / 1800-180-1551 (Kisan Call Center).`,
+    officialLink: 'https://pmkisan.gov.in',
+    linkText: isHi ? 'पीएम किसान आधिकारिक पोर्टल (pmkisan.gov.in)' : 'Open PM-Kisan Official Portal',
+    canCheckEligibility: true
+  };
+}
+
+// Comprehensive Ayushman Bharat PM-JAY Advisory Engine
+export function getAyushmanAdvisory(query, lang = 'hi') {
+  const isHi = lang === 'hi';
+  const q = query.toLowerCase();
+
+  return {
+    text: isHi
+      ? `🏥 आयुष्मान भारत प्रधानमंत्री जन आरोग्य योजना (PM-JAY) — स्वास्थ्य सुरक्षा:
+
+🏛️ योजना विवरण:
+आयुष्मान भारत (PM-JAY) दुनिया की सबसे बड़ी सरकारी स्वास्थ्य आश्वासन योजना है, जो माध्यमिक और तृतीयक देखभाल हेतु अस्पताल में भर्ती के लिए मुफ्त इलाज प्रदान करती है।
+
+💰 स्वास्थ्य सुरक्षा लाभ:
+• प्रत्येक पात्र परिवार को प्रति वर्ष ₹5,00,000 तक का पूर्णतः निःशुल्क कैशलेस इलाज।
+• देश भर के 29,000+ से अधिक सूचीबद्ध सरकारी और निजी अस्पतालों में मान्य।
+• अस्पताल में भर्ती से 3 दिन पहले और 15 दिन बाद तक की दवाएं, जांच व डॉक्टर परामर्श शामिल।
+
+🌟 2026 ऐतिहासिक अद्यतन (Universal 70+ Senior Citizen Cover):
+• 70 वर्ष या उससे अधिक आयु के सभी वरिष्ठ नागरिकों को अब आय सीमा के बिना ₹5 लाख का अलग आयुष्मान कार्ड प्रदान किया जा रहा है!
+
+📄 आवश्यक दस्तावेज़:
+1. आधार कार्ड (आयु व पते का प्रमाण)
+2. राशन कार्ड या परिवार पहचान पत्र (SECC 2011 सूची)
+3. आधार लिंक मोबाइल नंबर
+
+🏥 कार्ड कैसे बनवाएं:
+• नजदीकी जन सेवा केंद्र (CSC) या सरकारी अस्पताल के 'आयुष्मान मित्र' काउंटर पर जाकर 10 मिनट में आयुष्मान कार्ड बनवाएं।
+• या beneficiary.nha.gov.in पोर्टल पर जाकर स्वयं आधार OTP से डाउनलोड करें।
+
+📞 टोल-फ्री राष्ट्रीय हेल्पलाइन: 14555`
+      : `🏥 Ayushman Bharat PM-JAY Health Protection — Complete Guide:
+
+🏛️ Scheme Overview:
+Ayushman Bharat PM-JAY is the world's largest government-funded health assurance scheme providing comprehensive secondary and tertiary hospitalization cover across 29,000+ empaneled hospitals.
+
+💰 Financial Health Cover:
+• ₹5,00,000 cashless hospital treatment per eligible family per year.
+• Covers medicines, doctor consultations, diagnostics, ICU charges, and pre/post-hospitalization care.
+
+🌟 2026 Universal Senior Citizen Expansion:
+• All senior citizens aged 70 and above are now universally covered with a dedicated ₹5 Lakh health card regardless of family income!
+
+📄 Required Documents:
+1. Aadhaar Card (Must be mobile-linked)
+2. Ration Card or SECC Beneficiary verification
+3. Active Mobile Number for OTP authentication
+
+🏥 How to Get Your Ayushman Card:
+• Visit your nearest Common Service Center (CSC) or District Hospital Ayushman desk.
+• Or self-generate online at beneficiary.nha.gov.in with Aadhaar OTP.
+
+📞 24x7 Toll-Free Helpline: 14555`,
+    officialLink: 'https://beneficiary.nha.gov.in',
+    linkText: isHi ? 'आयुष्मान पोर्टल खोलें (beneficiary.nha.gov.in)' : 'Open Ayushman Beneficiary Portal',
+    canCheckEligibility: true
+  };
+}
+
 // Comprehensive intelligent query responder with real-time data & domain intelligence
 export async function queryGramSathiAI(prompt, lang = 'hi', apiKey = '') {
   const query = prompt.toLowerCase().trim();
@@ -573,6 +973,59 @@ export async function queryGramSathiAI(prompt, lang = 'hi', apiKey = '') {
     month: 'long',
     day: 'numeric'
   });
+
+  // PRIORITY 1: PM-KISAN INQUIRIES (Checked first to prevent hijacking by generic keywords like 'helpline', 'rate', 'price')
+  const isKisan = query.includes('pm kisan') || 
+                  query.includes('pm-kisan') || 
+                  query.includes('pmkisan') || 
+                  query.includes('kisan samman nidhi') || 
+                  query.includes('किसान सम्मान') || 
+                  query.includes('kisan yojana') || 
+                  query.includes('किसान योजना') || 
+                  query.includes('pm kishan') || 
+                  query.includes('pm kisann') ||
+                  (query.includes('kisan') && (
+                    query.includes('6000') || 
+                    query.includes('nidhi') || 
+                    query.includes('installment') || 
+                    query.includes('किस्त') || 
+                    query.includes('status') || 
+                    query.includes('स्थिति') || 
+                    query.includes('ekyc') || 
+                    query.includes('kyc') || 
+                    query.includes('apply') || 
+                    query.includes('आवेदन') || 
+                    query.includes('document') || 
+                    query.includes('दस्तावेज') || 
+                    query.includes('money') || 
+                    query.includes('paisa') || 
+                    query.includes('पैसा') || 
+                    query.includes('19th') || 
+                    query.includes('19वीं') || 
+                    query.includes('helpline') || 
+                    query.includes('हेल्पलाइन') || 
+                    query.includes('eligib') || 
+                    query.includes('पात्रता')
+                  )) ||
+                  query === 'pm kisan' || query === 'kisan' || query === 'पीएम किसान';
+
+  if (isKisan) {
+    return getPMKisanAdvisory(query, lang);
+  }
+
+  // PRIORITY 2: AYUSHMAN BHARAT INQUIRIES
+  const isAyushman = query.includes('ayushman') || 
+                     query.includes('आयुष्मान') || 
+                     query.includes('pm-jay') || 
+                     query.includes('pmjay') || 
+                     query.includes('golden card') || 
+                     query.includes('गोल्डन कार्ड') || 
+                     query.includes('5 lakh') || 
+                     query.includes('5 लाख');
+
+  if (isAyushman) {
+    return getAyushmanAdvisory(query, lang);
+  }
 
   // 1. WEATHER & RAIN INQUIRY (Real-time live weather data)
   if (
@@ -657,9 +1110,7 @@ export async function queryGramSathiAI(prompt, lang = 'hi', apiKey = '') {
     };
   }
 
-  // 7. SPECIFIC SCHEMES INQUIRIES (PM Kisan, Ayushman, Awas, KCC, Sukanya, Lakhpati Didi, Ujjwala, MGNREGA, Solar, Pension, Ration)
-  const isKisan = query.includes('pm kisan') || query.includes('किसान') || query.includes('6000') || query.includes('kisan nidhi') || query.includes('किस्त') || query.includes('installment');
-  const isAyushman = query.includes('ayushman') || query.includes('आयुष्मान') || query.includes('golden card') || query.includes('5 lakh') || query.includes('5 लाख');
+  // 7. OTHER SPECIFIC SCHEMES INQUIRIES (Awas, KCC, Sukanya, Lakhpati Didi, Ujjwala, MGNREGA, Solar, Pension, Ration)
   const isAwas = query.includes('awas') || query.includes('आवास') || query.includes('मकान') || query.includes('घर') || query.includes('pmay');
   const isFasalBima = query.includes('fasal bima') || query.includes('फसल बीमा') || query.includes('pmfby') || query.includes('insurance');
   const isKCC = query.includes('kcc') || query.includes('kisan credit') || query.includes('क्रेडिट कार्ड') || query.includes('कृषि ऋण') || query.includes('3 लाख');
@@ -672,52 +1123,7 @@ export async function queryGramSathiAI(prompt, lang = 'hi', apiKey = '') {
   const isRation = query.includes('ration') || query.includes('राशन') || query.includes('कोटा') || query.includes('nfsa') || query.includes('अनाज');
   const isTeleLaw = query.includes('tele law') || query.includes('law') || query.includes('कानून') || query.includes('वकील') || query.includes('advocate') || query.includes('कोर्ट');
 
-  if (isKisan) {
-    const sc = schemesData.find(s => s.id === 'pm-kisan');
-    return {
-      text: isHi
-        ? `🌾 प्रधानमंत्री किसान सम्मान निधि योजना (PM-Kisan)
-📅 स्थिति: 2026 में 19वीं किस्त जारी
-• लाभ: पात्र किसानों को साल में ₹6,000 (₹2,000 की 3 समान किस्तों में सीधे DBT बैंक खाते में)
-• आवश्यक दस्तावेज़:
-  1. आधार कार्ड (बैंक खाता व NPCI से लिंक होना अनिवार्य)
-  2. खसरा-खतौनी की नकल (भूलेख राजस्व रिकॉर्ड)
-  3. बायोमेट्रिक या आधार OTP e-KYC
-• स्थिति जांचें: pmkisan.gov.in पर 'Know Your Status' में आधार नंबर दर्ज करें।
-• टोल-फ्री हेल्पलाइन: 155261 / 011-24300606`
-        : `🌾 Pradhan Mantri Kisan Samman Nidhi (PM-Kisan)
-📅 Status: Active DBT Direct Beneficiary Transfers in 2026
-• Benefit: ₹6,000 annually in 3 equal installments of ₹2,000 directly into Aadhaar-seeded accounts.
-• Required Documents:
-  1. Aadhaar Card (Linked with bank account & NPCI active)
-  2. Land Record (Khasra-Khatauni from UP Bhulekh)
-  3. Mandatory Biometric or OTP e-KYC
-• Helpline: 155261 / 011-24300606`,
-      officialLink: sc?.officialLink || 'https://pmkisan.gov.in',
-      linkText: isHi ? 'पीएम किसान पोर्टल खोलें' : 'Open PM Kisan Portal',
-      canCheckEligibility: true
-    };
-  }
 
-  if (isAyushman) {
-    const sc = schemesData.find(s => s.id === 'ayushman-bharat');
-    return {
-      text: isHi
-        ? `🏥 आयुष्मान भारत प्रधानमंत्री जन आरोग्य योजना (PM-JAY)
-• लाभ: प्रति पात्र परिवार को प्रत्येक वर्ष ₹5,00,000 तक का पूर्णतः मुफ्त कैशलेस इलाज।
-• नया 2026 नियम: 70 वर्ष या उससे अधिक उम्र के सभी वरिष्ठ नागरिक (Senior Citizens) अब बिना किसी आय सीमा के आयुष्मान कार्ड के लिए पात्र हैं!
-• कार्ड बनवाने की प्रक्रिया: राशन कार्ड और आधार कार्ड लेकर नजदीकी जन सेवा केंद्र (CSC) या सरकारी अस्पताल के आयुष्मान मित्र काउंटर पर जाएं।
-• टोल-फ्री हेल्पलाइन: 14555`
-        : `🏥 Ayushman Bharat PM-JAY Health Protection
-• Benefit: Up to ₹5 Lakh free cashless hospital treatment per family per year across 29,000+ hospitals.
-• Universal 2026 Update: All senior citizens aged 70+ are now covered regardless of income!
-• How to apply: Visit nearest CSC center or District Hospital Ayushman desk with Aadhaar & Ration Card.
-• Helpline: 14555`,
-      officialLink: sc?.officialLink || 'https://beneficiary.nha.gov.in',
-      linkText: isHi ? 'आयुष्मान पोर्टल खोलें (beneficiary.nha.gov.in)' : 'Open Ayushman Portal',
-      canCheckEligibility: true
-    };
-  }
 
   if (isAwas) {
     const sc = schemesData.find(s => s.id === 'pm-awas-gramin');

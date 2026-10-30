@@ -686,13 +686,12 @@ export default function ChatAssistantPage({
           </form>
 
           {/* Privacy & Official Data Disclaimer */}
-          <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 px-2">
+          <div className="flex items-center justify-center sm:justify-between text-[11px] text-slate-400 dark:text-slate-500 px-2">
             <span>
               {lang === 'hi' 
                 ? 'सरकारी पोर्टल्स (pmkisan, nha, upbhulekh) पर आधारित आधिकारिक जानकारी' 
                 : 'Verified rural guidance based on official GOI & State portals'}
             </span>
-            <span className="hidden sm:inline">GCET Greater Noida • CSE(AIML)</span>
           </div>
 
         </div>

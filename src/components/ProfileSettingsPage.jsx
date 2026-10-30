@@ -292,8 +292,7 @@ export default function ProfileSettingsPage({
         </div>
 
         {/* Footer info note */}
-        <div className="pt-8 text-[11px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800 mt-6 flex items-center justify-between">
-          <span>GCET Greater Noida • CSE(AIML)</span>
+        <div className="pt-8 text-[11px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800 mt-6 flex items-center justify-end">
           <span>GramSathi AI Data Protection</span>
         </div>
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Building2, 
   GraduationCap, 
   UserCheck, 
   Phone, 
@@ -93,10 +92,6 @@ export default function TeamSection({ lang = 'en' }) {
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300">
-              <span className="bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>GCET Greater Noida • CSE(AIML)</span>
-              </span>
               <span className="bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-amber-400" />
                 <span>{lang === 'hi' ? '24 घंटे के भीतर उत्तर' : 'Response within 24 Hours'}</span>

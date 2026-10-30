@@ -11,8 +11,6 @@ import {
   PhoneCall, 
   LogOut, 
   LogIn, 
-  Volume2, 
-  VolumeX,
   UserCheck,
   Sun,
   Moon
@@ -102,22 +100,9 @@ export default function Navbar({
               ))}
             </nav>
 
-            {/* Right Controls: Audio, Theme Switcher, Segmented Language Switcher, Profile/Login */}
+            {/* Right Controls: Theme Switcher, Segmented Language Switcher, Profile/Login */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               
-              {/* Audio Speech Toggle */}
-              <button
-                onClick={() => setSoundEnabled(!soundEnabled)}
-                title={soundEnabled ? (lang === 'hi' ? "आवाज़ वाचन सक्रिय" : "Audio Speech Enabled") : (lang === 'hi' ? "आवाज़ वाचन म्यूट" : "Audio Speech Muted")}
-                className={`p-1.5 sm:p-2 rounded-xl border transition-all ${
-                  soundEnabled 
-                    ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300' 
-                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
-                }`}
-              >
-                {soundEnabled ? <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
-              </button>
-
               {/* Theme Switcher Toggle (Light Mode Default / Dark Mode) */}
               <button
                 type="button"

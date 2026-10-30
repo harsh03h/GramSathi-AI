@@ -64,10 +64,10 @@ export default function SchemeGuidancePage({ lang }) {
       
       {/* Title & Subtitle matching Screen 4 */}
       <div className="text-center space-y-1.5">
-        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
           {lang === 'hi' ? 'सरकारी योजनाएं (Government Schemes)' : 'Government Schemes'}
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto font-medium">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-medium">
           {lang === 'hi'
             ? 'अपनी प्रोफ़ाइल और आवश्यकताओं के अनुसार प्रासंगिक योजनाएं खोजें'
             : 'Find schemes relevant to your profile and needs'}
@@ -87,7 +87,7 @@ export default function SchemeGuidancePage({ lang }) {
                 ? 'योजना खोजें (जैसे: PM Kisan, Ayushman Bharat, Awas)...'
                 : 'Search scheme (e.g. PM Kisan, Ayushman Bharat)...'
             }
-            className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs"
+            className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-semibold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs"
           />
         </div>
         <button
@@ -107,7 +107,7 @@ export default function SchemeGuidancePage({ lang }) {
             className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
               selectedFilter === chip.id
                 ? 'bg-emerald-800 text-white shadow-sm ring-1 ring-emerald-700'
-                : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
             }`}
           >
             {lang === 'hi' ? chip.hi : chip.en}
@@ -120,17 +120,17 @@ export default function SchemeGuidancePage({ lang }) {
         {filteredSchemes.map((scheme) => (
           <div
             key={scheme.id}
-            className="bg-white rounded-3xl border border-slate-200/90 hover:border-emerald-500 shadow-xs hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group"
+            className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 shadow-xs hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group"
           >
             <div>
               {/* Card Header Image */}
-              <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
+              <div className="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                 <img
                   src={schemeImages[scheme.id] || '/farmer-hero.png'}
                   alt={scheme.name}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-bold text-emerald-800 border border-emerald-200 shadow-xs">
+                <div className="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-bold text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 shadow-xs">
                   {lang === 'hi' ? scheme.hindiBadge || scheme.badge : scheme.badge}
                 </div>
               </div>
@@ -138,29 +138,29 @@ export default function SchemeGuidancePage({ lang }) {
               {/* Card Content */}
               <div className="p-5 space-y-3">
                 <div>
-                  <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors leading-snug">
                     {lang === 'hi' ? scheme.hindiName : scheme.name}
                   </h3>
-                  <span className="text-xs font-bold text-emerald-700 block mt-0.5">
+                  <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">
                     {lang === 'hi' ? `पात्रता: ${scheme.hindiCategory}` : `For ${scheme.category}`}
                   </span>
-                  <p className="text-xs text-slate-600 mt-1 line-clamp-1 font-medium">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 line-clamp-1 font-medium">
                     {lang === 'hi' ? scheme.hindiBenefit : scheme.benefit}
                   </p>
                 </div>
 
                 {/* 3 Green Checklist Bullets matching Screen 4 */}
-                <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs font-semibold text-slate-700">
+                <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{lang === 'hi' ? 'पात्रता मानदंड (Eligibility)' : 'Eligibility Verified'}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{lang === 'hi' ? 'ज़रूरी दस्तावेज़ (Required Documents)' : 'Required Documents Checklist'}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{lang === 'hi' ? 'आवेदन प्रक्रिया (How to Apply)' : 'Direct Application Walkthrough'}</span>
                   </div>
                 </div>
@@ -184,7 +184,7 @@ export default function SchemeGuidancePage({ lang }) {
       {/* Scheme Details Modal matching Screen 4 (Right panel "Scheme Details (Mobile)") */}
       {activeDetailScheme && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/75 backdrop-blur-sm animate-fade-in">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[92vh]">
+          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[92vh]">
             
             {/* Modal Header with Back Arrow */}
             <div className="bg-gradient-to-r from-emerald-800 to-teal-800 text-white px-5 py-4 flex items-center justify-between">
@@ -206,7 +206,7 @@ export default function SchemeGuidancePage({ lang }) {
             </div>
 
             {/* 3 Tabs: [ Overview ] [ Eligibility ] [ Documents ] matching Screen 4 */}
-            <div className="flex border-b border-slate-200 bg-slate-50 text-xs font-bold">
+            <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/80 text-xs font-bold">
               {[
                 { id: 'overview', en: 'Overview', hi: 'विवरण' },
                 { id: 'eligibility', en: 'Eligibility', hi: 'पात्रता' },
@@ -217,8 +217,8 @@ export default function SchemeGuidancePage({ lang }) {
                   onClick={() => setModalTab(tab.id)}
                   className={`flex-1 py-3 text-center border-b-2 transition-all ${
                     modalTab === tab.id
-                      ? 'border-emerald-700 text-emerald-800 bg-white font-black'
-                      : 'border-transparent text-slate-500 hover:text-slate-800'
+                      ? 'border-emerald-700 text-emerald-800 dark:text-emerald-300 bg-white dark:bg-slate-900 font-black'
+                      : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                   }`}
                 >
                   {lang === 'hi' ? tab.hi : tab.en}
@@ -230,7 +230,7 @@ export default function SchemeGuidancePage({ lang }) {
             <div className="p-5 overflow-y-auto space-y-4">
               
               {/* Header Banner Image */}
-              <div className="h-44 rounded-2xl overflow-hidden bg-slate-100 shadow-inner">
+              <div className="h-44 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 shadow-inner">
                 <img
                   src={schemeImages[activeDetailScheme.id] || '/farmer-hero.png'}
                   alt={activeDetailScheme.name}
@@ -247,33 +247,33 @@ export default function SchemeGuidancePage({ lang }) {
               {modalTab === 'overview' && (
                 <div className="space-y-3">
                   <div>
-                    <h3 className="text-xl font-black text-slate-900 leading-snug">
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white leading-snug">
                       {lang === 'hi' ? activeDetailScheme.hindiName : activeDetailScheme.name}
                     </h3>
-                    <span className="text-xs font-bold text-emerald-700 block mt-0.5">
+                    <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">
                       {lang === 'hi' ? activeDetailScheme.hindiMinistry : activeDetailScheme.ministry}
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-2.5">
-                    <Coins className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+                  <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 flex items-start gap-2.5">
+                    <Coins className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-xs font-bold text-amber-950 block">
+                      <strong className="text-xs font-bold text-amber-950 dark:text-amber-200 block">
                         {lang === 'hi' ? 'मुख्य वित्तीय लाभ:' : 'Primary Benefit:'}
                       </strong>
-                      <p className="text-sm font-extrabold text-amber-900 mt-0.5">
+                      <p className="text-sm font-extrabold text-amber-900 dark:text-amber-300 mt-0.5">
                         {lang === 'hi' ? activeDetailScheme.hindiBenefit : activeDetailScheme.benefit}
                       </p>
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                     {lang === 'hi' ? activeDetailScheme.hindiDescription : activeDetailScheme.description}
                   </p>
 
-                  <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-600 flex items-center justify-between">
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl text-xs text-slate-600 dark:text-slate-300 flex items-center justify-between border border-slate-200/80 dark:border-slate-700">
                     <span>{lang === 'hi' ? 'टोल फ्री हेल्पलाइन:' : 'Toll-Free Helpline:'}</span>
-                    <strong className="text-emerald-800">{activeDetailScheme.helpline}</strong>
+                    <strong className="text-emerald-800 dark:text-emerald-400">{activeDetailScheme.helpline}</strong>
                   </div>
                 </div>
               )}
@@ -281,33 +281,33 @@ export default function SchemeGuidancePage({ lang }) {
               {/* TAB 2: ELIGIBILITY */}
               {modalTab === 'eligibility' && (
                 <div className="space-y-3">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">
                     {lang === 'hi' ? 'पात्रता मानदंड (Eligibility Criteria):' : 'Eligibility Criteria:'}
                   </h4>
                   <div className="space-y-2">
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2 text-xs">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-start gap-2 text-xs">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-slate-900 block">{lang === 'hi' ? 'लक्षित लाभार्थी:' : 'Target Beneficiary:'}</strong>
-                        <span className="text-slate-600">{lang === 'hi' ? activeDetailScheme.hindiCategory : activeDetailScheme.category} category citizens</span>
+                        <strong className="text-slate-900 dark:text-white block">{lang === 'hi' ? 'लक्षित लाभार्थी:' : 'Target Beneficiary:'}</strong>
+                        <span className="text-slate-600 dark:text-slate-300">{lang === 'hi' ? activeDetailScheme.hindiCategory : activeDetailScheme.category} category citizens</span>
                       </div>
                     </div>
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2 text-xs">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-start gap-2 text-xs">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-slate-900 block">{lang === 'hi' ? 'आय सीमा:' : 'Income Ceiling:'}</strong>
-                        <span className="text-slate-600">
+                        <strong className="text-slate-900 dark:text-white block">{lang === 'hi' ? 'आय सीमा:' : 'Income Ceiling:'}</strong>
+                        <span className="text-slate-600 dark:text-slate-300">
                           {activeDetailScheme.criteria.maxIncome 
                             ? `Annual income below ₹${(activeDetailScheme.criteria.maxIncome/100000).toFixed(1)} Lakh` 
                             : 'Applicable universally for eligible rural citizens'}
                         </span>
                       </div>
                     </div>
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2 text-xs">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-start gap-2 text-xs">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-slate-900 block">{lang === 'hi' ? 'आवेदन माध्यम:' : 'How to Apply:'}</strong>
-                        <span className="text-slate-600">Through nearest Common Service Center (CSC), Panchayat Office or official web portal</span>
+                        <strong className="text-slate-900 dark:text-white block">{lang === 'hi' ? 'आवेदन माध्यम:' : 'How to Apply:'}</strong>
+                        <span className="text-slate-600 dark:text-slate-300">Through nearest Common Service Center (CSC), Panchayat Office or official web portal</span>
                       </div>
                     </div>
                   </div>
@@ -317,13 +317,13 @@ export default function SchemeGuidancePage({ lang }) {
               {/* TAB 3: DOCUMENTS */}
               {modalTab === 'documents' && (
                 <div className="space-y-3">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">
                     {lang === 'hi' ? 'आवश्यक दस्तावेज़ चेकलिस्ट:' : 'Required Documents Checklist:'}
                   </h4>
                   <div className="space-y-2">
                     {activeDetailScheme.documents.map((doc, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 text-xs font-semibold text-slate-800">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <div key={idx} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center gap-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                         <span>{doc}</span>
                       </div>
                     ))}
@@ -334,7 +334,7 @@ export default function SchemeGuidancePage({ lang }) {
             </div>
 
             {/* Solid Green Button at Bottom matching Screen 4 right */}
-            <div className="p-4 bg-slate-50 border-t border-slate-200">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/90 border-t border-slate-200 dark:border-slate-800">
               <a
                 href={activeDetailScheme.officialLink}
                 target="_blank"

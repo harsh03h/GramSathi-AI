@@ -156,10 +156,10 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-emerald-100 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-emerald-100 dark:border-slate-800 flex flex-col max-h-[90vh]">
         
         {/* Top Header */}
-        <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 px-6 py-4 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-amber-300" />
@@ -202,10 +202,10 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
               onClick={isListening ? handleStopListening : handleStartListening}
               className={`relative z-10 w-24 h-24 rounded-full flex flex-col items-center justify-center text-white transition-all transform shadow-xl ${
                 isListening
-                  ? 'bg-rose-500 ring-4 ring-rose-200 scale-105'
+                  ? 'bg-rose-500 ring-4 ring-rose-200 dark:ring-rose-900 scale-105'
                   : isSpeaking
-                  ? 'bg-amber-500 ring-4 ring-amber-200'
-                  : 'bg-emerald-600 hover:bg-emerald-700 hover:scale-105 ring-4 ring-emerald-100'
+                  ? 'bg-amber-500 ring-4 ring-amber-200 dark:ring-amber-900'
+                  : 'bg-emerald-600 hover:bg-emerald-700 hover:scale-105 ring-4 ring-emerald-100 dark:ring-emerald-900/60'
               }`}
             >
               {isListening ? (
@@ -227,12 +227,12 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
                 <span className="w-1.5 h-7 bg-emerald-600 rounded-full animate-soundwave-3"></span>
                 <span className="w-1.5 h-9 bg-emerald-400 rounded-full animate-soundwave-4"></span>
                 <span className="w-1.5 h-5 bg-emerald-500 rounded-full animate-soundwave-5"></span>
-                <span className="text-sm font-semibold text-emerald-700 ml-2">
+                <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 ml-2">
                   {lang === 'hi' ? 'सुन रहा हूँ... बोलिए' : 'Listening... Speak now'}
                 </span>
               </div>
             ) : isThinking ? (
-              <div className="flex items-center gap-2 text-slate-600 text-sm font-medium">
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300 text-sm font-medium">
                 <div className="w-4 h-4 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
                 <span>{lang === 'hi' ? 'उत्तर तैयार कर रहा हूँ...' : 'Thinking & analyzing...'}</span>
               </div>
@@ -243,18 +243,18 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
                   <span className="w-1.5 bg-amber-600 rounded-full animate-soundwave-2"></span>
                   <span className="w-1.5 bg-amber-500 rounded-full animate-soundwave-3"></span>
                 </div>
-                <span className="text-sm font-semibold text-amber-800">
+                <span className="text-sm font-semibold text-amber-800 dark:text-amber-300">
                   {lang === 'hi' ? 'आवाज़ में उत्तर बोल रहा हूँ...' : 'Speaking answer aloud...'}
                 </span>
                 <button
                   onClick={handleStopSpeaking}
-                  className="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-2 py-0.5 rounded-md ml-1"
+                  className="text-xs bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-2 py-0.5 rounded-md ml-1"
                 >
                   Stop
                 </button>
               </div>
             ) : (
-              <p className="text-xs sm:text-sm text-slate-500">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                 {lang === 'hi' 
                   ? 'माइक दबाएं और अपनी समस्या या योजना का नाम बोलें' 
                   : 'Tap microphone and ask about schemes, crops, health'}
@@ -264,27 +264,27 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
 
           {/* Transcript / Result Box */}
           {transcript && (
-            <div className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3.5 mb-3 text-left">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                <MessageSquare className="w-3 h-3 text-slate-400" />
+            <div className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl p-3.5 mb-3 text-left">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1 flex items-center gap-1">
+                <MessageSquare className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                 <span>{lang === 'hi' ? 'आपका प्रश्न' : 'Your Query'}:</span>
               </div>
-              <p className="text-sm font-medium text-slate-800 italic">"{transcript}"</p>
+              <p className="text-sm font-medium text-slate-800 dark:text-slate-100 italic">"{transcript}"</p>
             </div>
           )}
 
           {/* AI Response Output */}
           {aiResponse && (
-            <div className="w-full bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 text-left mb-3">
+            <div className="w-full bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-4 text-left mb-3">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-bold text-emerald-800 flex items-center gap-1">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   {lang === 'hi' ? 'ग्रामसाथी सलाह:' : 'GramSathi AI Guidance:'}
                 </span>
                 {isSpeaking ? (
                   <button 
                     onClick={handleStopSpeaking}
-                    className="text-[11px] text-amber-700 bg-amber-100 hover:bg-amber-200 px-2 py-0.5 rounded flex items-center gap-1"
+                    className="text-[11px] text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/70 hover:bg-amber-200 dark:hover:bg-amber-900 px-2 py-0.5 rounded flex items-center gap-1"
                   >
                     <VolumeX className="w-3 h-3" /> Stop Voice
                   </button>
@@ -294,18 +294,18 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
                       setIsSpeaking(true);
                       voiceService.speak(aiResponse, lang === 'hi' ? 'hi-IN' : 'en-IN', () => setIsSpeaking(false));
                     }}
-                    className="text-[11px] text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-2 py-0.5 rounded flex items-center gap-1"
+                    className="text-[11px] text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/70 hover:bg-emerald-200 dark:hover:bg-emerald-900 px-2 py-0.5 rounded flex items-center gap-1"
                   >
                     <Volume2 className="w-3 h-3" /> Listen Again
                   </button>
                 )}
               </div>
-              <div className="text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-line font-normal">
+              <div className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line font-normal">
                 {aiResponse}
               </div>
 
               {responseLink && (
-                <div className="mt-3 pt-2.5 border-t border-emerald-200/80 flex items-center justify-end">
+                <div className="mt-3 pt-2.5 border-t border-emerald-200/80 dark:border-emerald-800/80 flex items-center justify-end">
                   <a
                     href={responseLink}
                     target="_blank"
@@ -322,14 +322,14 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
 
           {/* Error Message */}
           {errorMessage && (
-            <div className="w-full bg-amber-50 border border-amber-200 text-amber-800 text-xs p-3 rounded-xl mb-3 text-left">
+            <div className="w-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 text-xs p-3 rounded-xl mb-3 text-left">
               {errorMessage}
             </div>
           )}
 
           {/* Quick Clickable Suggestions */}
           <div className="w-full mt-2 text-left">
-            <span className="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1">
               <HelpCircle className="w-3.5 h-3.5" />
               {lang === 'hi' ? 'या इन प्रश्नों पर सीधे टैप करें:' : 'Or tap a popular question:'}
             </span>
@@ -338,10 +338,10 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
                 <button
                   key={idx}
                   onClick={() => handleSelectQuickPrompt(q)}
-                  className="text-left text-xs bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 border border-slate-200/80 p-2.5 rounded-xl transition-all flex items-center justify-between group"
+                  className="text-left text-xs bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-750 hover:text-emerald-800 dark:hover:text-emerald-300 hover:border-emerald-200 dark:hover:border-emerald-700 border border-slate-200/80 dark:border-slate-700 p-2.5 rounded-xl transition-all flex items-center justify-between group"
                 >
-                  <span className="text-slate-700 font-medium group-hover:text-emerald-900">{q}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
+                  <span className="text-slate-700 dark:text-slate-200 font-medium group-hover:text-emerald-900 dark:group-hover:text-emerald-300">{q}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               ))}
             </div>
@@ -350,11 +350,11 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <div className="bg-slate-50 dark:bg-slate-800/80 px-6 py-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <span>{lang === 'hi' ? 'भाषा: हिंदी / English समर्थित' : 'Supports Hindi & English Voice'}</span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition-colors"
+            className="px-4 py-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-lg transition-colors"
           >
             {lang === 'hi' ? 'बंद करें' : 'Close'}
           </button>

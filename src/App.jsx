@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HomeHero from './components/HomeHero';
 import ServicesPage from './components/ServicesPage';
@@ -18,10 +18,30 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState('home'); // 'home', 'services', 'ask', 'schemes', 'nearest', 'profile', 'about', 'contact'
   const [lang, setLang] = useState('en'); // 'en' or 'hi'
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('gramsathi_theme') || 'light';
+    }
+    return 'light';
+  });
   const [apiKey, setApiKey] = useState('');
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  // Sync theme to document element and persistent storage
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('gramsathi_theme', theme);
+    } catch {
+      // Safe fallback
+    }
+  }, [theme]);
 
   // Handle service navigation from Home Hero or Services Page
   const handleNavigateService = (serviceId) => {
@@ -38,7 +58,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/70 flex flex-col font-sans text-slate-800 selection:bg-emerald-600 selection:text-white overflow-x-hidden w-full">
+    <div className="min-h-screen bg-slate-50/70 dark:bg-slate-950 flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-emerald-600 selection:text-white overflow-x-hidden w-full transition-colors duration-200">
       
       {/* Top Header & Navigation Bar matching Screen 1, 2, 3, 4, 5, 6 & Mobile Drawer */}
       <Navbar
@@ -48,6 +68,8 @@ export default function App() {
         setLang={setLang}
         soundEnabled={soundEnabled}
         setSoundEnabled={setSoundEnabled}
+        theme={theme}
+        setTheme={setTheme}
         onOpenLogin={() => setIsLoginModalOpen(true)}
         onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
         loggedInUser={loggedInUser}
@@ -77,18 +99,18 @@ export default function App() {
 
             {/* Quick Interactive Preview of Popular Schemes directly on Home */}
             <div className="pt-4 space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
                 <div>
-                  <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
                     {lang === 'hi' ? 'लोकप्रिय सरकारी योजनाएं' : 'Featured Government Schemes'}
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     {lang === 'hi' ? 'ग्रामीण परिवारों के लिए प्रत्यक्ष लाभ व सब्सिडी' : 'Direct benefit welfare programs with verified checklists'}
                   </p>
                 </div>
                 <button
                   onClick={() => setCurrentTab('schemes')}
-                  className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
+                  className="text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:text-emerald-950 dark:hover:text-emerald-300 flex items-center gap-1"
                 >
                   <span>{lang === 'hi' ? 'सभी योजनाएं देखें' : 'View All Schemes'} →</span>
                 </button>
@@ -135,6 +157,8 @@ export default function App() {
           <ProfileSettingsPage
             lang={lang}
             setLang={setLang}
+            theme={theme}
+            setTheme={setTheme}
             loggedInUser={loggedInUser}
             setLoggedInUser={setLoggedInUser}
             onOpenLogin={() => setIsLoginModalOpen(true)}
@@ -150,7 +174,7 @@ export default function App() {
           <div className="space-y-6">
             <button
               onClick={() => setCurrentTab('services')}
-              className="text-xs font-bold text-emerald-800 hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:underline flex items-center gap-1"
             >
               ← {lang === 'hi' ? 'वापस सेवाओं की सूची पर जाएं' : 'Back to All Services'}
             </button>
@@ -163,7 +187,7 @@ export default function App() {
           <div className="space-y-6">
             <button
               onClick={() => setCurrentTab('services')}
-              className="text-xs font-bold text-emerald-800 hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-emerald-800 dark:text-emerald-400 hover:underline flex items-center gap-1"
             >
               ← {lang === 'hi' ? 'वापस सेवाओं की सूची पर जाएं' : 'Back to All Services'}
             </button>

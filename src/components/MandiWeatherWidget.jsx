@@ -88,17 +88,17 @@ export default function MandiWeatherWidget({ lang }) {
 
       {/* Tab 1: Mandi Rates */}
       {activeTab === 'mandi' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6 transition-colors duration-200">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
             <div>
-              <h3 className="text-lg font-bold text-slate-900">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                 {lang === 'hi' ? 'दैनिक कृषि उत्पाद मंडी भाव' : 'Daily APMC Commodity Prices'}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {lang === 'hi' ? 'सभी दरें प्रति क्विंटल (100 किग्रा) में हैं' : 'All rates are stated per Quintal (100 kg)'}
               </p>
             </div>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 self-start sm:self-center">
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 self-start sm:self-center">
               ● {lang === 'hi' ? 'लाइव मंडी सत्र सक्रिय' : 'Live Trading Active'}
             </span>
           </div>
@@ -106,7 +106,7 @@ export default function MandiWeatherWidget({ lang }) {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm border-collapse">
               <thead>
-                <tr className="bg-slate-50 border-y border-slate-200 text-slate-600 font-bold">
+                <tr className="bg-slate-50 dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold">
                   <th className="py-3 px-4">{lang === 'hi' ? 'फसल / किस्म' : 'Crop / Variety'}</th>
                   <th className="py-3 px-3">{lang === 'hi' ? 'मॉडल भाव (औसत)' : 'Modal Price'}</th>
                   <th className="py-3 px-3">{lang === 'hi' ? 'न्यूनतम - अधिकतम' : 'Min - Max Range'}</th>
@@ -114,40 +114,40 @@ export default function MandiWeatherWidget({ lang }) {
                   <th className="py-3 px-3 text-right">{lang === 'hi' ? 'दैनिक रुझान' : 'Trend'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-medium">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium">
                 {mandiData.commodities.map((item) => (
-                  <tr key={item.id} className="hover:bg-amber-50/40 transition-colors">
+                  <tr key={item.id} className="hover:bg-amber-50/40 dark:hover:bg-slate-800/60 transition-colors">
                     <td className="py-3.5 px-4">
-                      <span className="font-bold text-slate-900 block">{item.name}</span>
-                      <span className="text-[11px] text-slate-500">{item.variety}</span>
+                      <span className="font-bold text-slate-900 dark:text-white block">{item.name}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400">{item.variety}</span>
                     </td>
                     <td className="py-3.5 px-3">
-                      <span className="text-base font-extrabold text-emerald-700">₹{item.modalPrice}</span>
-                      <span className="text-[11px] text-slate-500 block">/{item.unit}</span>
+                      <span className="text-base font-extrabold text-emerald-700 dark:text-emerald-400">₹{item.modalPrice}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block">/{item.unit}</span>
                     </td>
-                    <td className="py-3.5 px-3 text-slate-700">
+                    <td className="py-3.5 px-3 text-slate-700 dark:text-slate-300">
                       ₹{item.minPrice} - ₹{item.maxPrice}
                     </td>
-                    <td className="py-3.5 px-3 text-slate-600">
-                      <span className="inline-block bg-slate-100 px-2 py-0.5 rounded text-xs font-semibold text-slate-800">
+                    <td className="py-3.5 px-3 text-slate-600 dark:text-slate-400">
+                      <span className="inline-block bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-semibold text-slate-800 dark:text-slate-200 border border-transparent dark:border-slate-700">
                         ₹{item.msp}
                       </span>
                     </td>
                     <td className="py-3.5 px-3 text-right">
                       {item.trend === 'up' && (
-                        <span className="inline-flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full text-xs">
+                        <span className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-300 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full text-xs">
                           <TrendingUp className="w-3.5 h-3.5" />
                           {item.change}
                         </span>
                       )}
                       {item.trend === 'down' && (
-                        <span className="inline-flex items-center gap-1 text-rose-700 font-bold bg-rose-50 px-2.5 py-1 rounded-full text-xs">
+                        <span className="inline-flex items-center gap-1 text-rose-700 dark:text-rose-300 font-bold bg-rose-50 dark:bg-rose-950/60 px-2.5 py-1 rounded-full text-xs">
                           <TrendingDown className="w-3.5 h-3.5" />
                           {item.change}
                         </span>
                       )}
                       {item.trend === 'stable' && (
-                        <span className="inline-flex items-center gap-1 text-slate-600 font-medium bg-slate-100 px-2 py-1 rounded-full text-xs">
+                        <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full text-xs">
                           <Minus className="w-3.5 h-3.5" />
                           {item.change}
                         </span>
@@ -163,43 +163,43 @@ export default function MandiWeatherWidget({ lang }) {
 
       {/* Tab 2: Weather & Agricultural Advisory */}
       {activeTab === 'weather' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-100">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6 transition-colors duration-200">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-sky-50 to-blue-50 dark:from-slate-850 dark:to-slate-800 border border-sky-100 dark:border-slate-700">
             <div>
-              <span className="text-xs font-bold text-sky-800 uppercase tracking-wide">
+              <span className="text-xs font-bold text-sky-800 dark:text-sky-300 uppercase tracking-wide">
                 {mandiData.weatherForecast.location}
               </span>
               <div className="flex items-center gap-3 mt-1">
-                <span className="text-4xl font-black text-slate-900">{mandiData.weatherForecast.temp}</span>
+                <span className="text-4xl font-black text-slate-900 dark:text-white">{mandiData.weatherForecast.temp}</span>
                 <div>
-                  <span className="font-bold text-slate-800 block">{mandiData.weatherForecast.condition}</span>
-                  <span className="text-xs text-slate-500">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 block">{mandiData.weatherForecast.condition}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     {lang === 'hi' ? 'हवा में नमी:' : 'Humidity:'} {mandiData.weatherForecast.humidity}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs font-semibold text-slate-700 bg-white p-3 rounded-xl shadow-sm border border-slate-100">
+            <div className="flex items-center gap-4 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 p-3 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
               <div className="flex items-center gap-1.5">
-                <Droplets className="w-4 h-4 text-sky-600" />
+                <Droplets className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 <span>{lang === 'hi' ? 'बारिश की संभावना:' : 'Rain:'} <strong>{mandiData.weatherForecast.rainChance}</strong></span>
               </div>
-              <div className="flex items-center gap-1.5 border-l border-slate-200 pl-4">
-                <Wind className="w-4 h-4 text-teal-600" />
+              <div className="flex items-center gap-1.5 border-l border-slate-200 dark:border-slate-700 pl-4">
+                <Wind className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 <span>{lang === 'hi' ? 'हवा:' : 'Wind:'} <strong>{mandiData.weatherForecast.windSpeed}</strong></span>
               </div>
             </div>
           </div>
 
           {/* Farming Advisory Box */}
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-900 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-300 block">
                 {lang === 'hi' ? 'कृषि मौसम विज्ञानी सलाह (Agromet Advisory):' : 'Agromet Advisory for Farmers:'}
               </span>
-              <p className="text-xs sm:text-sm text-emerald-950 font-medium mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-emerald-950 dark:text-emerald-200 font-medium mt-1 leading-relaxed">
                 {lang === 'hi' ? mandiData.weatherForecast.hindiAdvisory : mandiData.weatherForecast.advisory}
               </p>
             </div>
@@ -212,12 +212,12 @@ export default function MandiWeatherWidget({ lang }) {
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               {mandiData.weatherForecast.days.map((day, idx) => (
-                <div key={idx} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-                  <span className="text-xs font-bold text-slate-700 block">{day.day}</span>
+                <div key={idx} className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-center">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">{day.day}</span>
                   <CloudSun className="w-6 h-6 text-amber-500 mx-auto my-2" />
-                  <span className="text-xs font-extrabold text-slate-900 block">{day.temp}</span>
-                  <span className="text-[11px] text-slate-500 block mt-0.5">{day.condition}</span>
-                  <span className="text-[10px] text-sky-700 font-semibold block mt-1">💧 {day.rain}</span>
+                  <span className="text-xs font-extrabold text-slate-900 dark:text-white block">{day.temp}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">{day.condition}</span>
+                  <span className="text-[10px] text-sky-700 dark:text-sky-400 font-semibold block mt-1">💧 {day.rain}</span>
                 </div>
               ))}
             </div>
@@ -227,12 +227,12 @@ export default function MandiWeatherWidget({ lang }) {
 
       {/* Tab 3: Crop Doctor (Pests & Solutions) */}
       {activeTab === 'pest' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 space-y-4">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6 sm:p-8 space-y-4 transition-colors duration-200">
           <div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
               {lang === 'hi' ? 'फसल सुरक्षा एवं कीट-रोग निवारण' : 'Crop Doctor & Pest Management'}
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {lang === 'hi' 
                 ? 'लक्षण पहचानें और कृषि वैज्ञानिकों द्वारा अनुशंसित उपाय अपनाएं।' 
                 : 'Identify crop symptoms and apply certified organic or chemical treatments.'}
@@ -241,22 +241,22 @@ export default function MandiWeatherWidget({ lang }) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             {mandiData.pestAdvisory.map((pest) => (
-              <div key={pest.id} className="p-5 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between">
+              <div key={pest.id} className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850 hover:bg-white dark:hover:bg-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between">
                 <div>
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
                     {pest.crop}
                   </span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-2.5 mb-1.5 flex items-center gap-1.5">
-                    <Bug className="w-4 h-4 text-rose-600" />
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white mt-2.5 mb-1.5 flex items-center gap-1.5">
+                    <Bug className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                     <span>{pest.symptom}</span>
                   </h4>
                 </div>
 
-                <div className="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs">
-                  <span className="font-bold text-amber-900 block mb-1">
+                <div className="mt-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-xs">
+                  <span className="font-bold text-amber-900 dark:text-amber-200 block mb-1">
                     {lang === 'hi' ? 'अनुशंसित उपचार:' : 'Recommended Treatment:'}
                   </span>
-                  <p className="text-slate-800 leading-relaxed">
+                  <p className="text-slate-800 dark:text-slate-300 leading-relaxed">
                     {lang === 'hi' ? pest.hindiSolution : pest.solution}
                   </p>
                 </div>
@@ -268,13 +268,13 @@ export default function MandiWeatherWidget({ lang }) {
 
       {/* Tab 4: Fertilizer Calculator */}
       {activeTab === 'calculator' && (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6 sm:p-8 space-y-6 transition-colors duration-200">
           <div>
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-emerald-600" />
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <span>{lang === 'hi' ? 'खेत के आकार अनुसार खाद कैलकुलेटर' : 'Acre-Wise Fertilizer Dosage Calculator'}</span>
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {lang === 'hi' 
                 ? 'फसल और एकड़ दर्ज करें, GramSathi AI यूरिया, डीएपी (DAP) और पोटाश (MOP) की सटीक बोरियों की संख्या बताएगा।' 
                 : 'Calculates the scientific dosage of Urea, DAP, and Potash (MOP) required for your farm.'}
@@ -283,13 +283,13 @@ export default function MandiWeatherWidget({ lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 {lang === 'hi' ? 'फसल चुनें:' : 'Select Crop:'}
               </label>
               <select
                 value={calcCrop}
                 onChange={(e) => setCalcCrop(e.target.value)}
-                className="w-full p-3 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
               >
                 <option value="wheat">{lang === 'hi' ? 'गेहूं (Wheat)' : 'Wheat'}</option>
                 <option value="paddy">{lang === 'hi' ? 'धान (Paddy/Rice)' : 'Paddy'}</option>
@@ -298,7 +298,7 @@ export default function MandiWeatherWidget({ lang }) {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 {lang === 'hi' ? 'खेत का क्षेत्रफल (एकड़ में):' : 'Land Area (in Acres):'}
               </label>
               <input
@@ -308,45 +308,45 @@ export default function MandiWeatherWidget({ lang }) {
                 step="0.5"
                 value={calcAcres}
                 onChange={(e) => setCalcAcres(parseFloat(e.target.value) || 1)}
-                className="w-full p-3 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Results Display */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wide">
+            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center">
+              <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wide">
                 Urea (यूरिया - 45kg Bag)
               </span>
-              <span className="text-3xl font-black text-emerald-700 block my-1">
+              <span className="text-3xl font-black text-emerald-700 dark:text-emerald-400 block my-1">
                 {(currentDose.urea * calcAcres).toFixed(1)} <span className="text-sm font-normal">Bags</span>
               </span>
-              <span className="text-[11px] text-emerald-900 font-medium">
+              <span className="text-[11px] text-emerald-900 dark:text-emerald-200 font-medium">
                 {lang === 'hi' ? 'बुवाई व सिंचाई के समय 2 बार में दें' : 'Split in 2 top-dressings'}
               </span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
-              <span className="text-xs font-bold text-amber-800 uppercase tracking-wide">
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-center">
+              <span className="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wide">
                 DAP (डीएपी - 50kg Bag)
               </span>
-              <span className="text-3xl font-black text-amber-700 block my-1">
+              <span className="text-3xl font-black text-amber-700 dark:text-amber-400 block my-1">
                 {(currentDose.dap * calcAcres).toFixed(1)} <span className="text-sm font-normal">Bags</span>
               </span>
-              <span className="text-[11px] text-amber-900 font-medium">
+              <span className="text-[11px] text-amber-900 dark:text-amber-200 font-medium">
                 {lang === 'hi' ? 'बुवाई के समय आखिरी जुताई में दें' : 'Apply as basal dose at sowing'}
               </span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-sky-50 border border-sky-200 text-center">
-              <span className="text-xs font-bold text-sky-800 uppercase tracking-wide">
+            <div className="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 text-center">
+              <span className="text-xs font-bold text-sky-800 dark:text-sky-300 uppercase tracking-wide">
                 MOP (पोटाश - 50kg Bag)
               </span>
-              <span className="text-3xl font-black text-sky-700 block my-1">
+              <span className="text-3xl font-black text-sky-700 dark:text-sky-400 block my-1">
                 {(currentDose.mop * calcAcres).toFixed(1)} <span className="text-sm font-normal">Bags</span>
               </span>
-              <span className="text-[11px] text-sky-900 font-medium">
+              <span className="text-[11px] text-sky-900 dark:text-sky-200 font-medium">
                 {lang === 'hi' ? 'दाने भरने व चमक के लिए उपयोगी' : 'Improves grain weight & resilience'}
               </span>
             </div>

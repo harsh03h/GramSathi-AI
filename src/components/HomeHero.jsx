@@ -27,8 +27,8 @@ export default function HomeHero({
       title: 'Government Schemes',
       hindiTitle: 'सरकारी योजनाएं',
       icon: Landmark,
-      bg: 'bg-blue-50/90 hover:bg-blue-100/90 border-blue-200/80',
-      iconBg: 'bg-blue-100 text-blue-600',
+      bg: 'bg-blue-50/90 dark:bg-slate-800/80 hover:bg-blue-100/90 dark:hover:bg-slate-750 border-blue-200/80 dark:border-slate-700',
+      iconBg: 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400',
       badge: '10+ Schemes'
     },
     {
@@ -36,8 +36,8 @@ export default function HomeHero({
       title: 'Healthcare Assistance',
       hindiTitle: 'स्वास्थ्य सहायता',
       icon: HeartPulse,
-      bg: 'bg-rose-50/90 hover:bg-rose-100/90 border-rose-200/80',
-      iconBg: 'bg-rose-100 text-rose-600',
+      bg: 'bg-rose-50/90 dark:bg-slate-800/80 hover:bg-rose-100/90 dark:hover:bg-slate-750 border-rose-200/80 dark:border-slate-700',
+      iconBg: 'bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400',
       badge: '₹5L Cover'
     },
     {
@@ -45,8 +45,8 @@ export default function HomeHero({
       title: 'Education Support',
       hindiTitle: 'शिक्षा सहायता',
       icon: GraduationCap,
-      bg: 'bg-purple-50/90 hover:bg-purple-100/90 border-purple-200/80',
-      iconBg: 'bg-purple-100 text-purple-600',
+      bg: 'bg-purple-50/90 dark:bg-slate-800/80 hover:bg-purple-100/90 dark:hover:bg-slate-750 border-purple-200/80 dark:border-slate-700',
+      iconBg: 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400',
       badge: 'Scholarships'
     },
     {
@@ -54,8 +54,8 @@ export default function HomeHero({
       title: 'Agriculture Guidance',
       hindiTitle: 'कृषि सलाह',
       icon: Sprout,
-      bg: 'bg-emerald-50/90 hover:bg-emerald-100/90 border-emerald-200/80',
-      iconBg: 'bg-emerald-100 text-emerald-600',
+      bg: 'bg-emerald-50/90 dark:bg-slate-800/80 hover:bg-emerald-100/90 dark:hover:bg-slate-750 border-emerald-200/80 dark:border-slate-700',
+      iconBg: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400',
       badge: 'Mandi Rates'
     },
     {
@@ -63,8 +63,8 @@ export default function HomeHero({
       title: 'Employment Opportunities',
       hindiTitle: 'रोज़गार अवसर',
       icon: Briefcase,
-      bg: 'bg-orange-50/90 hover:bg-orange-100/90 border-orange-200/80',
-      iconBg: 'bg-orange-100 text-orange-600',
+      bg: 'bg-orange-50/90 dark:bg-slate-800/80 hover:bg-orange-100/90 dark:hover:bg-slate-750 border-orange-200/80 dark:border-slate-700',
+      iconBg: 'bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400',
       badge: 'MGNREGA'
     },
     {
@@ -72,8 +72,8 @@ export default function HomeHero({
       title: 'Legal Guidance',
       hindiTitle: 'कानूनी सलाह',
       icon: Scale,
-      bg: 'bg-amber-50/90 hover:bg-amber-100/90 border-amber-200/80',
-      iconBg: 'bg-amber-100 text-amber-700',
+      bg: 'bg-amber-50/90 dark:bg-slate-800/80 hover:bg-amber-100/90 dark:hover:bg-slate-750 border-amber-200/80 dark:border-slate-700',
+      iconBg: 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400',
       badge: 'Tele-Law'
     },
     {
@@ -81,8 +81,8 @@ export default function HomeHero({
       title: 'Emergency Assistance',
       hindiTitle: 'आपातकालीन सहायता',
       icon: BellRing,
-      bg: 'bg-red-50/90 hover:bg-red-100/90 border-red-200/80',
-      iconBg: 'bg-red-100 text-red-600',
+      bg: 'bg-red-50/90 dark:bg-slate-800/80 hover:bg-red-100/90 dark:hover:bg-slate-750 border-red-200/80 dark:border-slate-700',
+      iconBg: 'bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400',
       badge: '112 / 108'
     }
   ];
@@ -98,7 +98,7 @@ export default function HomeHero({
     <div className="space-y-6 sm:space-y-8">
       
       {/* Main Hero Card Container */}
-      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-md p-4 sm:p-10 lg:p-12 overflow-hidden relative">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md p-4 sm:p-10 lg:p-12 overflow-hidden relative transition-colors duration-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           
           {/* Left Column: Typography, Taglines & CTAs (7 cols) */}
@@ -110,21 +110,21 @@ export default function HomeHero({
                 <img 
                   src="/gramsathi-mascot.png" 
                   alt="GramSathi AI Mascot" 
-                  className="w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain rounded-2xl shadow-xs bg-amber-50/70 p-1 border border-amber-200/80 transform hover:scale-105 transition-transform shrink-0"
+                  className="w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain rounded-2xl shadow-xs bg-amber-50/70 dark:bg-slate-800 p-1 border border-amber-200/80 dark:border-slate-700 transform hover:scale-105 transition-transform shrink-0"
                 />
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight font-sans">
-                  GramSathi <span className="text-amber-600">AI</span>
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
+                  GramSathi <span className="text-amber-600 dark:text-amber-500">AI</span>
                 </h1>
               </div>
               
               {/* Subtitle */}
-              <h2 className="text-xl sm:text-3xl font-extrabold text-emerald-800 tracking-tight mt-1">
+              <h2 className="text-xl sm:text-3xl font-extrabold text-emerald-800 dark:text-emerald-400 tracking-tight mt-1">
                 {lang === 'hi' ? 'आपका एआई-संचालित ग्रामीण साथी' : 'Your AI-Powered Rural Companion'}
               </h2>
             </div>
 
             {/* Description Paragraph */}
-            <p className="text-xs sm:text-base text-slate-600 max-w-xl leading-relaxed font-medium">
+            <p className="text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed font-medium">
               {lang === 'hi'
                 ? 'सरकारी योजनाओं, स्वास्थ्य, शिक्षा, कृषि, रोज़गार और अन्य जन सेवाओं पर सटीक मार्गदर्शन पाएं — अपनी सरल भाषा में।'
                 : 'Get guidance on government schemes, healthcare, education, agriculture, employment and more — in your language.'}
@@ -144,7 +144,7 @@ export default function HomeHero({
               <button
                 type="button"
                 onClick={onNavigateServices || handleScrollToServices}
-                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-white hover:bg-emerald-50 text-emerald-900 font-bold rounded-full border-2 border-emerald-800 text-xs sm:text-base transition-all transform hover:-translate-y-0.5 cursor-pointer active:scale-95"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-emerald-900 dark:text-emerald-300 font-bold rounded-full border-2 border-emerald-800 dark:border-emerald-600 text-xs sm:text-base transition-all transform hover:-translate-y-0.5 cursor-pointer active:scale-95"
               >
                 <span>{lang === 'hi' ? 'सेवाएं देखें' : 'Explore Services'}</span>
               </button>
@@ -152,11 +152,11 @@ export default function HomeHero({
 
             {/* Quoted Tagline Card */}
             <div className="pt-1 sm:pt-2">
-              <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-white px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border border-slate-200 shadow-xs max-w-lg">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
-                  <Sprout className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700" />
+              <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-white dark:bg-slate-800/90 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs max-w-lg">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 dark:bg-emerald-900/60 flex items-center justify-center shrink-0">
+                  <Sprout className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 dark:text-emerald-300" />
                 </div>
-                <p className="text-[11px] sm:text-sm font-bold text-slate-800 italic">
+                <p className="text-[11px] sm:text-sm font-bold text-slate-800 dark:text-slate-200 italic">
                   "{lang === 'hi' 
                     ? 'एआई तकनीक से ग्रामीण भारत को नए अवसरों से जोड़ना' 
                     : 'Connecting Rural India to Opportunities through AI'}"
@@ -168,7 +168,7 @@ export default function HomeHero({
 
           {/* Right Column: High Quality Farmer & Landscape Illustration (5 cols) */}
           <div className="lg:col-span-5 flex justify-center items-center z-10">
-            <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[360px] h-[260px] sm:h-[340px] lg:h-[370px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-4 border-white ring-1 ring-slate-200/80 group bg-emerald-50/50">
+            <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[360px] h-[260px] sm:h-[340px] lg:h-[370px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-slate-800 ring-1 ring-slate-200/80 dark:ring-slate-700 group bg-emerald-50/50 dark:bg-slate-800">
               <img
                 src="/farmer-hero.png"
                 alt="GramSathi AI Rural Farmer Illustration"
@@ -184,10 +184,10 @@ export default function HomeHero({
       {/* 7 Pastel Public Service Cards Ribbon (Directly below Hero) */}
       <div id="home-services-ribbon" className="space-y-3 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-1 gap-1">
-          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-500">
+          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {lang === 'hi' ? '७ मुख्य ग्रामीण जन सेवाएं' : '7 Core Rural Assistance Services'}
           </h3>
-          <span className="text-[11px] sm:text-xs font-semibold text-emerald-700">
+          <span className="text-[11px] sm:text-xs font-semibold text-emerald-700 dark:text-emerald-400">
             {lang === 'hi' ? 'विस्तार से देखने के लिए किसी भी सेवा पर क्लिक करें' : 'Click any card to explore details'}
           </span>
         </div>
@@ -204,7 +204,7 @@ export default function HomeHero({
                   card.bg
                 } ${
                   isSelected
-                    ? 'ring-2 ring-emerald-600 shadow-md scale-102 bg-white'
+                    ? 'ring-2 ring-emerald-600 shadow-md scale-102 bg-white dark:bg-slate-800'
                     : 'shadow-2xs hover:shadow-md hover:-translate-y-0.5'
                 }`}
               >
@@ -214,12 +214,12 @@ export default function HomeHero({
                 </div>
 
                 {/* Card Title */}
-                <span className="text-xs sm:text-xs font-extrabold text-slate-900 leading-tight group-hover:text-emerald-800 transition-colors line-clamp-2">
+                <span className="text-xs sm:text-xs font-extrabold text-slate-900 dark:text-white leading-tight group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
                   {lang === 'hi' ? card.hindiTitle : card.title}
                 </span>
 
                 {/* Micro Badge */}
-                <span className="text-[10px] font-semibold text-slate-500 mt-1 block">
+                <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 mt-1 block">
                   {card.badge}
                 </span>
               </button>

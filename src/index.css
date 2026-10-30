@@ -39,6 +39,16 @@
   background: #64748b;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
 /* Audio wave animation bars */
 @keyframes soundwave {
   0%, 100% { height: 6px; }

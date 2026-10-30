@@ -116,7 +116,7 @@ export default function App() {
                 </button>
               </div>
 
-              <SchemeGuidancePage lang={lang} />
+              <SchemeGuidancePage lang={lang} loggedInUser={loggedInUser} />
             </div>
           </div>
         )}
@@ -144,7 +144,7 @@ export default function App() {
 
         {/* SCREEN 4: SCHEME GUIDANCE PAGE & DETAILS MODAL */}
         {currentTab === 'schemes' && (
-          <SchemeGuidancePage lang={lang} />
+          <SchemeGuidancePage lang={lang} loggedInUser={loggedInUser} />
         )}
 
         {/* SCREEN 5: LOCATION BASED SERVICES ("Nearest Services" & Map) */}

@@ -590,7 +590,22 @@ export default function ChatAssistantPage({
                         <a
                           href={msg.officialLink}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
+                          onClick={(e) => {
+                            if (!msg.officialLink) return;
+                            if (msg.officialLink.startsWith('tel:') || msg.officialLink.startsWith('mailto:')) {
+                              window.location.href = msg.officialLink;
+                              return;
+                            }
+                            try {
+                              const win = window.open(msg.officialLink, '_blank', 'noopener,noreferrer');
+                              if (!win) {
+                                window.location.href = msg.officialLink;
+                              }
+                            } catch {
+                              window.location.href = msg.officialLink;
+                            }
+                          }}
                           className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl text-xs shadow-xs flex items-center gap-1.5 transition-all transform hover:scale-102"
                         >
                           <span>{msg.linkText || (lang === 'hi' ? 'आधिकारिक पोर्टल लिंक' : 'Official Portal Link')}</span>

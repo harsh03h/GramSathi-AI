@@ -310,6 +310,21 @@ export default function VoiceAssistantModal({ isOpen, onClose, lang, soundEnable
                     href={responseLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (!responseLink) return;
+                      if (responseLink.startsWith('tel:') || responseLink.startsWith('mailto:')) {
+                        window.location.href = responseLink;
+                        return;
+                      }
+                      try {
+                        const win = window.open(responseLink, '_blank', 'noopener,noreferrer');
+                        if (!win) {
+                          window.location.href = responseLink;
+                        }
+                      } catch {
+                        window.location.href = responseLink;
+                      }
+                    }}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-xs transition-transform hover:scale-102"
                   >
                     <span>{responseLinkText || (lang === 'hi' ? 'आधिकारिक पोर्टल खोलें' : 'Open Portal')}</span>

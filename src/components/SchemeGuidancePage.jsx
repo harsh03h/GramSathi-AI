@@ -9,15 +9,30 @@ import {
   Coins, 
   ArrowLeft,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Send
 } from 'lucide-react';
 import { schemesData } from '../data/schemesData';
+import SchemeApplyModal from './SchemeApplyModal';
 
-export default function SchemeGuidancePage({ lang }) {
+export default function SchemeGuidancePage({ lang, loggedInUser = null }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [activeDetailScheme, setActiveDetailScheme] = useState(null);
+  const [applyModalScheme, setApplyModalScheme] = useState(null);
   const [modalTab, setModalTab] = useState('overview'); // 'overview', 'eligibility', 'documents'
+
+  const handleOpenOfficialPortal = (url) => {
+    if (!url) return;
+    try {
+      const win = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!win) {
+        window.location.href = url;
+      }
+    } catch {
+      window.location.href = url;
+    }
+  };
 
   const filterChips = [
     { id: 'All', en: 'All', hi: 'सभी' },
@@ -151,30 +166,57 @@ export default function SchemeGuidancePage({ lang }) {
 
                 {/* 3 Green Checklist Bullets matching Screen 4 */}
                 <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  <div className="flex items-center gap-2">
+                  <div 
+                    onClick={() => { setActiveDetailScheme(scheme); setModalTab('eligibility'); }}
+                    className="flex items-center gap-2 cursor-pointer hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                    title="View Eligibility"
+                  >
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{lang === 'hi' ? 'पात्रता मानदंड (Eligibility)' : 'Eligibility Verified'}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div 
+                    onClick={() => { setActiveDetailScheme(scheme); setModalTab('documents'); }}
+                    className="flex items-center gap-2 cursor-pointer hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                    title="View Required Documents"
+                  >
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{lang === 'hi' ? 'ज़रूरी दस्तावेज़ (Required Documents)' : 'Required Documents Checklist'}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>{lang === 'hi' ? 'आवेदन प्रक्रिया (How to Apply)' : 'Direct Application Walkthrough'}</span>
+                  <div 
+                    onClick={() => setApplyModalScheme(scheme)}
+                    className="flex items-center gap-2 cursor-pointer text-emerald-800 dark:text-emerald-400 hover:text-emerald-950 dark:hover:text-emerald-300 transition-colors group/apply font-bold"
+                    title="Apply Online Now"
+                  >
+                    <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+                    <span className="group-hover/apply:underline decoration-emerald-500">
+                      {lang === 'hi' ? 'आवेदन प्रक्रिया (ऑनलाइन फॉर्म) →' : 'Direct Online Application →'}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Button matching Screen 4 */}
-            <div className="p-5 pt-0">
+            {/* Bottom Dual Action Buttons: Details + Apply */}
+            <div className="p-5 pt-0 grid grid-cols-2 gap-2.5">
               <button
-                onClick={() => setActiveDetailScheme(scheme)}
-                className="w-full py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl text-xs sm:text-sm shadow-xs transition-all flex items-center justify-center gap-1.5"
+                type="button"
+                onClick={() => {
+                  setActiveDetailScheme(scheme);
+                  setModalTab('overview');
+                }}
+                className="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-800 dark:text-slate-200 font-bold rounded-xl text-xs shadow-2xs transition-all flex items-center justify-center gap-1 border border-slate-200/80 dark:border-slate-700"
               >
-                <span>{lang === 'hi' ? 'विवरण देखें (View Details)' : 'View Details'}</span>
-                <ChevronRight className="w-4 h-4" />
+                <span>{lang === 'hi' ? 'विवरण देखें' : 'View Details'}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setApplyModalScheme(scheme)}
+                className="py-2.5 px-3 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-1.5 transform hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <span>{lang === 'hi' ? 'आवेदन करें' : 'Apply Now'}</span>
               </button>
             </div>
           </div>
@@ -333,22 +375,43 @@ export default function SchemeGuidancePage({ lang }) {
 
             </div>
 
-            {/* Solid Green Button at Bottom matching Screen 4 right */}
-            <div className="p-4 bg-slate-50 dark:bg-slate-800/90 border-t border-slate-200 dark:border-slate-800">
-              <a
-                href={activeDetailScheme.officialLink}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-3 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-2xl shadow-md text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
+            {/* Dual Action Buttons at Modal Bottom */}
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/90 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={() => {
+                  const s = activeDetailScheme;
+                  setActiveDetailScheme(null);
+                  setApplyModalScheme(s);
+                }}
+                className="w-full py-3 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-2xl shadow-md text-xs sm:text-sm flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
               >
-                <span>{lang === 'hi' ? 'अभी आवेदन करें / आधिकारिक लिंक' : 'Apply Now / View Official Link'}</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>{lang === 'hi' ? 'ऑनलाइन आवेदन फॉर्म भरें' : 'Apply Online (Form)'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleOpenOfficialPortal(activeDetailScheme.officialLink)}
+                className="w-full py-3 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-bold rounded-2xl border border-slate-300 dark:border-slate-700 shadow-2xs text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
+              >
+                <span>{lang === 'hi' ? 'सरकारी पोर्टल खोलें' : 'Official Portal'}</span>
+                <ExternalLink className="w-4 h-4 text-slate-500" />
+              </button>
             </div>
 
           </div>
         </div>
       )}
+
+      {/* Interactive Citizen Online Application Modal */}
+      <SchemeApplyModal
+        isOpen={!!applyModalScheme}
+        onClose={() => setApplyModalScheme(null)}
+        scheme={applyModalScheme}
+        lang={lang}
+        loggedInUser={loggedInUser}
+      />
 
     </div>
   );
